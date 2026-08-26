@@ -6,6 +6,12 @@ English | [中文](README.zh.md)
 
 The service reads sessions through `ctx.sessionQuery`, exposes bounded `snapshot` and `match` Remote methods, and can add one matching checkpoint to the first model step of a new root session. It does not change `agent-loop` and does not copy an entire source session. Every injected checkpoint is an identified `user/message`, so replay can reconstruct the recall edge and exact injected byte count.
 
+<a id="distribution"></a>
+
+## Distribution
+
+The DSH Web profile mounts this Host package together with [`@deepseek-ai/dsh-client-ui-context-graph`](../../client/ui-context-graph/README.md). Both packages publish in the same `dsh-v*` release family and must match the running DSH version, so users receive the complete feature through `npx @deepseek-ai/dsh web` rather than installing either package separately.
+
 ## Graph and recall semantics
 
 Nodes use the stable `<session>@<turn>:<turn-end-seq>` identity. A forked session omits inherited seed events from its own node list and connects its first new node to the latest retained parent checkpoint at the fork sequence. Sessions group by recorded working directory into project trees; cwd-less sessions form a separate root. Recall edges may cross branches but the web profile restricts automatic matching to the same working directory.

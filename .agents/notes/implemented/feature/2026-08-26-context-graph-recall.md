@@ -22,6 +22,8 @@ Freshness is an age classification. A 30-day web threshold divides nodes into fr
 
 `@deepseek-ai/dsh-client-ui-context-graph` registers a conversation view and renders completed turns as circular nodes. Continuations share a vertical lane; sibling forks occupy compact lanes at their parent's next depth row. Recalls use dashed links that do not affect structural placement. Selection moves request, visible conclusion, tools, token totals, provenance, and the exact-boundary fork action into an inspector. Automatic recall supplies a checkpoint to the current root session; it is deliberately distinct from explicit session forking, which inherits the selected prefix.
 
+The Web profile mounts the Host and browser packages as one feature. Both are members of the shared `dsh-v*` release family and publish at the running DSH version. They are not a second optional Profile Bundle: installing or removing only one half cannot produce a working feature, while a bundle layered over Web would duplicate rows that Web already owns.
+
 The public evaluation helpers aggregate actual provider usage from baseline and recalled session logs and report uncached-input savings, total-input savings, reduction rate, output delta, recall count, and injected bytes. Product evaluation pairs those cost measurements with independent task-success, edit, test, and latency checks.
 
 ## Alternatives considered
@@ -38,12 +40,14 @@ The public evaluation helpers aggregate actual provider usage from baseline and 
 
 **Hide old nodes.** Rejected because age does not prove invalidity. Stale nodes remain useful for inspection and explicit fork while automatic recall stays conservative.
 
+**Publish a separately installable context-graph bundle.** Rejected because the browser and Host packages require each other and the Web profile already owns both configuration rows. A second bundle would make installation and removal semantics misleading without creating an independently usable composition.
+
 ## Verification
 
 Pure graph tests cover inherited-event exclusion, continuation/fork/recall edges, exact recall bytes, English and Chinese matching, workspace affinity, stale exclusion, provider token projection, UTF-8 truncation, and baseline comparison. Service tests mount the real Session Store and Session Query Engine, run the `agent/pre-step` waterfall, verify one bounded first-step recall, confirm hidden reasoning is absent, and cover metadata that cannot fit. Client layout tests cover parent-relative rows, compact sibling forks, recall independence, and malformed cycles. A keyless snapshot boots the real Loader composition with two fresh root sessions; its target adapter refuses the request unless the source checkpoint arrives with logged provenance and without private reasoning. Host and client TypeScript faces compile, Typert generates the `snapshot` and `match` remote clients, and focused package bundles build.
 
 ## Consequences
 
-New root tasks can reuse a small, logged checkpoint without carrying an entire old conversation. Users can inspect why a branch exists and fork any retained completed turn. The bounded scan and lexical score have predictable keyless cost, but they may miss paraphrases or select a coincidental term match. Age-based decay can suppress old context but cannot recognize a repository revision; Git/file fingerprints and semantic ranking remain provider opportunities.
+New root tasks can reuse a small, logged checkpoint without carrying an entire old conversation. Users can inspect why a branch exists and fork any retained completed turn. The feature arrives with the standard Web profile and cannot drift to a different package version through a separate install. The bounded scan and lexical score have predictable keyless cost, but they may miss paraphrases or select a coincidental term match. Age-based decay can suppress old context but cannot recognize a repository revision; Git/file fingerprints and semantic ranking remain provider opportunities.
 
 Token savings are an empirical result rather than a design guarantee. A recall consumes a bounded suffix and saves tokens only when it replaces more repeated work than it adds. The evaluation helpers make that tradeoff measurable while leaving task-quality judgment to the benchmark that owns the task.

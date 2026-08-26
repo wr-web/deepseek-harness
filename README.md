@@ -27,7 +27,7 @@ The context system projects completed turns into project trees. Continuations st
 
 ![A DeepSeek Harness context tree showing one main-line continuation and three sibling Codex forks](https://raw.githubusercontent.com/wr-web/deepseek-harness/context-graph-assets/context-graph/context-tree-compact-3d61bdc.gif)
 
-The demo uses six imported Codex sessions, including three explicit forks and a sidechat-style fork. See the [context-graph semantics and evaluation contract](packages/context/context-graph/README.md).
+The context tree ships in the Web profile, so the standard `npx @deepseek-ai/dsh web` command includes it without a separate plugin install. The demo uses six imported Codex sessions, including three explicit forks and a sidechat-style fork. See the [context-graph semantics and evaluation contract](packages/context/context-graph/README.md).
 
 > **Developer preview:** DeepSeek Harness changes rapidly. Compatibility-breaking changes are expected before the first stable release.
 

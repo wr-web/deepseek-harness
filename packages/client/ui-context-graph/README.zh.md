@@ -6,6 +6,8 @@
 
 视图通过 `ctx.remote.contextGraph.snapshot` 读取有界图。会话更新会刷新视图；显式刷新按钮用于读取未进入当前客户端窗口的持久变化。复用连线不分配分支轨道，因此跨分支复用不会扭曲结构树。父节点晚于子节点出现或不存在时，子节点留在根轨道，不引入 layout 递归。
 
+此包由 DSH Web profile 与 [Host context-graph 包](../../context/context-graph/README.zh.md#distribution)一起发布并挂载，不能独立安装。
+
 ## Model Experience
 
 无，因为此包提供浏览器侧的图投影与 fork 控件；自动的模型可见复用由 Host 的 context-graph 包负责。

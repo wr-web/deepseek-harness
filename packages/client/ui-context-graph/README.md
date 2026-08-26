@@ -6,6 +6,8 @@ This browser plugin registers the Context tree conversation view. It groups comp
 
 The view reads the bounded graph through `ctx.remote.contextGraph.snapshot`. Session updates refresh the view, while an explicit refresh button supports persisted changes that did not enter the current client window. Recall links do not allocate branch lanes, so cross-branch reuse cannot distort the structural tree. Parents that appear after a child or are absent leave that child on the root lane instead of introducing layout recursion.
 
+This package is published and mounted with the [Host context-graph package](../../context/context-graph/README.md#distribution) by the DSH Web profile; it is not a standalone installation.
+
 ## Model Experience
 
 None, as this package provides browser-side graph projection and fork controls; the Host context-graph package owns automatic model-visible recall.

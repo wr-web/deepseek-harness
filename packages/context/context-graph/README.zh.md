@@ -6,6 +6,12 @@
 
 服务通过 `ctx.sessionQuery` 读取会话，提供有界的 `snapshot` 与 `match` Remote 方法，并可在新根会话的第一个模型 step 添加一个匹配检查点。它不修改 `agent-loop`，也不复制整个源会话。每个注入的检查点都是带身份的 `user/message`，因此重放可以重建复用边和准确的注入字节数。
 
+<a id="distribution"></a>
+
+## 发布方式
+
+DSH Web profile 会同时挂载此 Host 包与 [`@deepseek-ai/dsh-client-ui-context-graph`](../../client/ui-context-graph/README.zh.md)。两个包属于同一个 `dsh-v*` release family，且版本必须与运行中的 DSH 一致，因此用户通过 `npx @deepseek-ai/dsh web` 获得完整功能，无需单独安装任一包。
+
 ## 图与复用语义
 
 节点使用稳定的 `<session>@<turn>:<turn-end-seq>` 标识。fork 会话不会把继承的 seed 事件重复计入自己的节点列表，并会把第一个新节点连接到 fork 序列处最新保留的父检查点。会话按记录的工作目录组成项目树；没有 cwd 的会话形成独立根。复用边可以跨分支，但 web 配置只允许在同一工作目录中自动匹配。

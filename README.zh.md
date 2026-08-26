@@ -27,7 +27,7 @@ DeepSeek Harness（`dsh`）由 [DeepSeek AI](https://deepseek.com) 开发。它�
 
 ![DeepSeek Harness 上下文树：一条主线与三个同层 Codex fork](https://raw.githubusercontent.com/wr-web/deepseek-harness/context-graph-assets/context-graph/context-tree-compact-3d61bdc.gif)
 
-演示使用了六个真实迁入的 Codex 会话，其中包括三个显式 fork 与一个 sidechat 式 fork。详细语义和评测方式见[上下文图文档](packages/context/context-graph/README.zh.md)。
+上下文树随 Web profile 一起提供，因此标准的 `npx @deepseek-ai/dsh web` 命令已包含此功能，无需另行安装插件。演示使用了六个真实迁入的 Codex 会话，其中包括三个显式 fork 与一个 sidechat 式 fork。详细语义和评测方式见[上下文图文档](packages/context/context-graph/README.zh.md)。
 
 > **开发者预览：** DeepSeek Harness 正在快速迭代；首个稳定版本发布前可能出现破坏兼容性的变更。
 
