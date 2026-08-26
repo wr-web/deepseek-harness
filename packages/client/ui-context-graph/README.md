@@ -2,9 +2,9 @@
 
 English | [中文](README.zh.md)
 
-This browser plugin registers the Context tree conversation view. It groups completed-turn checkpoints by project, renders continuation and fork depth as branch rails, labels fresh, aging, stale, and recalled nodes, and displays recorded tool counts and provider token totals. The header summarizes projects, nodes, and recall edges. A node action forks its source session at the exact recorded `turn/end` sequence and opens the child session.
+This browser plugin registers the Context tree conversation view. It groups completed-turn checkpoints by project and renders each checkpoint as a circle in a spatial tree: continuations stay on one vertical lane, forks open a new lane, and recalls use dashed cross-branch links. Selecting a circle opens its request, visible conclusion, freshness, recorded tool counts, provider token total, and exact `turn/end` fork action in the inspector. Circle labels come from the visible final assistant text; the view never spends another model call to summarize them.
 
-The view reads the bounded graph through `ctx.remote.contextGraph.snapshot`. Session updates refresh the view, while an explicit refresh button supports persisted changes that did not enter the current client window. Recall edges are badges rather than structural indentation so cross-branch reuse cannot distort tree depth. Malformed structural cycles are bounded in the pure layout projection.
+The view reads the bounded graph through `ctx.remote.contextGraph.snapshot`. Session updates refresh the view, while an explicit refresh button supports persisted changes that did not enter the current client window. Recall links do not allocate branch lanes, so cross-branch reuse cannot distort the structural tree. Parents that appear after a child or are absent leave that child on the root lane instead of introducing layout recursion.
 
 ## Model Experience
 
@@ -16,6 +16,6 @@ None from rendering. Starting a fork follows the session service's existing inhe
 
 ## Known Limitations and Deferred Work
 
-- The view uses a compact chronological tree rather than a pan-and-zoom canvas; very large forests depend on the host's configured session and node bounds.
-- Recall is shown as source provenance on the target node, not as a second visual line crossing project sections.
+- The view uses a scrollable chronological canvas without pan-and-zoom controls; very large forests depend on the host's configured session and node bounds.
+- Recall links render only when both endpoints belong to the same displayed project; the inspector still identifies provenance for every recalled node.
 - Freshness explains age classification only; no file or Git revision is displayed until a provider supplies that evidence.

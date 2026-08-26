@@ -27,7 +27,7 @@ function node(id: string, completedAt: number): ContextGraphNode {
 }
 
 describe('layoutContextGraph', () => {
-  it('sorts checkpoints and indents continuation and fork descendants without recall affecting depth', () => {
+  it('sorts checkpoints, keeps continuations in one lane, and opens a lane for forks', () => {
     const root = node('root@1:8', 1)
     const continued = node('root@2:16', 2)
     const forked = node('child@2:16', 3)
@@ -45,19 +45,24 @@ describe('layoutContextGraph', () => {
       stats: { projects: 1, sessions: 0, nodes: 4, reusableNodes: 4, recallEdges: 1, recalledBytes: 0 },
     }
 
-    expect(layoutContextGraph(snapshot).get('project:repo')?.map(row => ({
+    const layout = layoutContextGraph(snapshot).get('project:repo')
+    expect(layout?.nodes.map(row => ({
       id: row.node.id,
-      depth: row.depth,
+      lane: row.lane,
       relation: row.relation,
     }))).toEqual([
-      { id: root.id, depth: 0, relation: undefined },
-      { id: continued.id, depth: 1, relation: 'continuation' },
-      { id: forked.id, depth: 2, relation: 'fork' },
-      { id: recalled.id, depth: 0, relation: undefined },
+      { id: root.id, lane: 0, relation: undefined },
+      { id: continued.id, lane: 0, relation: 'continuation' },
+      { id: forked.id, lane: 1, relation: 'fork' },
+      { id: recalled.id, lane: 0, relation: undefined },
     ])
+    expect(layout?.edges).toHaveLength(3)
+    expect(layout?.edges[0]?.path).toBe('M 76 76 L 76 224')
+    expect(layout?.width).toBe(308)
+    expect(layout?.height).toBe(596)
   })
 
-  it('bounds malformed structural cycles', () => {
+  it('lays out malformed structural cycles without recursion', () => {
     const left = node('left@1:8', 1)
     const right = node('right@1:8', 2)
     const snapshot = {
@@ -71,7 +76,7 @@ describe('layoutContextGraph', () => {
       ],
       stats: { projects: 0, sessions: 0, nodes: 2, reusableNodes: 2, recallEdges: 0, recalledBytes: 0 },
     }
-    expect([...layoutContextGraph(snapshot).values()].flat().every(row => row.depth <= 8)).toBe(true)
+    expect(layoutContextGraph(snapshot).get('project:repo')?.nodes.map(row => row.lane)).toEqual([0, 1])
   })
 
   it('uses node identity to break equal-time ordering and treats a missing parent as a root', () => {
@@ -85,7 +90,7 @@ describe('layoutContextGraph', () => {
       edges: [{ id: 'orphan', kind: 'fork' as const, from: ContextGraphNodeId('missing@1:8'), to: beta.id }],
       stats: { projects: 0, sessions: 0, nodes: 2, reusableNodes: 2, recallEdges: 0, recalledBytes: 0 },
     }
-    expect(layoutContextGraph(snapshot).get('project:repo')?.map(row => [row.node.id, row.depth])).toEqual([
+    expect(layoutContextGraph(snapshot).get('project:repo')?.nodes.map(row => [row.node.id, row.lane])).toEqual([
       [alpha.id, 0],
       [beta.id, 0],
     ])

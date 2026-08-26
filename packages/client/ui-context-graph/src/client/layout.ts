@@ -1,49 +1,93 @@
-/** Pure structural layout for context-graph rows. */
+/** Pure spatial layout for context-graph trees. */
 
 import type {
   ContextGraphEdge, ContextGraphNode, ContextGraphNodeId, ContextGraphSnapshot,
 } from '@deepseek-ai/dsh-context-graph/types'
 
-/** One graph node with derived structural presentation data. */
+const ROOT_X = 76
+const ROOT_Y = 76
+const LANE_GAP = 156
+const ROW_GAP = 148
+const CANVAS_PADDING = 76
+
+/** One graph node positioned in a project-local tree canvas. */
 export interface ContextGraphLayoutNode {
   readonly node: ContextGraphNode
-  readonly depth: number
+  readonly lane: number
+  readonly x: number
+  readonly y: number
   readonly relation?: Extract<ContextGraphEdge['kind'], 'continuation' | 'fork'>
 }
 
+/** One graph relationship with a deterministic SVG path. */
+export interface ContextGraphLayoutEdge {
+  readonly edge: ContextGraphEdge
+  readonly path: string
+}
+
+/** One project tree and its canvas dimensions. */
+export interface ContextGraphProjectLayout {
+  readonly nodes: readonly ContextGraphLayoutNode[]
+  readonly edges: readonly ContextGraphLayoutEdge[]
+  readonly width: number
+  readonly height: number
+}
+
 /**
- * Group nodes by project and derive bounded structural indentation.
+ * Arrange each project as chronological rows and stable branch lanes.
  * @param snapshot Graph snapshot to arrange.
- * @returns Chronological presentation rows grouped by project identity.
+ * @returns Spatial trees grouped by project identity.
  */
-export function layoutContextGraph(snapshot: ContextGraphSnapshot): ReadonlyMap<string, ContextGraphLayoutNode[]> {
+export function layoutContextGraph(snapshot: ContextGraphSnapshot): ReadonlyMap<string, ContextGraphProjectLayout> {
   const structural = new Map<ContextGraphNodeId, ContextGraphEdge>()
   for (const edge of snapshot.edges) {
     if (edge.kind !== 'recall') structural.set(edge.to, edge)
   }
-  const byId = new Map(snapshot.nodes.map(node => [node.id, node]))
-  const depthCache = new Map<ContextGraphNodeId, number>()
-  const depthOf = (id: ContextGraphNodeId, seen = new Set<ContextGraphNodeId>()): number => {
-    const cached = depthCache.get(id)
-    if (cached !== undefined) return cached
-    if (seen.has(id)) return 0
-    seen.add(id)
-    const parent = structural.get(id)?.from
-    const depth = parent === undefined || !byId.has(parent) ? 0 : Math.min(depthOf(parent, seen) + 1, 8)
-    depthCache.set(id, depth)
-    return depth
-  }
-  const groups = new Map<string, ContextGraphLayoutNode[]>()
+  const groups = new Map<string, ContextGraphNode[]>()
   for (const node of [...snapshot.nodes].sort((a, b) => a.completedAt - b.completedAt || a.id.localeCompare(b.id))) {
-    const edge = structural.get(node.id)
-    const row: ContextGraphLayoutNode = {
-      node,
-      depth: depthOf(node.id),
-      ...(edge === undefined ? {} : { relation: edge.kind as 'continuation' | 'fork' }),
-    }
     const group = groups.get(node.projectId)
-    if (group === undefined) groups.set(node.projectId, [row])
-    else group.push(row)
+    if (group === undefined) groups.set(node.projectId, [node])
+    else group.push(node)
   }
-  return groups
+
+  const result = new Map<string, ContextGraphProjectLayout>()
+  for (const [projectId, nodes] of groups) {
+    const positioned = new Map<ContextGraphNodeId, ContextGraphLayoutNode>()
+    let furthestLane = 0
+    const rows = nodes.map((node, row): ContextGraphLayoutNode => {
+      const parentEdge = structural.get(node.id)
+      const parent = parentEdge === undefined ? undefined : positioned.get(parentEdge.from)
+      let lane = 0
+      if (parent !== undefined && parentEdge?.kind === 'continuation') lane = parent.lane
+      if (parent !== undefined && parentEdge?.kind === 'fork') lane = ++furthestLane
+      const placed: ContextGraphLayoutNode = {
+        node,
+        lane,
+        x: ROOT_X + lane * LANE_GAP,
+        y: ROOT_Y + row * ROW_GAP,
+        ...(parent === undefined || parentEdge === undefined ? {} : { relation: parentEdge.kind as 'continuation' | 'fork' }),
+      }
+      positioned.set(node.id, placed)
+      return placed
+    })
+    const edges = snapshot.edges.flatMap((edge): ContextGraphLayoutEdge[] => {
+      const from = positioned.get(edge.from)
+      const to = positioned.get(edge.to)
+      if (from === undefined || to === undefined) return []
+      return [{ edge, path: edgePath(from, to) }]
+    })
+    result.set(projectId, {
+      nodes: rows,
+      edges,
+      width: ROOT_X + furthestLane * LANE_GAP + CANVAS_PADDING,
+      height: ROOT_Y + (nodes.length - 1) * ROW_GAP + CANVAS_PADDING,
+    })
+  }
+  return result
+}
+
+function edgePath(from: ContextGraphLayoutNode, to: ContextGraphLayoutNode): string {
+  if (from.x === to.x) return `M ${from.x} ${from.y} L ${to.x} ${to.y}`
+  const bendY = from.y + Math.max((to.y - from.y) * 0.48, 32)
+  return `M ${from.x} ${from.y} C ${from.x} ${bendY} ${to.x} ${bendY} ${to.x} ${to.y}`
 }

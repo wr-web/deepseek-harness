@@ -20,7 +20,7 @@ The web profile automatically recalls only on the first step of a fresh root ses
 
 Freshness is an age classification. A 30-day web threshold divides nodes into fresh, aging, and stale; stale nodes remain inspectable but cannot be automatically recalled. This classification prevents indefinite silent reuse without pretending to validate project files.
 
-`@deepseek-ai/dsh-client-ui-context-graph` registers a conversation view that groups nodes by project, renders continuation/fork depth, identifies recall provenance, shows tool and token totals, and exposes an exact completed-turn fork action. Automatic recall supplies a checkpoint to the current root session; it is deliberately distinct from explicit session forking, which inherits the selected prefix.
+`@deepseek-ai/dsh-client-ui-context-graph` registers a conversation view and renders completed turns as circular nodes. Continuations share a vertical lane, forks allocate new lanes, and recalls use dashed links that do not affect structural placement. Selection moves request, visible conclusion, tools, token totals, provenance, and the exact-boundary fork action into an inspector. Automatic recall supplies a checkpoint to the current root session; it is deliberately distinct from explicit session forking, which inherits the selected prefix.
 
 The public evaluation helpers aggregate actual provider usage from baseline and recalled session logs and report uncached-input savings, total-input savings, reduction rate, output delta, recall count, and injected bytes. Product evaluation pairs those cost measurements with independent task-success, edit, test, and latency checks.
 
