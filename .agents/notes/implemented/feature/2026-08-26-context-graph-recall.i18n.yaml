@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-26-context-graph-recall.md
-2026-08-26-context-graph-recall.md: a04bb320f945df9af0a50b2cf9eb57f02fcde344
-2026-08-26-context-graph-recall.zh.md: 1d0854360dc1325f2ac97cb16c49d374f5e40547
+2026-08-26-context-graph-recall.md: e5bba395b9bd185334c0050a3471b87c85f2659a
+2026-08-26-context-graph-recall.zh.md: 08928fece8166a57f0a0d47a7398e1df339b4462

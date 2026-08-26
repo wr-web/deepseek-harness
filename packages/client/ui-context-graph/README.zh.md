@@ -4,7 +4,7 @@
 
 此浏览器插件注册“上下文树”会话视图。它按项目分组已完成轮次检查点，并把每个检查点呈现为一棵空间树中的圆点：连续轮次保持在同一条竖直主干，同级 fork 在父节点的下一层共用紧凑的新轨道，复用使用跨分支虚线。选择圆点后，检查面板显示其请求、可见结论、新鲜度、已记录工具计数、提供方 token 总量和准确 `turn/end` fork 操作。圆点标签来自可见的 assistant 最终文本；视图不会再花一次模型调用生成摘要。
 
-视图通过 `ctx.remote.contextGraph.snapshot` 读取有界图。会话更新会刷新视图；显式刷新按钮用于读取未进入当前客户端窗口的持久变化。复用连线不分配分支轨道，因此跨分支复用不会扭曲结构树。父节点晚于子节点出现或不存在时，子节点留在根轨道，不引入 layout 递归。
+视图把 Host 包生成的 Remote contribution 挂载进现有 Client Remote 服务，再通过 `ctx.remote.contextGraph.snapshot` 读取有界图；卸载视图会移除此 contribution。会话更新会刷新视图；显式刷新按钮用于读取未进入当前客户端窗口的持久变化。复用连线不分配分支轨道，因此跨分支复用不会扭曲结构树。父节点晚于子节点出现或不存在时，子节点留在根轨道，不引入 layout 递归。
 
 此包由 DSH Web profile 与 [Host context-graph 包](../../context/context-graph/README.zh.md#distribution)一起发布并挂载，不能独立安装。
 

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { SessionId } from '@deepseek-ai/dsh-session'
 import { ContextGraphNodeId, type ContextGraphNode, type ContextGraphSnapshot } from '@deepseek-ai/dsh-context-graph'
+import contextGraphRemote from '@deepseek-ai/dsh-context-graph/remote'
 import { apply as nodeApply } from '../src/index.ts'
 import * as invariant from '../src/invariant.ts'
 import { apply as clientApply } from '../src/client/index.ts'
@@ -65,6 +66,7 @@ describe('context-graph browser plugin', () => {
     const open = vi.fn()
     const fork = vi.fn().mockResolvedValue(SessionId('child'))
     const snapshot = vi.fn().mockResolvedValue({ ok: true, value: SNAPSHOT })
+    const remoteDispose = vi.fn().mockResolvedValue(undefined)
     const ctx = {
       effect: vi.fn((install: () => unknown) => install()),
       locale: {
@@ -78,11 +80,12 @@ describe('context-graph browser plugin', () => {
           return slotDispose
         }),
       },
-      remote: { contextGraph: { snapshot } },
+      remote: { $mount: vi.fn().mockResolvedValue(remoteDispose), contextGraph: { snapshot } },
       sessions: { fork, open },
     }
 
-    clientApply(ctx as never)
+    const dispose = await clientApply(ctx as never)
+    expect(ctx.remote.$mount).toHaveBeenCalledWith(contextGraphRemote)
     expect(ctx.locale.register).toHaveBeenCalledOnce()
     expect(ctx.slots.inject).toHaveBeenCalledWith('conversation.view', expect.any(Function))
     expect(registration?.label()).toBe('view.label')
@@ -96,5 +99,21 @@ describe('context-graph browser plugin', () => {
 
     snapshot.mockResolvedValueOnce({ ok: false, error: { code: 'BROKEN', message: 'unavailable' } })
     await expect(face.loadGraph(signal)).rejects.toThrow('BROKEN: unavailable')
+    await dispose()
+    expect(remoteDispose).toHaveBeenCalledOnce()
+  })
+
+  it('unmounts its Remote contribution when view registration fails', async () => {
+    const remoteDispose = vi.fn().mockResolvedValue(undefined)
+    const failure = new Error('slot registration failed')
+    const ctx = {
+      effect: vi.fn(),
+      locale: { register: vi.fn(), bind: vi.fn() },
+      slots: { inject: vi.fn(() => { throw failure }) },
+      remote: { $mount: vi.fn().mockResolvedValue(remoteDispose) },
+    }
+
+    await expect(clientApply(ctx as never)).rejects.toBe(failure)
+    expect(remoteDispose).toHaveBeenCalledOnce()
   })
 })
