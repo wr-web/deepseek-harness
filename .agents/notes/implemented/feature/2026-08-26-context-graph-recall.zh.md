@@ -20,7 +20,7 @@ web 配置只在全新根会话的第一个 step 自动复用。确定性词法�
 
 新鲜度是年龄分类。web 使用 30 天期限，把节点分为新鲜、老化中与已腐败；已腐败节点仍可查看，但不能自动复用。这种分类能阻止无限期静默复用，但不会假装已经验证项目文件。
 
-`@deepseek-ai/dsh-client-ui-context-graph` 注册会话视图，并把已完成轮次呈现为圆形节点。连续轮次共享一条竖直轨道，fork 分配新轨道，复用使用不影响结构位置的虚线。选择节点后，检查面板显示请求、可见结论、工具、token 总量、来源和准确边界 fork 操作。自动复用向当前根会话提供检查点；它有意与显式会话 fork 区分，后者会继承选定前缀。
+`@deepseek-ai/dsh-client-ui-context-graph` 注册会话视图，并把已完成轮次呈现为圆形节点。连续轮次共享一条竖直轨道；同级 fork 在父节点的下一层占用紧凑轨道。复用使用不影响结构位置的虚线。选择节点后，检查面板显示请求、可见结论、工具、token 总量、来源和准确边界 fork 操作。自动复用向当前根会话提供检查点；它有意与显式会话 fork 区分，后者会继承选定前缀。
 
 公开评测 helper 从基线与复用会话日志汇总真实提供方用量，报告未缓存输入节省、总输入节省、下降比例、输出差值、复用次数和注入字节。产品评测应把这些成本数据与独立的任务成功、改动、测试和延迟检查配对。
 
@@ -40,7 +40,7 @@ web 配置只在全新根会话的第一个 step 自动复用。确定性词法�
 
 ## Verification
 
-纯图测试覆盖继承事件排除、连续/fork/复用边、准确复用字节、英文与中文匹配、工作区亲和、腐败排除、提供方 token 投影、UTF-8 截断和基线对比。服务测试挂载真实 Session Store 与 Session Query Engine，运行 `agent/pre-step` waterfall，验证一次有界首 step 复用，确认隐藏 reasoning 不会出现，并覆盖元数据无法装入上限的情况。客户端 layout 测试覆盖时间顺序分组、结构深度、复用边不影响深度和异常循环。无密钥快照通过真实 Loader 配置启动两个全新根会话；如果目标 adapter 没有收到带日志来源且不含私有 reasoning 的源检查点，请求会直接失败。Host 与 Client TypeScript face 均可编译，Typert 会生成 `snapshot` 与 `match` 远端客户端，相关包可定向打包。
+纯图测试覆盖继承事件排除、连续/fork/复用边、准确复用字节、英文与中文匹配、工作区亲和、腐败排除、提供方 token 投影、UTF-8 截断和基线对比。服务测试挂载真实 Session Store 与 Session Query Engine，运行 `agent/pre-step` waterfall，验证一次有界首 step 复用，确认隐藏 reasoning 不会出现，并覆盖元数据无法装入上限的情况。客户端 layout 测试覆盖父节点相对行、紧凑的同级 fork、复用边不影响结构位置和异常循环。无密钥快照通过真实 Loader 配置启动两个全新根会话；如果目标 adapter 没有收到带日志来源且不含私有 reasoning 的源检查点，请求会直接失败。Host 与 Client TypeScript face 均可编译，Typert 会生成 `snapshot` 与 `match` 远端客户端，相关包可定向打包。
 
 ## Consequences
 

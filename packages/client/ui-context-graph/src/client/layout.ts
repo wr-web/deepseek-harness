@@ -4,11 +4,11 @@ import type {
   ContextGraphEdge, ContextGraphNode, ContextGraphNodeId, ContextGraphSnapshot,
 } from '@deepseek-ai/dsh-context-graph/types'
 
-const ROOT_X = 76
-const ROOT_Y = 76
-const LANE_GAP = 156
-const ROW_GAP = 148
-const CANVAS_PADDING = 76
+const ROOT_X = 62
+const ROOT_Y = 62
+const LANE_GAP = 128
+const ROW_GAP = 124
+const CANVAS_PADDING = 62
 
 /** One graph node positioned in a project-local tree canvas. */
 export interface ContextGraphLayoutNode {
@@ -34,7 +34,7 @@ export interface ContextGraphProjectLayout {
 }
 
 /**
- * Arrange each project as chronological rows and stable branch lanes.
+ * Arrange each project as parent-relative rows and stable branch lanes.
  * @param snapshot Graph snapshot to arrange.
  * @returns Spatial trees grouped by project identity.
  */
@@ -53,13 +53,19 @@ export function layoutContextGraph(snapshot: ContextGraphSnapshot): ReadonlyMap<
   const result = new Map<string, ContextGraphProjectLayout>()
   for (const [projectId, nodes] of groups) {
     const positioned = new Map<ContextGraphNodeId, ContextGraphLayoutNode>()
+    const rowByNode = new Map<ContextGraphNodeId, number>()
+    const occupiedRows = new Map<number, Set<number>>()
     let furthestLane = 0
-    const rows = nodes.map((node, row): ContextGraphLayoutNode => {
+    let furthestRow = 0
+    const rows = nodes.map((node): ContextGraphLayoutNode => {
       const parentEdge = structural.get(node.id)
       const parent = parentEdge === undefined ? undefined : positioned.get(parentEdge.from)
       let lane = 0
       if (parent !== undefined && parentEdge?.kind === 'continuation') lane = parent.lane
       if (parent !== undefined && parentEdge?.kind === 'fork') lane = ++furthestLane
+      const parentRow = parentEdge === undefined ? undefined : rowByNode.get(parentEdge.from)
+      const preferredRow = parentRow === undefined ? 0 : parentRow + 1
+      const row = nextFreeRow(occupiedRows, lane, preferredRow)
       const placed: ContextGraphLayoutNode = {
         node,
         lane,
@@ -68,6 +74,8 @@ export function layoutContextGraph(snapshot: ContextGraphSnapshot): ReadonlyMap<
         ...(parent === undefined || parentEdge === undefined ? {} : { relation: parentEdge.kind as 'continuation' | 'fork' }),
       }
       positioned.set(node.id, placed)
+      rowByNode.set(node.id, row)
+      furthestRow = Math.max(furthestRow, row)
       return placed
     })
     const edges = snapshot.edges.flatMap((edge): ContextGraphLayoutEdge[] => {
@@ -80,10 +88,19 @@ export function layoutContextGraph(snapshot: ContextGraphSnapshot): ReadonlyMap<
       nodes: rows,
       edges,
       width: ROOT_X + furthestLane * LANE_GAP + CANVAS_PADDING,
-      height: ROOT_Y + (nodes.length - 1) * ROW_GAP + CANVAS_PADDING,
+      height: ROOT_Y + furthestRow * ROW_GAP + CANVAS_PADDING,
     })
   }
   return result
+}
+
+function nextFreeRow(occupiedRows: Map<number, Set<number>>, lane: number, preferredRow: number): number {
+  const occupied = occupiedRows.get(lane) ?? new Set<number>()
+  let row = preferredRow
+  while (occupied.has(row)) row += 1
+  occupied.add(row)
+  occupiedRows.set(lane, occupied)
+  return row
 }
 
 function edgePath(from: ContextGraphLayoutNode, to: ContextGraphLayoutNode): string {

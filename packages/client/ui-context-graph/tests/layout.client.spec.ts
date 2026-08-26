@@ -57,9 +57,35 @@ describe('layoutContextGraph', () => {
       { id: recalled.id, lane: 0, relation: undefined },
     ])
     expect(layout?.edges).toHaveLength(3)
-    expect(layout?.edges[0]?.path).toBe('M 76 76 L 76 224')
-    expect(layout?.width).toBe(308)
-    expect(layout?.height).toBe(596)
+    expect(layout?.edges[0]?.path).toBe('M 62 62 L 62 186')
+    expect(layout?.width).toBe(252)
+    expect(layout?.height).toBe(372)
+  })
+
+  it('places sibling forks beside the next main-line turn at one shared depth', () => {
+    const root = node('root@1:8', 1)
+    const main = node('root@2:16', 2)
+    const left = node('left@1:8', 3)
+    const right = node('right@1:8', 4)
+    const snapshot: ContextGraphSnapshot = {
+      generatedAt: 5,
+      projects: [],
+      sessions: [],
+      nodes: [root, main, left, right],
+      edges: [
+        { id: 'main', kind: 'continuation', from: root.id, to: main.id },
+        { id: 'left', kind: 'fork', from: root.id, to: left.id },
+        { id: 'right', kind: 'fork', from: root.id, to: right.id },
+      ],
+      stats: { projects: 0, sessions: 0, nodes: 4, reusableNodes: 4, recallEdges: 0, recalledBytes: 0 },
+    }
+
+    expect(layoutContextGraph(snapshot).get('project:repo')?.nodes.map(row => [row.node.id, row.x, row.y])).toEqual([
+      [root.id, 62, 62],
+      [main.id, 62, 186],
+      [left.id, 190, 186],
+      [right.id, 318, 186],
+    ])
   })
 
   it('lays out malformed structural cycles without recursion', () => {
