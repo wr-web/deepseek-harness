@@ -21,6 +21,11 @@
  * does it pass" story requires every touched path to already exist as a
  * plain modification on both sides.
  *
+ * Also runs a PASS_TO_PASS check (SWE-bench's term): after GREEN, the
+ * package's whole test directory must still pass, not just the targeted
+ * spec file — otherwise "fixing" the target test could have quietly broken
+ * something else in the same package, which is not a task worth keeping.
+ *
  * Run from the repository root:
  *   npx tsx packages/context/context-graph/scripts/build-layer2-taskset.ts [maxCandidates] [maxAccepted]
  * Requires a clean working tree (refuses to run otherwise) and restores it
@@ -67,7 +72,9 @@ interface ChangedFile {
 interface Candidate {
   readonly commit: string
   readonly parent: string
+  readonly package: string
   readonly message: string
+  readonly committedAt: string
   readonly sourceFiles: string[]
   readonly testFiles: string[]
   readonly insertions: number
@@ -78,9 +85,11 @@ interface ValidatedTask extends Candidate {
   readonly redExitCode: number
 }
 
+type RejectionReason = 'parent-already-passes' | 'commit-still-fails' | 'regression-in-package-suite'
+
 type ValidationOutcome =
   | { readonly ok: true; readonly task: ValidatedTask }
-  | { readonly ok: false; readonly reason: 'parent-already-passes' | 'commit-still-fails' }
+  | { readonly ok: false; readonly reason: RejectionReason }
 
 function git(args: string[], cwd: string): string {
   return execFileSync('git', args, { cwd, encoding: 'utf8' })
@@ -89,20 +98,21 @@ function git(args: string[], cwd: string): string {
 interface RawCommit {
   readonly hash: string
   readonly subject: string
+  readonly committedAt: string
   readonly files: ChangedFile[]
 }
 
 /** One `git log` spawn per package instead of several per commit — the difference between minutes and seconds across ~200 packages. */
 function logWithNameStatus(cwd: string, packagePath: string): RawCommit[] {
-  const output = git(['log', '--no-merges', '--format=%x00%H%x01%s', '--name-status', '--', packagePath], cwd)
+  const output = git(['log', '--no-merges', '--format=%x00%H%x01%s%x01%cI', '--name-status', '--', packagePath], cwd)
   return output.split('\x00').filter(chunk => chunk.trim() !== '').map((chunk): RawCommit => {
     const lines = chunk.split('\n').filter(line => line !== '')
-    const [hash, subject] = (lines[0] ?? '').split('\x01')
+    const [hash, subject, committedAt] = (lines[0] ?? '').split('\x01')
     const files = lines.slice(1).map((line): ChangedFile => {
       const [status, path] = line.split('\t')
       return { status: status ?? '', path: path ?? '' }
     })
-    return { hash: hash ?? '', subject: subject ?? '', files }
+    return { hash: hash ?? '', subject: subject ?? '', committedAt: committedAt ?? '', files }
   })
 }
 
@@ -123,7 +133,7 @@ function shortstat(cwd: string, parent: string, commit: string): { insertions: n
 
 function findCandidates(cwd: string, packagePath: string): Candidate[] {
   const candidates: Candidate[] = []
-  for (const { hash, subject, files } of logWithNameStatus(cwd, packagePath)) {
+  for (const { hash, subject, committedAt, files } of logWithNameStatus(cwd, packagePath)) {
     if (files.some(file => file.status !== 'M')) continue
     if (files.some(file => file.path.endsWith('package.json') || file.path.includes('pnpm-lock'))) continue
     const sourceFiles = files.filter(file => file.path.startsWith(`${packagePath}/src/`) && file.path.endsWith('.ts')).map(file => file.path)
@@ -142,8 +152,8 @@ function findCandidates(cwd: string, packagePath: string): Candidate[] {
     const stat = shortstat(cwd, `${hash}^`, hash)
     if (stat === undefined || stat.insertions + stat.deletions > 400) continue
     candidates.push({
-      commit: hash, parent: `${hash}^`, message: subject, sourceFiles, testFiles,
-      insertions: stat.insertions, deletions: stat.deletions,
+      commit: hash, parent: `${hash}^`, package: packagePath, message: subject, committedAt,
+      sourceFiles, testFiles, insertions: stat.insertions, deletions: stat.deletions,
     })
   }
   return candidates
@@ -163,11 +173,13 @@ function writeBlob(cwd: string, ref: string, path: string): void {
   writeFileSync(join(cwd, path), content)
 }
 
-/** Exit code of a scoped vitest run: 0 if every listed test file passed, otherwise the process's nonzero status. */
-function runVitestExitCode(cwd: string, testFiles: readonly string[]): number {
+const PASS_TO_PASS_TIMEOUT_MS = 60_000
+
+/** Exit code of a scoped vitest run: 0 if every listed test file/path passed, otherwise the process's nonzero status. */
+function runVitestExitCode(cwd: string, targets: readonly string[], timeout?: number): number {
   try {
-    execFileSync(process.execPath, ['node_modules/vitest/vitest.mjs', 'run', ...testFiles], {
-      cwd, stdio: 'ignore',
+    execFileSync(process.execPath, ['node_modules/vitest/vitest.mjs', 'run', ...targets], {
+      cwd, stdio: 'ignore', ...(timeout === undefined ? {} : { timeout }),
     })
     return 0
   } catch (error: unknown) {
@@ -186,6 +198,12 @@ function validate(cwd: string, candidate: Candidate): ValidationOutcome {
     for (const path of candidate.sourceFiles) writeBlob(cwd, candidate.commit, path)
     const greenExitCode = runVitestExitCode(cwd, candidate.testFiles)
     if (greenExitCode !== 0) return { ok: false, reason: 'commit-still-fails' }
+
+    // PASS_TO_PASS (SWE-bench's term): the fix must not have broken anything
+    // else already covered by this package's own suite. Bounded by a timeout
+    // rather than left unbounded, since package suite size varies widely.
+    const regressionExitCode = runVitestExitCode(cwd, [`${candidate.package}/tests`], PASS_TO_PASS_TIMEOUT_MS)
+    if (regressionExitCode !== 0) return { ok: false, reason: 'regression-in-package-suite' }
 
     return { ok: true, task: { ...candidate, redExitCode } }
   })
@@ -227,7 +245,9 @@ function main(): void {
   const sampled = shuffled(allCandidates).slice(0, maxCandidates)
 
   const accepted: ValidatedTask[] = []
-  const rejections = { 'parent-already-passes': 0, 'commit-still-fails': 0 }
+  const rejections: Record<RejectionReason, number> = {
+    'parent-already-passes': 0, 'commit-still-fails': 0, 'regression-in-package-suite': 0,
+  }
   for (const candidate of sampled) {
     if (accepted.length >= maxAccepted) break
     const outcome = validate(repoRoot, candidate)
@@ -243,6 +263,7 @@ function main(): void {
   console.log(`\nSampled: ${sampled.length}, accepted: ${accepted.length}`)
   console.log(`Rejected — parent already passes (not a real fail-to-pass): ${rejections['parent-already-passes']}`)
   console.log(`Rejected — commit's own change insufficient in isolation: ${rejections['commit-still-fails']}`)
+  console.log(`Rejected — regression elsewhere in the package suite (PASS_TO_PASS failed): ${rejections['regression-in-package-suite']}`)
   console.log(`Working tree clean at exit: ${finalStatus === ''}`)
   if (finalStatus !== '') console.error(`WARNING: working tree not restored cleanly:\n${finalStatus}`)
 
