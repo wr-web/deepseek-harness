@@ -3,7 +3,7 @@
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import type {
   ContextGraphProbe,
   ContextGraphProbeResult,
@@ -45,13 +45,28 @@ export function fingerprintProbe(cwd: string, probe: ContextGraphProbe): string 
  * Compares the captured commit against the current working tree (`git diff`
  * includes uncommitted changes), because that is the state a fork will face —
  * comparing against a clean `HEAD` would validate a world that doesn't exist.
+ *
+ * The diff itself is restricted to the touched paths' containing directories
+ * (deduplicated), not the whole `cwd`. Measured against this repository's own
+ * history (`scripts/replay-decay-eval.ts`): with an unrestricted repo-wide
+ * diff, a checkpoint in an active monorepo never reads as `fresh` — unrelated
+ * commits elsewhere in the tree dominate the denominator on every replay,
+ * even one commit after capture. Directory-scoping makes "what changed"
+ * mean "what changed near what this checkpoint is about" instead of "what
+ * changed anywhere in the repository", which is what the ratio is meant to
+ * measure. For a checkpoint whose touched paths already sit at `cwd` (a
+ * single-project repository), this is a no-op: the containing directory is
+ * `cwd` itself.
  * @param cwd Git working tree root.
  * @param capturedHead Commit hash recorded at capture time.
  * @param touchedPaths Paths the captured trajectory read or wrote, relative to `cwd`.
  * @returns 1 when nothing changed since capture; otherwise the overlap ratio.
  */
 export function computeScopeRatio(cwd: string, capturedHead: string, touchedPaths: readonly string[]): number {
-  const output = execFileSync('git', ['diff', '--name-only', capturedHead], { cwd, encoding: 'utf8' })
+  const scopeDirs = [...new Set(touchedPaths.map(path => dirname(path)))]
+  const args = ['diff', '--no-renames', '--name-only', capturedHead]
+  if (scopeDirs.length > 0) args.push('--', ...scopeDirs)
+  const output = execFileSync('git', args, { cwd, encoding: 'utf8' })
   const changed = output.split('\n').map(line => line.trim()).filter(line => line !== '')
   if (changed.length === 0) return 1
   const touched = new Set(touchedPaths)

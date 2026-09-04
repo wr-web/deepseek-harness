@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -238,5 +238,28 @@ describe('computeScopeRatio', () => {
     writeFileSync(join(repo, 'auth.ts'), 'export function login() {}\n')
     const head = commit(repo, 'add auth')
     expect(computeScopeRatio(repo, head, ['auth.ts'])).toBe(1)
+  })
+
+  it('excludes changes outside the touched path\'s directory instead of counting them against the ratio', () => {
+    const repo = tempRepo()
+    mkdirSync(join(repo, 'sub'))
+    writeFileSync(join(repo, 'sub', 'auth.ts'), 'export function login() {}\n')
+    writeFileSync(join(repo, 'other.ts'), 'export const x = 1\n')
+    const head = commit(repo, 'add sub/auth.ts and other.ts')
+    // Before directory-scoping, this unrelated repo-root change would have
+    // dominated the denominator (changed=['other.ts'], overlap=0 -> ratio 0)
+    // even though nothing under sub/ — the checkpoint's actual scope — moved.
+    writeFileSync(join(repo, 'other.ts'), 'export const x = 2\n')
+    commit(repo, 'change unrelated file outside the touched directory')
+    expect(computeScopeRatio(repo, head, ['sub/auth.ts'])).toBe(1)
+  })
+
+  it('falls back to no directory restriction when there are no touched paths', () => {
+    const repo = tempRepo()
+    writeFileSync(join(repo, 'auth.ts'), 'export function login() {}\n')
+    const head = commit(repo, 'add auth')
+    writeFileSync(join(repo, 'auth.ts'), 'export function login() {}\nexport function logout() {}\n')
+    commit(repo, 'add logout')
+    expect(computeScopeRatio(repo, head, [])).toBe(0)
   })
 })
