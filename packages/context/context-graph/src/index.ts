@@ -32,6 +32,10 @@ export type { Config } from './config.ts'
 export { buildContextGraph, matchContextGraph, truncateUtf8 } from './graph.ts'
 export type { ContextGraphSource, GraphOptions } from './graph.ts'
 export { evaluateContextGraph, measureContextGraphRun } from './evaluation.ts'
+export {
+  computeScopeRatio, DEFAULT_REPLAY_OPTIONS, fingerprintProbe, replayChecklist,
+} from './replay.ts'
+export type { ContextGraphReplayOptions } from './replay.ts'
 
 declare module '@deepseek-ai/cordis' {
   interface Context {

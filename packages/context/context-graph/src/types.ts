@@ -145,6 +145,61 @@ export interface ContextGraphEvaluation {
   readonly outputTokenDelta: number
 }
 
+/** Kind of no-exec (Phase 1) probe recorded with a checkpoint's replay checklist. */
+export type ContextGraphProbeKind = 'path-exists' | 'file-hash' | 'grep'
+
+/** One ordered, fingerprinted read recorded at capture time. */
+export type ContextGraphProbe =
+  | {
+    readonly seq: number
+    readonly kind: 'path-exists'
+    /** Path relative to the checkpoint's recorded working directory. */
+    readonly path: string
+    /** Fingerprint captured at write time, compared against replay. */
+    readonly capturedFingerprint: string
+    /** Whether this probe's output fed a later action or the recorded conclusions. Only load-bearing probes count toward `k`. */
+    readonly loadBearing: boolean
+  }
+  | {
+    readonly seq: number
+    readonly kind: 'file-hash'
+    readonly path: string
+    readonly capturedFingerprint: string
+    readonly loadBearing: boolean
+  }
+  | {
+    readonly seq: number
+    readonly kind: 'grep'
+    readonly path: string
+    /** Regular-expression source tested against the file's full text. */
+    readonly pattern: string
+    readonly capturedFingerprint: string
+    readonly loadBearing: boolean
+  }
+
+/** Outcome of replaying one probe against the current working tree. */
+export interface ContextGraphProbeResult {
+  readonly seq: number
+  /** `'missing'` when the path no longer exists; `'exists'`/`'match'`/`'no-match'` or a content hash otherwise. */
+  readonly fingerprint: string
+  readonly consistent: boolean
+}
+
+/** Verdict ladder from a replay pass over one checkpoint's checklist. */
+export type ContextGraphReplayVerdict = 'fresh' | 'partial' | 'locational' | 'dead'
+
+/** Complete replay outcome for one checkpoint. */
+export interface ContextGraphReplay {
+  readonly verdict: ContextGraphReplayVerdict
+  /** Longest consistent prefix among load-bearing probes, in `seq` order. */
+  readonly k: number
+  /** Total load-bearing probes. */
+  readonly n: number
+  /** Overlap between paths changed since capture and the checkpoint's touched paths; 1 when nothing changed. */
+  readonly scopeRatio: number
+  readonly results: readonly ContextGraphProbeResult[]
+}
+
 /** Model-visible provenance for one automatically recalled graph node. */
 export interface ContextGraphMessageSource {
   readonly kind: 'context-graph'
