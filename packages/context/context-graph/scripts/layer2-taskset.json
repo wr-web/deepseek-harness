@@ -1,23 +1,10 @@
 [
   {
-    "commit": "0a95a9eed85e2a1b98549a21614810c536eab681",
-    "parent": "0a95a9eed85e2a1b98549a21614810c536eab681^",
-    "message": "fix(session): refuse foreign format versions before parsing current structure",
-    "sourceFiles": [
-      "packages/session/session-persistence-jsonl/src/format.ts",
-      "packages/session/session-persistence-jsonl/src/index.ts"
-    ],
-    "testFiles": [
-      "packages/session/session-persistence-jsonl/tests/jsonl.spec.ts"
-    ],
-    "insertions": 112,
-    "deletions": 40,
-    "redExitCode": 1
-  },
-  {
     "commit": "4dd1be1a1fbb5e77ee627a90957d95cfab8aa0af",
     "parent": "4dd1be1a1fbb5e77ee627a90957d95cfab8aa0af^",
+    "package": "packages/experimental/agent-team",
     "message": "refactor: rename agent teams service key",
+    "committedAt": "2026-08-19T22:30:36+08:00",
     "sourceFiles": [
       "packages/experimental/agent-team/src/index.ts"
     ],
@@ -32,7 +19,9 @@
   {
     "commit": "0e39055121db9fcd0362d657d2d1dd61530009bb",
     "parent": "0e39055121db9fcd0362d657d2d1dd61530009bb^",
+    "package": "packages/fs/tool-fs",
     "message": "fix(attachment): refuse oversized image sides at admission",
+    "committedAt": "2026-08-17T20:49:08+08:00",
     "sourceFiles": [
       "packages/fs/tool-fs/src/read-image.ts"
     ],
@@ -44,25 +33,11 @@
     "redExitCode": 1
   },
   {
-    "commit": "b5ec489c9fcc4eaee515d1e6bb52744b75190fe8",
-    "parent": "b5ec489c9fcc4eaee515d1e6bb52744b75190fe8^",
-    "message": "refactor(typert): share type node traversal",
-    "sourceFiles": [
-      "packages/typert/generator/src/cordis-catalog.ts",
-      "packages/typert/generator/src/model.ts",
-      "packages/typert/generator/src/renderer.ts"
-    ],
-    "testFiles": [
-      "packages/typert/generator/tests/renderer.spec.ts"
-    ],
-    "insertions": 81,
-    "deletions": 71,
-    "redExitCode": 1
-  },
-  {
     "commit": "cf7d485b5ecd0cecc98e5b0534ef939d12b1e3b3",
     "parent": "cf7d485b5ecd0cecc98e5b0534ef939d12b1e3b3^",
+    "package": "packages/client/ui-settings",
     "message": "fix(client): harden settings describe mirror",
+    "committedAt": "2026-08-18T15:26:16+08:00",
     "sourceFiles": [
       "packages/client/ui-settings/src/client/settings-mirror.ts"
     ],
@@ -77,7 +52,9 @@
   {
     "commit": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
     "parent": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1^",
+    "package": "packages/client/ui-conversation",
     "message": "fix(ui-conversation): render the terminal turn error after same-turn retries exhaust",
+    "committedAt": "2026-08-20T18:19:30+08:00",
     "sourceFiles": [
       "packages/client/ui-conversation/src/client/conversation-nodes/turn-error.ts"
     ],
@@ -91,7 +68,9 @@
   {
     "commit": "54dd75a96973b27212754b7000c1f93d02293570",
     "parent": "54dd75a96973b27212754b7000c1f93d02293570^",
+    "package": "packages/boot/cmdline",
     "message": "refactor(cmdline): run the program's own commander action instead of a plan callback",
+    "committedAt": "2026-08-12T13:07:41+08:00",
     "sourceFiles": [
       "packages/boot/cmdline/src/index.ts"
     ],
@@ -105,7 +84,9 @@
   {
     "commit": "87f4e0b28e621de4c84bef11b895070b3c73efec",
     "parent": "87f4e0b28e621de4c84bef11b895070b3c73efec^",
+    "package": "packages/core/session",
     "message": "fix(session): identify intrinsic JSON prototypes",
+    "committedAt": "2026-07-21T22:41:37+08:00",
     "sourceFiles": [
       "packages/core/session/src/json.ts"
     ],
@@ -119,7 +100,9 @@
   {
     "commit": "be839a8e53c92f06a27f0b48be07cea5c710b87d",
     "parent": "be839a8e53c92f06a27f0b48be07cea5c710b87d^",
+    "package": "packages/code-runtime/code-runtime-python",
     "message": "fix(code-runtime-python): count non-lossless bytes and bind the mirror gate to TS types",
+    "committedAt": "2026-08-07T13:27:54+08:00",
     "sourceFiles": [
       "packages/code-runtime/code-runtime-python/src/protocol.ts"
     ],
@@ -133,7 +116,9 @@
   {
     "commit": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
     "parent": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527^",
+    "package": "packages/core/tools",
     "message": "fix(tools): detect render-phase cycles and fix class-name JSDoc placement",
+    "committedAt": "2026-08-02T15:24:10+08:00",
     "sourceFiles": [
       "packages/core/tools/src/py-types.ts"
     ],
@@ -147,7 +132,9 @@
   {
     "commit": "bddfb7ff0a95bccaa3cd16596d3af4348c7340b1",
     "parent": "bddfb7ff0a95bccaa3cd16596d3af4348c7340b1^",
+    "package": "packages/client/ui-context-graph",
     "message": "refactor: make context graph client self-contained",
+    "committedAt": "2026-08-27T01:07:17+08:00",
     "sourceFiles": [
       "packages/client/ui-context-graph/src/client/index.ts"
     ],
@@ -161,7 +148,9 @@
   {
     "commit": "760bc9aa6a9d3517f6c3e90a910da653652826ce",
     "parent": "760bc9aa6a9d3517f6c3e90a910da653652826ce^",
+    "package": "packages/util/timeout",
     "message": "fix: scope timeoutOf by deadline code so nesting composes (codex round 2)",
+    "committedAt": "2026-07-06T17:07:11+08:00",
     "sourceFiles": [
       "packages/util/timeout/src/index.ts"
     ],
@@ -175,7 +164,9 @@
   {
     "commit": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
     "parent": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b^",
+    "package": "packages/core/session",
     "message": "fix(tools): harden unified JSON value boundaries",
+    "committedAt": "2026-07-21T17:44:46+08:00",
     "sourceFiles": [
       "packages/core/session/src/json.ts"
     ],
@@ -189,7 +180,9 @@
   {
     "commit": "98ebe1315d5a264e30989c845373d961dc7e7495",
     "parent": "98ebe1315d5a264e30989c845373d961dc7e7495^",
+    "package": "packages/code-runtime/code-runtime-python",
     "message": "fix(code-runtime-python): reject -0 call ids and document done value/error",
+    "committedAt": "2026-08-07T13:27:54+08:00",
     "sourceFiles": [
       "packages/code-runtime/code-runtime-python/src/protocol.ts"
     ],
@@ -203,7 +196,9 @@
   {
     "commit": "384cc8c15742e157793179f48dc0db1ca4121e5e",
     "parent": "384cc8c15742e157793179f48dc0db1ca4121e5e^",
+    "package": "packages/core/session",
     "message": "fix(schema): harden realm-safe JSON validation",
+    "committedAt": "2026-07-21T22:11:41+08:00",
     "sourceFiles": [
       "packages/core/session/src/json.ts"
     ],
@@ -215,23 +210,11 @@
     "redExitCode": 1
   },
   {
-    "commit": "0e39055121db9fcd0362d657d2d1dd61530009bb",
-    "parent": "0e39055121db9fcd0362d657d2d1dd61530009bb^",
-    "message": "fix(attachment): refuse oversized image sides at admission",
-    "sourceFiles": [
-      "packages/client/connection/src/client/fixture.ts"
-    ],
-    "testFiles": [
-      "packages/client/connection/tests/fixture.client.spec.ts"
-    ],
-    "insertions": 287,
-    "deletions": 26,
-    "redExitCode": 1
-  },
-  {
     "commit": "104cd5f9755ba30c483077872fbcc5c852c00566",
     "parent": "104cd5f9755ba30c483077872fbcc5c852c00566^",
+    "package": "packages/code-runtime/code-runtime-python",
     "message": "fix(code-runtime-python): bound checkDoneValue object metering in O(cap)",
+    "committedAt": "2026-08-07T13:27:54+08:00",
     "sourceFiles": [
       "packages/code-runtime/code-runtime-python/src/protocol.ts"
     ],
@@ -243,23 +226,11 @@
     "redExitCode": 1
   },
   {
-    "commit": "5201b84863e7a89d3de177be17e398c9038eca07",
-    "parent": "5201b84863e7a89d3de177be17e398c9038eca07^",
-    "message": "fix(web): avoid history pagination stack overflow",
-    "sourceFiles": [
-      "packages/host/apiproxy/src/api-proxy.ts"
-    ],
-    "testFiles": [
-      "packages/host/apiproxy/tests/api-proxy-view.spec.ts"
-    ],
-    "insertions": 106,
-    "deletions": 2,
-    "redExitCode": 1
-  },
-  {
     "commit": "8f5c592b9f8390d0309c8c93f245d650943702c6",
     "parent": "8f5c592b9f8390d0309c8c93f245d650943702c6^",
+    "package": "packages/core/session",
     "message": "fix(session): break chunk runs on time gaps that cannot subtract exactly",
+    "committedAt": "2026-07-15T22:44:32+08:00",
     "sourceFiles": [
       "packages/core/session/src/chunk-rows.ts"
     ],
@@ -268,20 +239,6 @@
     ],
     "insertions": 60,
     "deletions": 11,
-    "redExitCode": 1
-  },
-  {
-    "commit": "0cb922199d6c5341558640bb6f8a19bb1123b2e9",
-    "parent": "0cb922199d6c5341558640bb6f8a19bb1123b2e9^",
-    "message": "fix(apiproxy): open config files through Windows on WSL",
-    "sourceFiles": [
-      "packages/host/apiproxy/src/native-path-opener.ts"
-    ],
-    "testFiles": [
-      "packages/host/apiproxy/tests/native-path-opener.spec.ts"
-    ],
-    "insertions": 128,
-    "deletions": 26,
     "redExitCode": 1
   }
 ]
