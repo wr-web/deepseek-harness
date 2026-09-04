@@ -1,0 +1,287 @@
+[
+  {
+    "commit": "0a95a9eed85e2a1b98549a21614810c536eab681",
+    "parent": "0a95a9eed85e2a1b98549a21614810c536eab681^",
+    "message": "fix(session): refuse foreign format versions before parsing current structure",
+    "sourceFiles": [
+      "packages/session/session-persistence-jsonl/src/format.ts",
+      "packages/session/session-persistence-jsonl/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/session/session-persistence-jsonl/tests/jsonl.spec.ts"
+    ],
+    "insertions": 112,
+    "deletions": 40,
+    "redExitCode": 1
+  },
+  {
+    "commit": "4dd1be1a1fbb5e77ee627a90957d95cfab8aa0af",
+    "parent": "4dd1be1a1fbb5e77ee627a90957d95cfab8aa0af^",
+    "message": "refactor: rename agent teams service key",
+    "sourceFiles": [
+      "packages/experimental/agent-team/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/experimental/agent-team/tests/persistence.spec.ts",
+      "packages/experimental/agent-team/tests/team.spec.ts"
+    ],
+    "insertions": 192,
+    "deletions": 192,
+    "redExitCode": 1
+  },
+  {
+    "commit": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "parent": "0e39055121db9fcd0362d657d2d1dd61530009bb^",
+    "message": "fix(attachment): refuse oversized image sides at admission",
+    "sourceFiles": [
+      "packages/fs/tool-fs/src/read-image.ts"
+    ],
+    "testFiles": [
+      "packages/fs/tool-fs/tests/read-image.spec.ts"
+    ],
+    "insertions": 287,
+    "deletions": 26,
+    "redExitCode": 1
+  },
+  {
+    "commit": "b5ec489c9fcc4eaee515d1e6bb52744b75190fe8",
+    "parent": "b5ec489c9fcc4eaee515d1e6bb52744b75190fe8^",
+    "message": "refactor(typert): share type node traversal",
+    "sourceFiles": [
+      "packages/typert/generator/src/cordis-catalog.ts",
+      "packages/typert/generator/src/model.ts",
+      "packages/typert/generator/src/renderer.ts"
+    ],
+    "testFiles": [
+      "packages/typert/generator/tests/renderer.spec.ts"
+    ],
+    "insertions": 81,
+    "deletions": 71,
+    "redExitCode": 1
+  },
+  {
+    "commit": "cf7d485b5ecd0cecc98e5b0534ef939d12b1e3b3",
+    "parent": "cf7d485b5ecd0cecc98e5b0534ef939d12b1e3b3^",
+    "message": "fix(client): harden settings describe mirror",
+    "sourceFiles": [
+      "packages/client/ui-settings/src/client/settings-mirror.ts"
+    ],
+    "testFiles": [
+      "packages/client/ui-settings/tests/settings-mirror.client.spec.ts",
+      "packages/client/ui-settings/tests/settings-scope.client.spec.ts"
+    ],
+    "insertions": 285,
+    "deletions": 80,
+    "redExitCode": 1
+  },
+  {
+    "commit": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "parent": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1^",
+    "message": "fix(ui-conversation): render the terminal turn error after same-turn retries exhaust",
+    "sourceFiles": [
+      "packages/client/ui-conversation/src/client/conversation-nodes/turn-error.ts"
+    ],
+    "testFiles": [
+      "packages/client/ui-conversation/tests/conversation-node-definitions.client.spec.ts"
+    ],
+    "insertions": 223,
+    "deletions": 71,
+    "redExitCode": 1
+  },
+  {
+    "commit": "54dd75a96973b27212754b7000c1f93d02293570",
+    "parent": "54dd75a96973b27212754b7000c1f93d02293570^",
+    "message": "refactor(cmdline): run the program's own commander action instead of a plan callback",
+    "sourceFiles": [
+      "packages/boot/cmdline/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/boot/cmdline/tests/cmdline.spec.ts"
+    ],
+    "insertions": 226,
+    "deletions": 113,
+    "redExitCode": 1
+  },
+  {
+    "commit": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "parent": "87f4e0b28e621de4c84bef11b895070b3c73efec^",
+    "message": "fix(session): identify intrinsic JSON prototypes",
+    "sourceFiles": [
+      "packages/core/session/src/json.ts"
+    ],
+    "testFiles": [
+      "packages/core/session/tests/json.spec.ts"
+    ],
+    "insertions": 26,
+    "deletions": 5,
+    "redExitCode": 1
+  },
+  {
+    "commit": "be839a8e53c92f06a27f0b48be07cea5c710b87d",
+    "parent": "be839a8e53c92f06a27f0b48be07cea5c710b87d^",
+    "message": "fix(code-runtime-python): count non-lossless bytes and bind the mirror gate to TS types",
+    "sourceFiles": [
+      "packages/code-runtime/code-runtime-python/src/protocol.ts"
+    ],
+    "testFiles": [
+      "packages/code-runtime/code-runtime-python/tests/protocol.spec.ts"
+    ],
+    "insertions": 89,
+    "deletions": 31,
+    "redExitCode": 1
+  },
+  {
+    "commit": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "parent": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527^",
+    "message": "fix(tools): detect render-phase cycles and fix class-name JSDoc placement",
+    "sourceFiles": [
+      "packages/core/tools/src/py-types.ts"
+    ],
+    "testFiles": [
+      "packages/core/tools/tests/py-types.spec.ts"
+    ],
+    "insertions": 65,
+    "deletions": 2,
+    "redExitCode": 1
+  },
+  {
+    "commit": "bddfb7ff0a95bccaa3cd16596d3af4348c7340b1",
+    "parent": "bddfb7ff0a95bccaa3cd16596d3af4348c7340b1^",
+    "message": "refactor: make context graph client self-contained",
+    "sourceFiles": [
+      "packages/client/ui-context-graph/src/client/index.ts"
+    ],
+    "testFiles": [
+      "packages/client/ui-context-graph/tests/plugin.client.spec.ts"
+    ],
+    "insertions": 63,
+    "deletions": 52,
+    "redExitCode": 1
+  },
+  {
+    "commit": "760bc9aa6a9d3517f6c3e90a910da653652826ce",
+    "parent": "760bc9aa6a9d3517f6c3e90a910da653652826ce^",
+    "message": "fix: scope timeoutOf by deadline code so nesting composes (codex round 2)",
+    "sourceFiles": [
+      "packages/util/timeout/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/util/timeout/tests/timeout.spec.ts"
+    ],
+    "insertions": 59,
+    "deletions": 21,
+    "redExitCode": 1
+  },
+  {
+    "commit": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "parent": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b^",
+    "message": "fix(tools): harden unified JSON value boundaries",
+    "sourceFiles": [
+      "packages/core/session/src/json.ts"
+    ],
+    "testFiles": [
+      "packages/core/session/tests/json.spec.ts"
+    ],
+    "insertions": 155,
+    "deletions": 31,
+    "redExitCode": 1
+  },
+  {
+    "commit": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "parent": "98ebe1315d5a264e30989c845373d961dc7e7495^",
+    "message": "fix(code-runtime-python): reject -0 call ids and document done value/error",
+    "sourceFiles": [
+      "packages/code-runtime/code-runtime-python/src/protocol.ts"
+    ],
+    "testFiles": [
+      "packages/code-runtime/code-runtime-python/tests/protocol.spec.ts"
+    ],
+    "insertions": 20,
+    "deletions": 4,
+    "redExitCode": 1
+  },
+  {
+    "commit": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "parent": "384cc8c15742e157793179f48dc0db1ca4121e5e^",
+    "message": "fix(schema): harden realm-safe JSON validation",
+    "sourceFiles": [
+      "packages/core/session/src/json.ts"
+    ],
+    "testFiles": [
+      "packages/core/session/tests/json.spec.ts"
+    ],
+    "insertions": 46,
+    "deletions": 4,
+    "redExitCode": 1
+  },
+  {
+    "commit": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "parent": "0e39055121db9fcd0362d657d2d1dd61530009bb^",
+    "message": "fix(attachment): refuse oversized image sides at admission",
+    "sourceFiles": [
+      "packages/client/connection/src/client/fixture.ts"
+    ],
+    "testFiles": [
+      "packages/client/connection/tests/fixture.client.spec.ts"
+    ],
+    "insertions": 287,
+    "deletions": 26,
+    "redExitCode": 1
+  },
+  {
+    "commit": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "parent": "104cd5f9755ba30c483077872fbcc5c852c00566^",
+    "message": "fix(code-runtime-python): bound checkDoneValue object metering in O(cap)",
+    "sourceFiles": [
+      "packages/code-runtime/code-runtime-python/src/protocol.ts"
+    ],
+    "testFiles": [
+      "packages/code-runtime/code-runtime-python/tests/protocol.spec.ts"
+    ],
+    "insertions": 33,
+    "deletions": 8,
+    "redExitCode": 1
+  },
+  {
+    "commit": "5201b84863e7a89d3de177be17e398c9038eca07",
+    "parent": "5201b84863e7a89d3de177be17e398c9038eca07^",
+    "message": "fix(web): avoid history pagination stack overflow",
+    "sourceFiles": [
+      "packages/host/apiproxy/src/api-proxy.ts"
+    ],
+    "testFiles": [
+      "packages/host/apiproxy/tests/api-proxy-view.spec.ts"
+    ],
+    "insertions": 106,
+    "deletions": 2,
+    "redExitCode": 1
+  },
+  {
+    "commit": "8f5c592b9f8390d0309c8c93f245d650943702c6",
+    "parent": "8f5c592b9f8390d0309c8c93f245d650943702c6^",
+    "message": "fix(session): break chunk runs on time gaps that cannot subtract exactly",
+    "sourceFiles": [
+      "packages/core/session/src/chunk-rows.ts"
+    ],
+    "testFiles": [
+      "packages/core/session/tests/chunk-rows.spec.ts"
+    ],
+    "insertions": 60,
+    "deletions": 11,
+    "redExitCode": 1
+  },
+  {
+    "commit": "0cb922199d6c5341558640bb6f8a19bb1123b2e9",
+    "parent": "0cb922199d6c5341558640bb6f8a19bb1123b2e9^",
+    "message": "fix(apiproxy): open config files through Windows on WSL",
+    "sourceFiles": [
+      "packages/host/apiproxy/src/native-path-opener.ts"
+    ],
+    "testFiles": [
+      "packages/host/apiproxy/tests/native-path-opener.spec.ts"
+    ],
+    "insertions": 128,
+    "deletions": 26,
+    "redExitCode": 1
+  }
+]
