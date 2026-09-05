@@ -5,9 +5,11 @@
  * Not a unit test. Runs two of the design spec's six arms — A (no recall)
  * and D (full system: inject the paired base checkpoint) — against a real
  * model, on a small, cost-controlled slice of layer2-taskset.json /
- * context-pairs.json. n=1 per task/arm: a pilot proving the harness and
- * giving a first real number, not the n>=10 paired trial the full design
- * calls for (that needs a real budget this run deliberately avoids).
+ * context-pairs.json. TRIALS repeats per task/arm (default 10, matching the
+ * design spec's own "n>=10, agent 方差很大，n=1 的对比是噪声" minimum): the
+ * first three single-shot pilots each gave a different answer for the same
+ * task/arm pair at temperature 0, which is exactly the noise this many
+ * repeats exists to average out.
  *
  * For each task: reconstructs the real RED state (parent's source + the
  * commit's own test, exactly like build-layer2-taskset.ts), asks the model
@@ -27,7 +29,7 @@
  * any file in this repository.
  *
  * Run from the repository root:
- *   npx tsx packages/context/context-graph/scripts/run-layer2-pilot.ts
+ *   npx tsx packages/context/context-graph/scripts/run-layer2-pilot.ts [trials]
  */
 
 import { execFileSync } from 'node:child_process'
@@ -53,6 +55,8 @@ const SELECTED_COMMITS = [
   '8f5c592b9f8390d0309c8c93f245d650943702c6', // fix(session): break chunk runs on time gaps that cannot subtract exactly
 ]
 
+const TRIALS = Number(process.argv[2] ?? 10)
+
 interface ValidatedTask {
   readonly commit: string
   readonly parent: string
@@ -77,12 +81,20 @@ interface Usage {
 interface ArmResult {
   readonly task: string
   readonly arm: 'A' | 'D'
+  readonly trial: number
   readonly success: boolean
   readonly usage: Usage
   readonly finishReason: string
   /** Saved on failure only, so a truncated or malformed response is diagnosable without rerunning (and spending more budget). */
   readonly rawContent?: string
   readonly reasoningContentLength?: number
+}
+
+function median(values: readonly number[]): number | undefined {
+  if (values.length === 0) return undefined
+  const sorted = [...values].sort((left, right) => left - right)
+  const mid = Math.floor(sorted.length / 2)
+  return sorted.length % 2 === 0 ? ((sorted[mid - 1] ?? 0) + (sorted[mid] ?? 0)) / 2 : sorted[mid]
 }
 
 function git(args: string[], cwd: string): string {
@@ -193,7 +205,8 @@ function buildPrompt(task: ValidatedTask, sourceContent: string, testContent: st
 }
 
 async function runArm(
-  cwd: string, task: ValidatedTask, arm: 'A' | 'D', redSnapshot: ReadonlyMap<string, Buffer>, recallBlock: string | undefined,
+  cwd: string, task: ValidatedTask, arm: 'A' | 'D', trial: number,
+  redSnapshot: ReadonlyMap<string, Buffer>, recallBlock: string | undefined,
 ): Promise<ArmResult> {
   const sourcePath = task.sourceFiles[0]
   const testPath = task.testFiles[0]
@@ -208,7 +221,7 @@ async function runArm(
   if (fixed !== undefined) writeFileSync(join(cwd, sourcePath), fixed)
   const success = fixed !== undefined && runVitestExitCode(cwd, [testPath]) === 0
   return {
-    task: task.commit, arm, success, usage, finishReason,
+    task: task.commit, arm, trial, success, usage, finishReason,
     ...(success ? {} : { rawContent: content, reasoningContentLength: reasoningContent.length }),
   }
 }
@@ -242,9 +255,11 @@ async function main(): Promise<void> {
 
       for (const arm of ['A', 'D'] as const) {
         if (arm === 'D' && recallBlock === undefined) continue // no prior context available for this task
-        const result = await runArm(repoRoot, task, arm, redSnapshot, recallBlock)
-        results.push(result)
-        console.log(`${task.commit.slice(0, 8)} arm ${arm}: ${result.success ? 'PASS' : 'FAIL'} (finish=${result.finishReason}) — input ${result.usage.uncachedInputTokens}+${result.usage.cachedInputTokens}c, output ${result.usage.outputTokens}, total ${result.usage.totalTokens}`)
+        for (let trial = 1; trial <= TRIALS; trial += 1) {
+          const result = await runArm(repoRoot, task, arm, trial, redSnapshot, recallBlock)
+          results.push(result)
+          console.log(`${task.commit.slice(0, 8)} arm ${arm} trial ${trial}/${TRIALS}: ${result.success ? 'PASS' : 'FAIL'} (finish=${result.finishReason}) — input ${result.usage.uncachedInputTokens}+${result.usage.cachedInputTokens}c, output ${result.usage.outputTokens}, total ${result.usage.totalTokens}`)
+        }
       }
     })
   }
@@ -253,18 +268,27 @@ async function main(): Promise<void> {
   console.log(`\nWorking tree clean at exit: ${finalStatus === ''}`)
   if (finalStatus !== '') console.error(`WARNING: working tree not restored cleanly:\n${finalStatus}`)
 
-  console.log('\ntask | A tokens (in+cache/out) | A pass | D tokens (in+cache/out) | D pass | input saved | total saved')
+  console.log('\ntask | arm | success rate | median total tokens (min-max)')
   for (const commit of SELECTED_COMMITS) {
-    const a = results.find(result => result.task === commit && result.arm === 'A')
-    const d = results.find(result => result.task === commit && result.arm === 'D')
-    if (a === undefined) continue
-    const aInput = a.usage.uncachedInputTokens + a.usage.cachedInputTokens
-    const dInput = d === undefined ? undefined : d.usage.uncachedInputTokens + d.usage.cachedInputTokens
-    const inputSaved = dInput === undefined ? undefined : aInput - dInput
-    const totalSaved = d === undefined ? undefined : a.usage.totalTokens - d.usage.totalTokens
-    console.log(`${commit.slice(0, 8)} | ${a.usage.uncachedInputTokens}+${a.usage.cachedInputTokens}/${a.usage.outputTokens} | ${a.success} | ${
-      d === undefined ? 'n/a (no prior context)' : `${d.usage.uncachedInputTokens}+${d.usage.cachedInputTokens}/${d.usage.outputTokens}`
-    } | ${d?.success ?? 'n/a'} | ${inputSaved ?? 'n/a'} | ${totalSaved ?? 'n/a'}`)
+    for (const arm of ['A', 'D'] as const) {
+      const trials = results.filter(result => result.task === commit && result.arm === arm)
+      if (trials.length === 0) continue
+      const successRate = trials.filter(result => result.success).length / trials.length
+      const totals = trials.map(result => result.usage.totalTokens)
+      const min = Math.min(...totals)
+      const max = Math.max(...totals)
+      console.log(`${commit.slice(0, 8)} | ${arm} | ${(successRate * 100).toFixed(0)}% (${trials.length} trials) | ${median(totals)} (${min}-${max})`)
+    }
+  }
+
+  console.log('\ntask | median total tokens saved by D vs A (positive = D cheaper)')
+  for (const commit of SELECTED_COMMITS) {
+    const aTotals = results.filter(result => result.task === commit && result.arm === 'A').map(result => result.usage.totalTokens)
+    const dTotals = results.filter(result => result.task === commit && result.arm === 'D').map(result => result.usage.totalTokens)
+    const aMedian = median(aTotals)
+    const dMedian = median(dTotals)
+    const saved = aMedian === undefined || dMedian === undefined ? undefined : aMedian - dMedian
+    console.log(`${commit.slice(0, 8)} | ${saved ?? 'n/a (no D arm)'}`)
   }
 
   const outPath = join(repoRoot, 'packages/context/context-graph/scripts/layer2-pilot-results.json')
