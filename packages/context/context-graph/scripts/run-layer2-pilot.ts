@@ -79,6 +79,9 @@ interface ArmResult {
   readonly arm: 'A' | 'D'
   readonly success: boolean
   readonly usage: Usage
+  readonly finishReason: string
+  /** Saved on failure only, so a truncated or malformed response is diagnosable without rerunning (and spending more budget). */
+  readonly rawContent?: string
 }
 
 function git(args: string[], cwd: string): string {
@@ -134,21 +137,37 @@ function extractFencedCode(text: string): string | undefined {
   return match?.[1]
 }
 
-async function callModel(messages: Array<{ role: string; content: string }>): Promise<{ content: string; usage: Usage }> {
+// The model's real ceiling is 384,000 output tokens (shared with a 1M-token
+// context) — the earlier 4000/8000 caps were nowhere near it and were almost
+// certainly cutting the response off mid-reasoning, before it ever reached
+// the file rewrite. 32000 leaves generous headroom above what a ~350-line
+// file rewrite plus reasoning should need, without requesting the full
+// ceiling (which would let a genuinely runaway response burn a lot of real
+// budget before this script ever sees it).
+const MAX_TOKENS = 32_000
+
+interface ModelResponse {
+  readonly content: string
+  readonly usage: Usage
+  readonly finishReason: string
+}
+
+async function callModel(messages: Array<{ role: string; content: string }>): Promise<ModelResponse> {
   const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
     method: 'POST',
     headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: MODEL, messages, temperature: 0, max_tokens: 8000 }),
+    body: JSON.stringify({ model: MODEL, messages, temperature: 0, max_tokens: MAX_TOKENS }),
   })
   if (!response.ok) throw new Error(`DeepSeek API error ${response.status}: ${await response.text()}`)
   const body = await response.json() as {
-    choices: Array<{ message: { content: string } }>
+    choices: Array<{ message: { content: string }; finish_reason: string }>
     usage: { prompt_cache_hit_tokens: number; prompt_cache_miss_tokens: number; completion_tokens: number; total_tokens: number }
   }
-  const content = body.choices[0]?.message.content ?? ''
+  const choice = body.choices[0]
   const usage = body.usage
   return {
-    content,
+    content: choice?.message.content ?? '',
+    finishReason: choice?.finish_reason ?? 'unknown',
     usage: {
       uncachedInputTokens: usage.prompt_cache_miss_tokens,
       cachedInputTokens: usage.prompt_cache_hit_tokens,
@@ -176,11 +195,11 @@ async function runArm(
   const sourceContent = readFileSync(join(cwd, sourcePath), 'utf8')
   const testContent = readFileSync(join(cwd, testPath), 'utf8')
   const prompt = buildPrompt(task, sourceContent, testContent, arm === 'D' ? recallBlock : undefined)
-  const { content, usage } = await callModel([{ role: 'user', content: prompt }])
+  const { content, usage, finishReason } = await callModel([{ role: 'user', content: prompt }])
   const fixed = extractFencedCode(content)
   if (fixed !== undefined) writeFileSync(join(cwd, sourcePath), fixed)
   const success = fixed !== undefined && runVitestExitCode(cwd, [testPath]) === 0
-  return { task: task.commit, arm, success, usage }
+  return { task: task.commit, arm, success, usage, finishReason, ...(success ? {} : { rawContent: content }) }
 }
 
 async function main(): Promise<void> {
@@ -214,7 +233,7 @@ async function main(): Promise<void> {
         if (arm === 'D' && recallBlock === undefined) continue // no prior context available for this task
         const result = await runArm(repoRoot, task, arm, redSnapshot, recallBlock)
         results.push(result)
-        console.log(`${task.commit.slice(0, 8)} arm ${arm}: ${result.success ? 'PASS' : 'FAIL'} — input ${result.usage.uncachedInputTokens}+${result.usage.cachedInputTokens}c, output ${result.usage.outputTokens}, total ${result.usage.totalTokens}`)
+        console.log(`${task.commit.slice(0, 8)} arm ${arm}: ${result.success ? 'PASS' : 'FAIL'} (finish=${result.finishReason}) — input ${result.usage.uncachedInputTokens}+${result.usage.cachedInputTokens}c, output ${result.usage.outputTokens}, total ${result.usage.totalTokens}`)
       }
     })
   }
