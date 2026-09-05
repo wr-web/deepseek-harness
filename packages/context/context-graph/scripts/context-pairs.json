@@ -223,5 +223,351 @@
       ],
       "daysBefore": 0.05412037037037037
     }
+  },
+  {
+    "relatedCommit": "327b86d2ea20c4bb8310199e95511eebdcf8eafc",
+    "relatedMessage": "refactor(session-projection): checkpoint every projection unit uniformly",
+    "relatedCommittedAt": "2026-08-19T16:55:10+08:00",
+    "package": "packages/session/session-projection",
+    "base": {
+      "commit": "9127d7e8b7bd17ba70f58e6dc2a8ad69f821722d",
+      "message": "fix(session-projection): keep host state off wire",
+      "committedAt": "2026-08-19T14:32:48+08:00",
+      "sharedSourceFiles": [
+        "packages/session/session-projection/src/index.ts"
+      ],
+      "daysBefore": 0.09886574074074074
+    }
+  },
+  {
+    "relatedCommit": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "relatedMessage": "fix(web): reject unsupported wildcard host",
+    "relatedCommittedAt": "2026-08-13T14:54:22+08:00",
+    "package": "packages/bundle/web-app",
+    "base": {
+      "commit": "54dd75a96973b27212754b7000c1f93d02293570",
+      "message": "refactor(cmdline): run the program's own commander action instead of a plan callback",
+      "committedAt": "2026-08-12T13:07:41+08:00",
+      "sharedSourceFiles": [
+        "packages/bundle/web-app/src/startup.ts"
+      ],
+      "daysBefore": 1.0740856481481482
+    }
+  },
+  {
+    "relatedCommit": "b6b6a72df7d46351cae83e503b41669192014fc6",
+    "relatedMessage": "feat(session-query): ship full-text session search opt-in via openAt never",
+    "relatedCommittedAt": "2026-08-13T11:46:37+08:00",
+    "package": "packages/session-query/session-query-sqlite",
+    "base": {
+      "commit": "a2d0f7f41121ee81911dd1badbf248edd3f2ab70",
+      "message": "refactor: apply repository naming contract",
+      "committedAt": "2026-08-13T00:54:38+08:00",
+      "sharedSourceFiles": [
+        "packages/session-query/session-query-sqlite/src/index.ts"
+      ],
+      "daysBefore": 0.4527662037037037
+    }
+  },
+  {
+    "relatedCommit": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "relatedMessage": "fix(tools): escape unpaired surrogates and state the Cf boundary by category",
+    "relatedCommittedAt": "2026-08-05T18:21:43+08:00",
+    "package": "packages/core/tools",
+    "base": {
+      "commit": "308f5ae0f35548946e4db8f2f05de1822394876f",
+      "message": "fix(tools): escape the whole C1 control range, not just NEL",
+      "committedAt": "2026-08-05T17:59:48+08:00",
+      "sharedSourceFiles": [
+        "packages/core/tools/src/py-types.ts"
+      ],
+      "daysBefore": 0.015219907407407408
+    }
+  },
+  {
+    "relatedCommit": "600f3a3110135454a14228d1380420d258722194",
+    "relatedMessage": "fix(frontend-static): return 404 for a missing index",
+    "relatedCommittedAt": "2026-08-20T20:03:18+08:00",
+    "package": "packages/host/frontend-static",
+    "base": {
+      "commit": "92723cafeb5547fd303e6c5fca9836dc783d0ceb",
+      "message": "fix(frontend-static): return 404 for missing paths",
+      "committedAt": "2026-08-20T20:02:11+08:00",
+      "sharedSourceFiles": [
+        "packages/host/frontend-static/src/index.ts"
+      ],
+      "daysBefore": 0.0007754629629629629
+    }
+  },
+  {
+    "relatedCommit": "0ca0f3d0b865397906d229e73cce7ad83d9194df",
+    "relatedMessage": "refactor(llm): use one five-retry default",
+    "relatedCommittedAt": "2026-08-18T16:33:22+08:00",
+    "package": "packages/llm/llm",
+    "base": {
+      "commit": "1dbafe29736e20ddcf814280dedb6a9de28dd351",
+      "message": "refactor(llm): centralize deployment retry defaults",
+      "committedAt": "2026-08-18T15:14:09+08:00",
+      "sharedSourceFiles": [
+        "packages/llm/llm/src/index.ts",
+        "packages/llm/llm/src/retry-policy.ts"
+      ],
+      "daysBefore": 0.055011574074074074
+    }
+  },
+  {
+    "relatedCommit": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "relatedMessage": "fix(tools): emit Python SDK members in one lexicographic stream",
+    "relatedCommittedAt": "2026-08-05T12:59:20+08:00",
+    "package": "packages/core/tools",
+    "base": {
+      "commit": "0d6191d0db18203941760c8b8ea6c5085adddafe",
+      "message": "test(tools): make the deep oneOf-object test a real quadratic tripwire",
+      "committedAt": "2026-08-02T17:48:33+08:00",
+      "sharedSourceFiles": [
+        "packages/core/tools/src/py-types.ts"
+      ],
+      "daysBefore": 2.7991550925925925
+    }
+  },
+  {
+    "relatedCommit": "8debb798d8c2d82d671183bbb07e05f2961f5291",
+    "relatedMessage": "fix(subagent): bound Codex process settlement",
+    "relatedCommittedAt": "2026-08-18T23:59:43+08:00",
+    "package": "packages/subagent/subagent-codex",
+    "base": {
+      "commit": "7fb9de99b5bace643816888f5af6736da8c15187",
+      "message": "fix(subagent): close Codex failure result gaps",
+      "committedAt": "2026-08-18T23:06:14+08:00",
+      "sharedSourceFiles": [
+        "packages/subagent/subagent-codex/src/run.ts"
+      ],
+      "daysBefore": 0.037141203703703704
+    }
+  },
+  {
+    "relatedCommit": "5d65686c33c43c2716aae043ac5aafbadce7d5e8",
+    "relatedMessage": "feat(tools): accept Unicode Python identifiers in the Python SDK renderer",
+    "relatedCommittedAt": "2026-08-05T20:03:39+08:00",
+    "package": "packages/core/tools",
+    "base": {
+      "commit": "ba634896e00f7876d427fe4094eb932bab9ffe5d",
+      "message": "docs(tools): name the boundary that rejects a padded integer, and what the flavor-guard test actually reads",
+      "committedAt": "2026-08-05T19:44:05+08:00",
+      "sharedSourceFiles": [
+        "packages/core/tools/src/py-types.ts"
+      ],
+      "daysBefore": 0.013587962962962963
+    }
+  },
+  {
+    "relatedCommit": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "relatedMessage": "fix(tools): preserve literal and realm-safe schemas",
+    "relatedCommittedAt": "2026-07-21T21:37:11+08:00",
+    "package": "packages/core/session",
+    "base": {
+      "commit": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+      "message": "fix(tools): harden unified JSON value boundaries",
+      "committedAt": "2026-07-21T17:44:46+08:00",
+      "sharedSourceFiles": [
+        "packages/core/session/src/json.ts"
+      ],
+      "daysBefore": 0.16140046296296295
+    }
+  },
+  {
+    "relatedCommit": "72884ec430e131581891f17d50625a62e79d3641",
+    "relatedMessage": "fix(subagent): merge terminal and process facts",
+    "relatedCommittedAt": "2026-08-19T01:10:29+08:00",
+    "package": "packages/subagent/subagent-codex",
+    "base": {
+      "commit": "8debb798d8c2d82d671183bbb07e05f2961f5291",
+      "message": "fix(subagent): bound Codex process settlement",
+      "committedAt": "2026-08-18T23:59:43+08:00",
+      "sharedSourceFiles": [
+        "packages/subagent/subagent-codex/src/run.ts"
+      ],
+      "daysBefore": 0.04914351851851852
+    }
+  },
+  {
+    "relatedCommit": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "relatedMessage": "fix(attachment): distinguish admission from storage failures",
+    "relatedCommittedAt": "2026-08-12T17:48:17+08:00",
+    "package": "packages/acp/acp",
+    "base": {
+      "commit": "4f87c1fe6d6911809aaaaf0c30e4ceeeef5c13ea",
+      "message": "feat(acp): bridge durable image prompts and replies",
+      "committedAt": "2026-08-12T17:48:17+08:00",
+      "sharedSourceFiles": [
+        "packages/acp/acp/src/content.ts"
+      ],
+      "daysBefore": 0
+    }
+  },
+  {
+    "relatedCommit": "1c77a78d6ac16a49f6821a60fa1ae285ae5e885d",
+    "relatedMessage": "perf(session): reuse immutable persistence seed",
+    "relatedCommittedAt": "2026-08-19T13:31:07+08:00",
+    "package": "packages/session/session-persistence",
+    "base": {
+      "commit": "0c708cb10dd7d37bb959b2c25fc583fbf090652e",
+      "message": "refactor: replace overloaded surface terminology",
+      "committedAt": "2026-08-11T15:23:05+08:00",
+      "sharedSourceFiles": [
+        "packages/session/session-persistence/src/coordinator.ts"
+      ],
+      "daysBefore": 7.92224537037037
+    }
+  },
+  {
+    "relatedCommit": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "relatedMessage": "fix(code-runtime-python): make checkDoneValue over-budget precedence order-independent",
+    "relatedCommittedAt": "2026-08-07T13:27:54+08:00",
+    "package": "packages/code-runtime/code-runtime-python",
+    "base": {
+      "commit": "b4487485c2abca310e6d42a991dc802ac4d46430",
+      "message": "docs(code-runtime-python): correct ownValues allocation claim",
+      "committedAt": "2026-08-07T13:27:54+08:00",
+      "sharedSourceFiles": [
+        "packages/code-runtime/code-runtime-python/src/protocol.ts"
+      ],
+      "daysBefore": 0
+    }
+  },
+  {
+    "relatedCommit": "d00590c707fcf60427132fdcf18584b1a18f0c81",
+    "relatedMessage": "docs: replace nonexistent repository references",
+    "relatedCommittedAt": "2026-08-11T12:35:38+08:00",
+    "package": "packages/llm/llm",
+    "base": {
+      "commit": "6d09c315b93d3a5223cc31c30f99083af5530428",
+      "message": "cleanup: remove private repository references",
+      "committedAt": "2026-08-08T01:10:57+08:00",
+      "sharedSourceFiles": [
+        "packages/llm/llm/src/attribution.ts"
+      ],
+      "daysBefore": 3.4754745370370372
+    }
+  },
+  {
+    "relatedCommit": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "relatedMessage": "fix(credentials): name reference update event explicitly",
+    "relatedCommittedAt": "2026-08-20T17:58:39+08:00",
+    "package": "packages/client/ui-settings-models",
+    "base": {
+      "commit": "cf7d485b5ecd0cecc98e5b0534ef939d12b1e3b3",
+      "message": "fix(client): harden settings describe mirror",
+      "committedAt": "2026-08-18T15:26:16+08:00",
+      "sharedSourceFiles": [
+        "packages/client/ui-settings-models/src/client/index.ts"
+      ],
+      "daysBefore": 2.105821759259259
+    }
+  },
+  {
+    "relatedCommit": "1614f196868067740bab981fee996e34f0069a5e",
+    "relatedMessage": "fix(tools): amortize class-name allocation and tighten py-types render contract",
+    "relatedCommittedAt": "2026-08-02T14:50:01+08:00",
+    "package": "packages/core/tools",
+    "base": {
+      "commit": "d7b4b014eba1f0f692a03e3660ca3aba44f581cc",
+      "message": "fix(tools): make py-types render total and bound deep class names",
+      "committedAt": "2026-08-02T14:32:35+08:00",
+      "sharedSourceFiles": [
+        "packages/core/tools/src/py-types.ts"
+      ],
+      "daysBefore": 0.012106481481481482
+    }
+  },
+  {
+    "relatedCommit": "dff9462bea24f72755da4ebdb1a1efbf9da4bf39",
+    "relatedMessage": "fix(subagent): use Job wording in background ack",
+    "relatedCommittedAt": "2026-08-13T16:09:53+08:00",
+    "package": "packages/subagent/tool-subagent",
+    "base": {
+      "commit": "a2d0f7f41121ee81911dd1badbf248edd3f2ab70",
+      "message": "refactor: apply repository naming contract",
+      "committedAt": "2026-08-13T00:54:38+08:00",
+      "sharedSourceFiles": [
+        "packages/subagent/tool-subagent/src/index.ts"
+      ],
+      "daysBefore": 0.6355902777777778
+    }
+  },
+  {
+    "relatedCommit": "d7b4b014eba1f0f692a03e3660ca3aba44f581cc",
+    "relatedMessage": "fix(tools): make py-types render total and bound deep class names",
+    "relatedCommittedAt": "2026-08-02T14:32:35+08:00",
+    "package": "packages/core/tools",
+    "base": {
+      "commit": "59affddfc5cc5b7e70b864031eb7d647d832d883",
+      "message": "docs(tools): align Code Mode docs with multi-language dispatch; py-types notes",
+      "committedAt": "2026-08-02T13:55:28+08:00",
+      "sharedSourceFiles": [
+        "packages/core/tools/src/py-types.ts"
+      ],
+      "daysBefore": 0.025775462962962962
+    }
+  },
+  {
+    "relatedCommit": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "relatedMessage": "fix(session-export): distinguish unsupported raw artifacts",
+    "relatedCommittedAt": "2026-08-11T15:04:35+08:00",
+    "package": "packages/session/session-persistence",
+    "base": {
+      "commit": "ab0b76d0a38af2ba4900d585cb5eb3d0e97cd897",
+      "message": "fix(session): reject readRaw abort with an Error to satisfy contracts lint",
+      "committedAt": "2026-08-11T13:20:23+08:00",
+      "sharedSourceFiles": [
+        "packages/session/session-persistence/src/index.ts"
+      ],
+      "daysBefore": 0.07236111111111111
+    }
+  },
+  {
+    "relatedCommit": "e2556c51bf957bca4ddd0c8ffdd2c1e75fc9a9e9",
+    "relatedMessage": "fix(mcp-client): distinguish failure from loss",
+    "relatedCommittedAt": "2026-08-11T00:05:06+08:00",
+    "package": "packages/mcp/mcp-client",
+    "base": {
+      "commit": "442f0ef839dad5cf1b6d966ddb34a85ba8dcb0c2",
+      "message": "fix(mcp-client): bind strict sync to activation",
+      "committedAt": "2026-08-11T00:00:27+08:00",
+      "sharedSourceFiles": [
+        "packages/mcp/mcp-client/src/connection.ts"
+      ],
+      "daysBefore": 0.0032291666666666666
+    }
+  },
+  {
+    "relatedCommit": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "relatedMessage": "fix(credentials): name reference update event explicitly",
+    "relatedCommittedAt": "2026-08-20T17:58:39+08:00",
+    "package": "packages/credentials/credentials",
+    "base": {
+      "commit": "9eaaeaeb9602b46dc4d00c542ed16704435cc005",
+      "message": "fix(credentials,authorization,llm-pi-ai): harden the auth seams per review",
+      "committedAt": "2026-08-20T17:58:38+08:00",
+      "sharedSourceFiles": [
+        "packages/credentials/credentials/src/index.ts"
+      ],
+      "daysBefore": 0.000011574074074074073
+    }
+  },
+  {
+    "relatedCommit": "ca119b0e1034e17b028bbeb522c112f374408264",
+    "relatedMessage": "fix(web-plugin-config): address review — one options snapshot per search, no public value exports",
+    "relatedCommittedAt": "2026-08-11T11:16:42+08:00",
+    "package": "packages/web/web-search-deepseek",
+    "base": {
+      "commit": "f736e6f58473eb388c3c598c63d2f4340291f21b",
+      "message": "feat(web-search-deepseek): resolve provider options from the settings section",
+      "committedAt": "2026-08-10T18:06:27+08:00",
+      "sharedSourceFiles": [
+        "packages/web/web-search-deepseek/src/provider.ts"
+      ],
+      "daysBefore": 0.7154513888888889
+    }
   }
 ]

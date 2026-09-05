@@ -4,12 +4,15 @@
  *
  * Not a unit test. Runs two of the design spec's six arms — A (no recall)
  * and D (full system: inject the paired base checkpoint) — against a real
- * model, on a small, cost-controlled slice of layer2-taskset.json /
- * context-pairs.json. TRIALS repeats per task/arm (default 10, matching the
- * design spec's own "n>=10, agent 方差很大，n=1 的对比是噪声" minimum): the
- * first three single-shot pilots each gave a different answer for the same
- * task/arm pair at temperature 0, which is exactly the noise this many
- * repeats exists to average out.
+ * model, over every single-source/single-test-file task in
+ * layer2-taskset.json that has a paired base commit in context-pairs.json
+ * (not a hand-picked 3 anymore: a 3-task sample can't say anything about
+ * whether recall value depends on how much and how recent the prior related
+ * work is, which needs enough tasks spanning a range of `daysBefore` to
+ * even ask the question). TRIALS repeats per task/arm (default 5 — lower
+ * than the earlier 3-task pilot's 10, trading depth for breadth now that a
+ * fixed-configuration run showed this model is close to deterministic per
+ * task, and to keep total call count bounded across many more tasks).
  *
  * For each task: reconstructs the real RED state (parent's source + the
  * commit's own test, exactly like build-layer2-taskset.ts), asks the model
@@ -29,7 +32,7 @@
  * any file in this repository.
  *
  * Run from the repository root:
- *   npx tsx packages/context/context-graph/scripts/run-layer2-pilot.ts [trials]
+ *   npx tsx packages/context/context-graph/scripts/run-layer2-pilot.ts [trials] [maxTasks]
  */
 
 import { execFileSync } from 'node:child_process'
@@ -44,18 +47,8 @@ if (API_KEY === undefined || API_KEY === '') {
   process.exit(1)
 }
 
-// Deliberately small and diverse: three different packages, each with a
-// single ~150-350 line source file and a same-scale test file, so a
-// full-file rewrite is cheap and reliable to parse back out of the model's
-// response. Picked from the 15 PASS_TO_PASS-validated tasks in
-// layer2-taskset.json by smallest diff size per package.
-const SELECTED_COMMITS = [
-  '87f4e0b28e621de4c84bef11b895070b3c73efec', // fix(session): identify intrinsic JSON prototypes
-  '760bc9aa6a9d3517f6c3e90a910da653652826ce', // fix: scope timeoutOf by deadline code so nesting composes
-  '8f5c592b9f8390d0309c8c93f245d650943702c6', // fix(session): break chunk runs on time gaps that cannot subtract exactly
-]
-
-const TRIALS = Number(process.argv[2] ?? 10)
+const TRIALS = Number(process.argv[2] ?? 5)
+const MAX_TASKS = Number(process.argv[3] ?? Number.POSITIVE_INFINITY)
 
 interface ValidatedTask {
   readonly commit: string
@@ -68,7 +61,7 @@ interface ValidatedTask {
 
 interface PairingRecord {
   readonly relatedCommit: string
-  readonly base?: { readonly commit: string; readonly message: string }
+  readonly base?: { readonly commit: string; readonly message: string; readonly daysBefore: number }
 }
 
 interface Usage {
@@ -237,11 +230,15 @@ async function main(): Promise<void> {
   const tasks: ValidatedTask[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/layer2-taskset.json'), 'utf8'))
   const pairs: PairingRecord[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/context-pairs.json'), 'utf8'))
 
+  const selected = tasks
+    .filter(task => task.sourceFiles.length === 1 && task.testFiles.length === 1)
+    .map(task => ({ task, pair: pairs.find(item => item.relatedCommit === task.commit)?.base }))
+    .filter((item): item is { task: ValidatedTask; pair: NonNullable<PairingRecord['base']> } => item.pair !== undefined)
+    .slice(0, MAX_TASKS)
+  console.log(`Running ${selected.length} tasks x up to 2 arms x ${TRIALS} trials (${selected.length * TRIALS * 2} calls at most)`)
+
   const results: ArmResult[] = []
-  for (const commit of SELECTED_COMMITS) {
-    const task = tasks.find(item => item.commit === commit)
-    if (task === undefined) throw new Error(`selected commit ${commit} not found in layer2-taskset.json`)
-    const pair = pairs.find(item => item.relatedCommit === commit)?.base
+  for (const { task, pair } of selected) {
     const touched = [...task.sourceFiles, ...task.testFiles]
 
     await withRestoredFiles(repoRoot, touched, async () => {
@@ -249,12 +246,9 @@ async function main(): Promise<void> {
       for (const path of task.testFiles) writeBlob(repoRoot, task.commit, path)
       const redSnapshot = new Map(touched.map(path => [path, readFileSync(join(repoRoot, path))]))
 
-      const recallBlock = pair === undefined
-        ? undefined
-        : renderRecallBlock(pair.message, git(['diff', `${pair.commit}^`, pair.commit, '--', ...task.sourceFiles], repoRoot))
+      const recallBlock = renderRecallBlock(pair.message, git(['diff', `${pair.commit}^`, pair.commit, '--', ...task.sourceFiles], repoRoot))
 
       for (const arm of ['A', 'D'] as const) {
-        if (arm === 'D' && recallBlock === undefined) continue // no prior context available for this task
         for (let trial = 1; trial <= TRIALS; trial += 1) {
           const result = await runArm(repoRoot, task, arm, trial, redSnapshot, recallBlock)
           results.push(result)
@@ -268,28 +262,46 @@ async function main(): Promise<void> {
   console.log(`\nWorking tree clean at exit: ${finalStatus === ''}`)
   if (finalStatus !== '') console.error(`WARNING: working tree not restored cleanly:\n${finalStatus}`)
 
-  console.log('\ntask | arm | success rate | median total tokens (min-max)')
-  for (const commit of SELECTED_COMMITS) {
-    for (const arm of ['A', 'D'] as const) {
-      const trials = results.filter(result => result.task === commit && result.arm === arm)
-      if (trials.length === 0) continue
-      const successRate = trials.filter(result => result.success).length / trials.length
-      const totals = trials.map(result => result.usage.totalTokens)
-      const min = Math.min(...totals)
-      const max = Math.max(...totals)
-      console.log(`${commit.slice(0, 8)} | ${arm} | ${(successRate * 100).toFixed(0)}% (${trials.length} trials) | ${median(totals)} (${min}-${max})`)
-    }
-  }
-
-  console.log('\ntask | median total tokens saved by D vs A (positive = D cheaper)')
-  for (const commit of SELECTED_COMMITS) {
-    const aTotals = results.filter(result => result.task === commit && result.arm === 'A').map(result => result.usage.totalTokens)
-    const dTotals = results.filter(result => result.task === commit && result.arm === 'D').map(result => result.usage.totalTokens)
+  console.log('\ntask | daysBefore | A success | A median tokens | D success | D median tokens | median saved by D (+=cheaper)')
+  const perTaskSaved: Array<{ daysBefore: number; saved: number }> = []
+  for (const { task, pair } of selected) {
+    const aTrials = results.filter(result => result.task === task.commit && result.arm === 'A')
+    const dTrials = results.filter(result => result.task === task.commit && result.arm === 'D')
+    const aTotals = aTrials.map(result => result.usage.totalTokens)
+    const dTotals = dTrials.map(result => result.usage.totalTokens)
     const aMedian = median(aTotals)
     const dMedian = median(dTotals)
+    const aRate = aTrials.length === 0 ? undefined : aTrials.filter(result => result.success).length / aTrials.length
+    const dRate = dTrials.length === 0 ? undefined : dTrials.filter(result => result.success).length / dTrials.length
     const saved = aMedian === undefined || dMedian === undefined ? undefined : aMedian - dMedian
-    console.log(`${commit.slice(0, 8)} | ${saved ?? 'n/a (no D arm)'}`)
+    if (saved !== undefined) perTaskSaved.push({ daysBefore: pair.daysBefore, saved })
+    console.log(`${task.commit.slice(0, 8)} | ${pair.daysBefore.toFixed(1)}d | ${
+      aRate === undefined ? 'n/a' : `${(aRate * 100).toFixed(0)}%`
+    } | ${aMedian ?? 'n/a'} | ${dRate === undefined ? 'n/a' : `${(dRate * 100).toFixed(0)}%`} | ${dMedian ?? 'n/a'} | ${saved ?? 'n/a'}`)
   }
+
+  // Crude look at whether recency of the prior related commit tracks with
+  // token savings: bucket by daysBefore and report each bucket's median
+  // saving. Not a real correlation coefficient — the sample is small and
+  // this is meant to be eyeballed, not treated as a statistical test.
+  console.log('\ndaysBefore bucket | tasks | median tokens saved by D')
+  const buckets: Array<{ label: string; filter: (days: number) => boolean }> = [
+    { label: '<1d', filter: days => days < 1 },
+    { label: '1-7d', filter: days => days >= 1 && days < 7 },
+    { label: '>=7d', filter: days => days >= 7 },
+  ]
+  for (const bucket of buckets) {
+    const inBucket = perTaskSaved.filter(item => bucket.filter(item.daysBefore))
+    if (inBucket.length === 0) continue
+    console.log(`${bucket.label} | ${inBucket.length} | ${median(inBucket.map(item => item.saved))}`)
+  }
+
+  const overallSuccessA = results.filter(result => result.arm === 'A' && result.success).length
+    / Math.max(results.filter(result => result.arm === 'A').length, 1)
+  const overallSuccessD = results.filter(result => result.arm === 'D' && result.success).length
+    / Math.max(results.filter(result => result.arm === 'D').length, 1)
+  console.log(`\nOverall success rate — A: ${(overallSuccessA * 100).toFixed(1)}%, D: ${(overallSuccessD * 100).toFixed(1)}%`)
+  console.log(`Overall median tokens saved by D across all tasks: ${median(perTaskSaved.map(item => item.saved))}`)
 
   const outPath = join(repoRoot, 'packages/context/context-graph/scripts/layer2-pilot-results.json')
   writeFileSync(outPath, JSON.stringify(results, undefined, 2))

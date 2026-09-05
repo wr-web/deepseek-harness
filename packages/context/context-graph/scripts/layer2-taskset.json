@@ -240,5 +240,378 @@
     "insertions": 60,
     "deletions": 11,
     "redExitCode": 1
+  },
+  {
+    "commit": "327b86d2ea20c4bb8310199e95511eebdcf8eafc",
+    "parent": "327b86d2ea20c4bb8310199e95511eebdcf8eafc^",
+    "package": "packages/session/session-projection",
+    "message": "refactor(session-projection): checkpoint every projection unit uniformly",
+    "committedAt": "2026-08-19T16:55:10+08:00",
+    "sourceFiles": [
+      "packages/session/session-projection/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/session/session-projection/tests/registry.spec.ts"
+    ],
+    "insertions": 38,
+    "deletions": 59,
+    "redExitCode": 1
+  },
+  {
+    "commit": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "parent": "6cbf927e0a3abe215315799cc404d78cb5b3d544^",
+    "package": "packages/bundle/web-app",
+    "message": "fix(web): reject unsupported wildcard host",
+    "committedAt": "2026-08-13T14:54:22+08:00",
+    "sourceFiles": [
+      "packages/bundle/web-app/src/startup.ts"
+    ],
+    "testFiles": [
+      "packages/bundle/web-app/tests/startup.spec.ts"
+    ],
+    "insertions": 25,
+    "deletions": 15,
+    "redExitCode": 1
+  },
+  {
+    "commit": "b6b6a72df7d46351cae83e503b41669192014fc6",
+    "parent": "b6b6a72df7d46351cae83e503b41669192014fc6^",
+    "package": "packages/session-query/session-query-sqlite",
+    "message": "feat(session-query): ship full-text session search opt-in via openAt never",
+    "committedAt": "2026-08-13T11:46:37+08:00",
+    "sourceFiles": [
+      "packages/session-query/session-query-sqlite/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/session-query/session-query-sqlite/tests/sqlite.spec.ts"
+    ],
+    "insertions": 207,
+    "deletions": 41,
+    "redExitCode": 1
+  },
+  {
+    "commit": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "parent": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af^",
+    "package": "packages/core/tools",
+    "message": "fix(tools): escape unpaired surrogates and state the Cf boundary by category",
+    "committedAt": "2026-08-05T18:21:43+08:00",
+    "sourceFiles": [
+      "packages/core/tools/src/py-types.ts"
+    ],
+    "testFiles": [
+      "packages/core/tools/tests/py-types.spec.ts"
+    ],
+    "insertions": 69,
+    "deletions": 35,
+    "redExitCode": 1
+  },
+  {
+    "commit": "600f3a3110135454a14228d1380420d258722194",
+    "parent": "600f3a3110135454a14228d1380420d258722194^",
+    "package": "packages/host/frontend-static",
+    "message": "fix(frontend-static): return 404 for a missing index",
+    "committedAt": "2026-08-20T20:03:18+08:00",
+    "sourceFiles": [
+      "packages/host/frontend-static/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/host/frontend-static/tests/frontend-static.spec.ts"
+    ],
+    "insertions": 44,
+    "deletions": 32,
+    "redExitCode": 1
+  },
+  {
+    "commit": "0ca0f3d0b865397906d229e73cce7ad83d9194df",
+    "parent": "0ca0f3d0b865397906d229e73cce7ad83d9194df^",
+    "package": "packages/llm/llm",
+    "message": "refactor(llm): use one five-retry default",
+    "committedAt": "2026-08-18T16:33:22+08:00",
+    "sourceFiles": [
+      "packages/llm/llm/src/index.ts",
+      "packages/llm/llm/src/retry-policy.ts"
+    ],
+    "testFiles": [
+      "packages/llm/llm/tests/retry-policy.spec.ts",
+      "packages/llm/llm/tests/service.spec.ts"
+    ],
+    "insertions": 135,
+    "deletions": 259,
+    "redExitCode": 1
+  },
+  {
+    "commit": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "parent": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d^",
+    "package": "packages/core/tools",
+    "message": "fix(tools): emit Python SDK members in one lexicographic stream",
+    "committedAt": "2026-08-05T12:59:20+08:00",
+    "sourceFiles": [
+      "packages/core/tools/src/py-types.ts"
+    ],
+    "testFiles": [
+      "packages/core/tools/tests/py-types.spec.ts"
+    ],
+    "insertions": 40,
+    "deletions": 23,
+    "redExitCode": 1
+  },
+  {
+    "commit": "8debb798d8c2d82d671183bbb07e05f2961f5291",
+    "parent": "8debb798d8c2d82d671183bbb07e05f2961f5291^",
+    "package": "packages/subagent/subagent-codex",
+    "message": "fix(subagent): bound Codex process settlement",
+    "committedAt": "2026-08-18T23:59:43+08:00",
+    "sourceFiles": [
+      "packages/subagent/subagent-codex/src/run.ts"
+    ],
+    "testFiles": [
+      "packages/subagent/subagent-codex/tests/subagent-codex.spec.ts"
+    ],
+    "insertions": 76,
+    "deletions": 10,
+    "redExitCode": 1
+  },
+  {
+    "commit": "5d65686c33c43c2716aae043ac5aafbadce7d5e8",
+    "parent": "5d65686c33c43c2716aae043ac5aafbadce7d5e8^",
+    "package": "packages/core/tools",
+    "message": "feat(tools): accept Unicode Python identifiers in the Python SDK renderer",
+    "committedAt": "2026-08-05T20:03:39+08:00",
+    "sourceFiles": [
+      "packages/core/tools/src/py-types.ts"
+    ],
+    "testFiles": [
+      "packages/core/tools/tests/py-types.spec.ts"
+    ],
+    "insertions": 187,
+    "deletions": 26,
+    "redExitCode": 1
+  },
+  {
+    "commit": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "parent": "acc628f3afde26ac47168434a3daa4f42351c936^",
+    "package": "packages/core/session",
+    "message": "fix(tools): preserve literal and realm-safe schemas",
+    "committedAt": "2026-07-21T21:37:11+08:00",
+    "sourceFiles": [
+      "packages/core/session/src/json.ts"
+    ],
+    "testFiles": [
+      "packages/core/session/tests/json.spec.ts"
+    ],
+    "insertions": 72,
+    "deletions": 12,
+    "redExitCode": 1
+  },
+  {
+    "commit": "72884ec430e131581891f17d50625a62e79d3641",
+    "parent": "72884ec430e131581891f17d50625a62e79d3641^",
+    "package": "packages/subagent/subagent-codex",
+    "message": "fix(subagent): merge terminal and process facts",
+    "committedAt": "2026-08-19T01:10:29+08:00",
+    "sourceFiles": [
+      "packages/subagent/subagent-codex/src/run.ts"
+    ],
+    "testFiles": [
+      "packages/subagent/subagent-codex/tests/subagent-codex.spec.ts"
+    ],
+    "insertions": 19,
+    "deletions": 10,
+    "redExitCode": 1
+  },
+  {
+    "commit": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "parent": "57fc6bc539ee960531db4b3fb49db184db9fb5a1^",
+    "package": "packages/acp/acp",
+    "message": "fix(attachment): distinguish admission from storage failures",
+    "committedAt": "2026-08-12T17:48:17+08:00",
+    "sourceFiles": [
+      "packages/acp/acp/src/content.ts"
+    ],
+    "testFiles": [
+      "packages/acp/acp/tests/content.spec.ts"
+    ],
+    "insertions": 80,
+    "deletions": 13,
+    "redExitCode": 1
+  },
+  {
+    "commit": "1c77a78d6ac16a49f6821a60fa1ae285ae5e885d",
+    "parent": "1c77a78d6ac16a49f6821a60fa1ae285ae5e885d^",
+    "package": "packages/session/session-persistence",
+    "message": "perf(session): reuse immutable persistence seed",
+    "committedAt": "2026-08-19T13:31:07+08:00",
+    "sourceFiles": [
+      "packages/session/session-persistence/src/coordinator.ts"
+    ],
+    "testFiles": [
+      "packages/session/session-persistence/tests/persistence.spec.ts"
+    ],
+    "insertions": 23,
+    "deletions": 1,
+    "redExitCode": 1
+  },
+  {
+    "commit": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "parent": "146a9d9f61155b517fa840b890a8a8b617f27b46^",
+    "package": "packages/code-runtime/code-runtime-python",
+    "message": "fix(code-runtime-python): make checkDoneValue over-budget precedence order-independent",
+    "committedAt": "2026-08-07T13:27:54+08:00",
+    "sourceFiles": [
+      "packages/code-runtime/code-runtime-python/src/protocol.ts"
+    ],
+    "testFiles": [
+      "packages/code-runtime/code-runtime-python/tests/protocol.spec.ts"
+    ],
+    "insertions": 25,
+    "deletions": 2,
+    "redExitCode": 1
+  },
+  {
+    "commit": "d00590c707fcf60427132fdcf18584b1a18f0c81",
+    "parent": "d00590c707fcf60427132fdcf18584b1a18f0c81^",
+    "package": "packages/llm/llm",
+    "message": "docs: replace nonexistent repository references",
+    "committedAt": "2026-08-11T12:35:38+08:00",
+    "sourceFiles": [
+      "packages/llm/llm/src/attribution.ts"
+    ],
+    "testFiles": [
+      "packages/llm/llm/tests/attribution.spec.ts"
+    ],
+    "insertions": 121,
+    "deletions": 176,
+    "redExitCode": 1
+  },
+  {
+    "commit": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "parent": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f^",
+    "package": "packages/client/ui-settings-models",
+    "message": "fix(credentials): name reference update event explicitly",
+    "committedAt": "2026-08-20T17:58:39+08:00",
+    "sourceFiles": [
+      "packages/client/ui-settings-models/src/client/index.ts"
+    ],
+    "testFiles": [
+      "packages/client/ui-settings-models/tests/apply.client.spec.ts"
+    ],
+    "insertions": 97,
+    "deletions": 97,
+    "redExitCode": 1
+  },
+  {
+    "commit": "1614f196868067740bab981fee996e34f0069a5e",
+    "parent": "1614f196868067740bab981fee996e34f0069a5e^",
+    "package": "packages/core/tools",
+    "message": "fix(tools): amortize class-name allocation and tighten py-types render contract",
+    "committedAt": "2026-08-02T14:50:01+08:00",
+    "sourceFiles": [
+      "packages/core/tools/src/py-types.ts"
+    ],
+    "testFiles": [
+      "packages/core/tools/tests/py-types.spec.ts"
+    ],
+    "insertions": 69,
+    "deletions": 19,
+    "redExitCode": 1
+  },
+  {
+    "commit": "dff9462bea24f72755da4ebdb1a1efbf9da4bf39",
+    "parent": "dff9462bea24f72755da4ebdb1a1efbf9da4bf39^",
+    "package": "packages/subagent/tool-subagent",
+    "message": "fix(subagent): use Job wording in background ack",
+    "committedAt": "2026-08-13T16:09:53+08:00",
+    "sourceFiles": [
+      "packages/subagent/tool-subagent/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/subagent/tool-subagent/tests/tool-subagent.spec.ts"
+    ],
+    "insertions": 6,
+    "deletions": 6,
+    "redExitCode": 1
+  },
+  {
+    "commit": "d7b4b014eba1f0f692a03e3660ca3aba44f581cc",
+    "parent": "d7b4b014eba1f0f692a03e3660ca3aba44f581cc^",
+    "package": "packages/core/tools",
+    "message": "fix(tools): make py-types render total and bound deep class names",
+    "committedAt": "2026-08-02T14:32:35+08:00",
+    "sourceFiles": [
+      "packages/core/tools/src/py-types.ts"
+    ],
+    "testFiles": [
+      "packages/core/tools/tests/py-types.spec.ts"
+    ],
+    "insertions": 218,
+    "deletions": 131,
+    "redExitCode": 1
+  },
+  {
+    "commit": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "parent": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3^",
+    "package": "packages/session/session-persistence",
+    "message": "fix(session-export): distinguish unsupported raw artifacts",
+    "committedAt": "2026-08-11T15:04:35+08:00",
+    "sourceFiles": [
+      "packages/session/session-persistence/src/index.ts"
+    ],
+    "testFiles": [
+      "packages/session/session-persistence/tests/persistence.spec.ts"
+    ],
+    "insertions": 78,
+    "deletions": 30,
+    "redExitCode": 1
+  },
+  {
+    "commit": "e2556c51bf957bca4ddd0c8ffdd2c1e75fc9a9e9",
+    "parent": "e2556c51bf957bca4ddd0c8ffdd2c1e75fc9a9e9^",
+    "package": "packages/mcp/mcp-client",
+    "message": "fix(mcp-client): distinguish failure from loss",
+    "committedAt": "2026-08-11T00:05:06+08:00",
+    "sourceFiles": [
+      "packages/mcp/mcp-client/src/connection.ts"
+    ],
+    "testFiles": [
+      "packages/mcp/mcp-client/tests/reconnect.spec.ts"
+    ],
+    "insertions": 18,
+    "deletions": 12,
+    "redExitCode": 1
+  },
+  {
+    "commit": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "parent": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f^",
+    "package": "packages/credentials/credentials",
+    "message": "fix(credentials): name reference update event explicitly",
+    "committedAt": "2026-08-20T17:58:39+08:00",
+    "sourceFiles": [
+      "packages/credentials/credentials/src/index.ts",
+      "packages/credentials/credentials/src/invariant.ts",
+      "packages/credentials/credentials/src/types.ts"
+    ],
+    "testFiles": [
+      "packages/credentials/credentials/tests/credentials.spec.ts",
+      "packages/credentials/credentials/tests/invariant.spec.ts"
+    ],
+    "insertions": 97,
+    "deletions": 97,
+    "redExitCode": 1
+  },
+  {
+    "commit": "ca119b0e1034e17b028bbeb522c112f374408264",
+    "parent": "ca119b0e1034e17b028bbeb522c112f374408264^",
+    "package": "packages/web/web-search-deepseek",
+    "message": "fix(web-plugin-config): address review — one options snapshot per search, no public value exports",
+    "committedAt": "2026-08-11T11:16:42+08:00",
+    "sourceFiles": [
+      "packages/web/web-search-deepseek/src/provider.ts"
+    ],
+    "testFiles": [
+      "packages/web/web-search-deepseek/tests/deepseek.spec.ts"
+    ],
+    "insertions": 150,
+    "deletions": 93,
+    "redExitCode": 1
   }
 ]
