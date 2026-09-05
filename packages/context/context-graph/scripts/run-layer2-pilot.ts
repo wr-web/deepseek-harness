@@ -82,6 +82,7 @@ interface ArmResult {
   readonly finishReason: string
   /** Saved on failure only, so a truncated or malformed response is diagnosable without rerunning (and spending more budget). */
   readonly rawContent?: string
+  readonly reasoningContentLength?: number
 }
 
 function git(args: string[], cwd: string): string {
@@ -137,17 +138,21 @@ function extractFencedCode(text: string): string | undefined {
   return match?.[1]
 }
 
-// The model's real ceiling is 384,000 output tokens (shared with a 1M-token
-// context) — the earlier 4000/8000 caps were nowhere near it and were almost
-// certainly cutting the response off mid-reasoning, before it ever reached
-// the file rewrite. 32000 leaves generous headroom above what a ~350-line
-// file rewrite plus reasoning should need, without requesting the full
-// ceiling (which would let a genuinely runaway response burn a lot of real
-// budget before this script ever sees it).
-const MAX_TOKENS = 32_000
+// The second pilot attempt (32000-token cap, still hitting finish_reason
+// "length" with an EMPTY visible content field on 2 of 3 tasks) diagnosed
+// the real cause: this model defaults to "thinking mode," whose
+// chain-of-thought is billed as completion tokens but returned in a
+// separate `reasoning_content` field, not `content`
+// (https://api-docs.deepseek.com/guides/thinking_mode/). Raising max_tokens
+// further would only buy the invisible reasoning more room to run, not get
+// the actual file rewrite out any sooner. Disabling thinking mode outright
+// is the fix the task (a mechanical file rewrite, not a task that benefits
+// from extended reasoning) actually calls for.
+const MAX_TOKENS = 16_000
 
 interface ModelResponse {
   readonly content: string
+  readonly reasoningContent: string
   readonly usage: Usage
   readonly finishReason: string
 }
@@ -156,17 +161,20 @@ async function callModel(messages: Array<{ role: string; content: string }>): Pr
   const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
     method: 'POST',
     headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: MODEL, messages, temperature: 0, max_tokens: MAX_TOKENS }),
+    body: JSON.stringify({
+      model: MODEL, messages, temperature: 0, max_tokens: MAX_TOKENS, thinking: { type: 'disabled' },
+    }),
   })
   if (!response.ok) throw new Error(`DeepSeek API error ${response.status}: ${await response.text()}`)
   const body = await response.json() as {
-    choices: Array<{ message: { content: string }; finish_reason: string }>
+    choices: Array<{ message: { content: string; reasoning_content?: string }; finish_reason: string }>
     usage: { prompt_cache_hit_tokens: number; prompt_cache_miss_tokens: number; completion_tokens: number; total_tokens: number }
   }
   const choice = body.choices[0]
   const usage = body.usage
   return {
     content: choice?.message.content ?? '',
+    reasoningContent: choice?.message.reasoning_content ?? '',
     finishReason: choice?.finish_reason ?? 'unknown',
     usage: {
       uncachedInputTokens: usage.prompt_cache_miss_tokens,
@@ -195,11 +203,14 @@ async function runArm(
   const sourceContent = readFileSync(join(cwd, sourcePath), 'utf8')
   const testContent = readFileSync(join(cwd, testPath), 'utf8')
   const prompt = buildPrompt(task, sourceContent, testContent, arm === 'D' ? recallBlock : undefined)
-  const { content, usage, finishReason } = await callModel([{ role: 'user', content: prompt }])
+  const { content, reasoningContent, usage, finishReason } = await callModel([{ role: 'user', content: prompt }])
   const fixed = extractFencedCode(content)
   if (fixed !== undefined) writeFileSync(join(cwd, sourcePath), fixed)
   const success = fixed !== undefined && runVitestExitCode(cwd, [testPath]) === 0
-  return { task: task.commit, arm, success, usage, finishReason, ...(success ? {} : { rawContent: content }) }
+  return {
+    task: task.commit, arm, success, usage, finishReason,
+    ...(success ? {} : { rawContent: content, reasoningContentLength: reasoningContent.length }),
+  }
 }
 
 async function main(): Promise<void> {

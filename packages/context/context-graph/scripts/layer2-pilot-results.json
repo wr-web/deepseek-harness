@@ -6,9 +6,11 @@
     "usage": {
       "uncachedInputTokens": 36,
       "cachedInputTokens": 4096,
-      "outputTokens": 8000,
-      "totalTokens": 12132
-    }
+      "outputTokens": 31999,
+      "totalTokens": 36131
+    },
+    "finishReason": "length",
+    "rawContent": ""
   },
   {
     "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
@@ -17,9 +19,11 @@
     "usage": {
       "uncachedInputTokens": 63,
       "cachedInputTokens": 4608,
-      "outputTokens": 8000,
-      "totalTokens": 12671
-    }
+      "outputTokens": 32000,
+      "totalTokens": 36671
+    },
+    "finishReason": "length",
+    "rawContent": ""
   },
   {
     "task": "760bc9aa6a9d3517f6c3e90a910da653652826ce",
@@ -28,9 +32,10 @@
     "usage": {
       "uncachedInputTokens": 12,
       "cachedInputTokens": 3968,
-      "outputTokens": 4736,
-      "totalTokens": 8716
-    }
+      "outputTokens": 6618,
+      "totalTokens": 10598
+    },
+    "finishReason": "stop"
   },
   {
     "task": "760bc9aa6a9d3517f6c3e90a910da653652826ce",
@@ -39,9 +44,10 @@
     "usage": {
       "uncachedInputTokens": 36,
       "cachedInputTokens": 4480,
-      "outputTokens": 6107,
-      "totalTokens": 10623
-    }
+      "outputTokens": 3844,
+      "totalTokens": 8360
+    },
+    "finishReason": "stop"
   },
   {
     "task": "8f5c592b9f8390d0309c8c93f245d650943702c6",
@@ -50,9 +56,11 @@
     "usage": {
       "uncachedInputTokens": 120,
       "cachedInputTokens": 8320,
-      "outputTokens": 8000,
-      "totalTokens": 16440
-    }
+      "outputTokens": 32000,
+      "totalTokens": 40440
+    },
+    "finishReason": "length",
+    "rawContent": ""
   },
   {
     "task": "8f5c592b9f8390d0309c8c93f245d650943702c6",
@@ -61,8 +69,10 @@
     "usage": {
       "uncachedInputTokens": 43,
       "cachedInputTokens": 8960,
-      "outputTokens": 8000,
-      "totalTokens": 17003
-    }
+      "outputTokens": 32000,
+      "totalTokens": 41003
+    },
+    "finishReason": "length",
+    "rawContent": ""
   }
 ]
