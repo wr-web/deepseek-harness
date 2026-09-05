@@ -205,6 +205,9 @@ export default defineConfig({
         // exemption while gating the newly stateful Host half and vocabulary.
         'packages/client/ui-conversation/src/client/*',
         'packages/client/ui-conversation/src/invariant.ts',
+        // The context-graph projection and registration stay unit-gated; the
+        // hook-driven visual component needs the same browser-grade GUI lane.
+        'packages/client/ui-context-graph/src/client/ContextGraphView.tsx',
         'packages/client/ui-primitives/src/DisclosureRow.tsx',
         'packages/client/ui-tool/src/*',
         'packages/client/ui-slots/src/*',

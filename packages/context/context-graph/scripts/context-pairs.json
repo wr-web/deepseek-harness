@@ -1,0 +1,227 @@
+[
+  {
+    "relatedCommit": "4dd1be1a1fbb5e77ee627a90957d95cfab8aa0af",
+    "relatedMessage": "refactor: rename agent teams service key",
+    "relatedCommittedAt": "2026-08-19T22:30:36+08:00",
+    "package": "packages/experimental/agent-team",
+    "base": {
+      "commit": "cb93304ec916c05023b01039171e53d116dc923b",
+      "message": "refactor: rename experimental agent team directories",
+      "committedAt": "2026-08-19T22:30:36+08:00",
+      "sharedSourceFiles": [
+        "packages/experimental/agent-team/src/index.ts"
+      ],
+      "daysBefore": 0
+    }
+  },
+  {
+    "relatedCommit": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "relatedMessage": "fix(attachment): refuse oversized image sides at admission",
+    "relatedCommittedAt": "2026-08-17T20:49:08+08:00",
+    "package": "packages/fs/tool-fs",
+    "base": {
+      "commit": "e00146be738bcff67cb67d7839cd3a2ad767ad30",
+      "message": "fix(tools): forward nested image results in code mode",
+      "committedAt": "2026-08-12T17:48:17+08:00",
+      "sharedSourceFiles": [
+        "packages/fs/tool-fs/src/read-image.ts"
+      ],
+      "daysBefore": 5.1255902777777775
+    }
+  },
+  {
+    "relatedCommit": "cf7d485b5ecd0cecc98e5b0534ef939d12b1e3b3",
+    "relatedMessage": "fix(client): harden settings describe mirror",
+    "relatedCommittedAt": "2026-08-18T15:26:16+08:00",
+    "package": "packages/client/ui-settings",
+    "base": {
+      "commit": "232e4beeaeef9ae4d4514f596e721ba358a8052e",
+      "message": "refactor(ui-settings-plugins): plugin tab derives served namespaces from the mirror",
+      "committedAt": "2026-08-17T17:15:10+08:00",
+      "sharedSourceFiles": [
+        "packages/client/ui-settings/src/client/settings-mirror.ts"
+      ],
+      "daysBefore": 0.924375
+    }
+  },
+  {
+    "relatedCommit": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "relatedMessage": "fix(ui-conversation): render the terminal turn error after same-turn retries exhaust",
+    "relatedCommittedAt": "2026-08-20T18:19:30+08:00",
+    "package": "packages/client/ui-conversation",
+    "base": {
+      "commit": "3e79f7106e6017142a21037028f15781a39fce10",
+      "message": "feat(client-runtime): add target-owned conversation snapshots",
+      "committedAt": "2026-08-11T03:29:04+08:00",
+      "sharedSourceFiles": [
+        "packages/client/ui-conversation/src/client/conversation-nodes/turn-error.ts"
+      ],
+      "daysBefore": 9.61835648148148
+    }
+  },
+  {
+    "relatedCommit": "54dd75a96973b27212754b7000c1f93d02293570",
+    "relatedMessage": "refactor(cmdline): run the program's own commander action instead of a plan callback",
+    "relatedCommittedAt": "2026-08-12T13:07:41+08:00",
+    "package": "packages/boot/cmdline",
+    "base": {
+      "commit": "c598989d0856316e29c143040e657e53114cca6a",
+      "message": "refactor(cmdline): trim the command-line seams to existing interfaces",
+      "committedAt": "2026-08-11T18:00:15+08:00",
+      "sharedSourceFiles": [
+        "packages/boot/cmdline/src/index.ts"
+      ],
+      "daysBefore": 0.7968287037037037
+    }
+  },
+  {
+    "relatedCommit": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "relatedMessage": "fix(session): identify intrinsic JSON prototypes",
+    "relatedCommittedAt": "2026-07-21T22:41:37+08:00",
+    "package": "packages/core/session",
+    "base": {
+      "commit": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+      "message": "fix(schema): harden realm-safe JSON validation",
+      "committedAt": "2026-07-21T22:11:41+08:00",
+      "sharedSourceFiles": [
+        "packages/core/session/src/json.ts"
+      ],
+      "daysBefore": 0.020787037037037038
+    }
+  },
+  {
+    "relatedCommit": "be839a8e53c92f06a27f0b48be07cea5c710b87d",
+    "relatedMessage": "fix(code-runtime-python): count non-lossless bytes and bind the mirror gate to TS types",
+    "relatedCommittedAt": "2026-08-07T13:27:54+08:00",
+    "package": "packages/code-runtime/code-runtime-python",
+    "base": {
+      "commit": "8a60b5f0056ec3636742c7c270c52fb3385cb749",
+      "message": "feat(code-runtime-python): make the TypedDict wire mirror an executable gate",
+      "committedAt": "2026-08-07T13:27:54+08:00",
+      "sharedSourceFiles": [
+        "packages/code-runtime/code-runtime-python/src/protocol.ts"
+      ],
+      "daysBefore": 0
+    }
+  },
+  {
+    "relatedCommit": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "relatedMessage": "fix(tools): detect render-phase cycles and fix class-name JSDoc placement",
+    "relatedCommittedAt": "2026-08-02T15:24:10+08:00",
+    "package": "packages/core/tools",
+    "base": {
+      "commit": "1614f196868067740bab981fee996e34f0069a5e",
+      "message": "fix(tools): amortize class-name allocation and tighten py-types render contract",
+      "committedAt": "2026-08-02T14:50:01+08:00",
+      "sharedSourceFiles": [
+        "packages/core/tools/src/py-types.ts"
+      ],
+      "daysBefore": 0.023715277777777776
+    }
+  },
+  {
+    "relatedCommit": "bddfb7ff0a95bccaa3cd16596d3af4348c7340b1",
+    "relatedMessage": "refactor: make context graph client self-contained",
+    "relatedCommittedAt": "2026-08-27T01:07:17+08:00",
+    "package": "packages/client/ui-context-graph",
+    "base": {
+      "commit": "b175995bc58bc8f40d2e02f1c7e10a9ee03f5af5",
+      "message": "feat(context-graph): reuse completed session checkpoints",
+      "committedAt": "2026-08-26T09:36:11+08:00",
+      "sharedSourceFiles": [
+        "packages/client/ui-context-graph/src/client/index.ts"
+      ],
+      "daysBefore": 0.6465972222222223
+    }
+  },
+  {
+    "relatedCommit": "760bc9aa6a9d3517f6c3e90a910da653652826ce",
+    "relatedMessage": "fix: scope timeoutOf by deadline code so nesting composes (codex round 2)",
+    "relatedCommittedAt": "2026-07-06T17:07:11+08:00",
+    "package": "packages/util/timeout",
+    "base": {
+      "commit": "8615e019d349b5527f10569d913d8ff6d7f1bcd9",
+      "message": "feat(timeout): add dsh-timeout and converge bash + web_fetch onto it",
+      "committedAt": "2026-07-06T16:25:04+08:00",
+      "sharedSourceFiles": [
+        "packages/util/timeout/src/index.ts"
+      ],
+      "daysBefore": 0.029247685185185186
+    }
+  },
+  {
+    "relatedCommit": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "relatedMessage": "fix(tools): harden unified JSON value boundaries",
+    "relatedCommittedAt": "2026-07-21T17:44:46+08:00",
+    "package": "packages/core/session",
+    "base": {
+      "commit": "148046b9c8688e833d0a7904f970bdf8719e88c2",
+      "message": "docs: rebalance prose cleanup and add trimming skill",
+      "committedAt": "2026-07-13T23:27:00+08:00",
+      "sharedSourceFiles": [
+        "packages/core/session/src/json.ts"
+      ],
+      "daysBefore": 7.762337962962963
+    }
+  },
+  {
+    "relatedCommit": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "relatedMessage": "fix(code-runtime-python): reject -0 call ids and document done value/error",
+    "relatedCommittedAt": "2026-08-07T13:27:54+08:00",
+    "package": "packages/code-runtime/code-runtime-python",
+    "base": {
+      "commit": "f0d669883fb4a498927c7a4c923721ecb50be22c",
+      "message": "fix(code-runtime-python): close coverage gap and tighten the wire mirror",
+      "committedAt": "2026-08-07T13:27:54+08:00",
+      "sharedSourceFiles": [
+        "packages/code-runtime/code-runtime-python/src/protocol.ts"
+      ],
+      "daysBefore": 0
+    }
+  },
+  {
+    "relatedCommit": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "relatedMessage": "fix(schema): harden realm-safe JSON validation",
+    "relatedCommittedAt": "2026-07-21T22:11:41+08:00",
+    "package": "packages/core/session",
+    "base": {
+      "commit": "acc628f3afde26ac47168434a3daa4f42351c936",
+      "message": "fix(tools): preserve literal and realm-safe schemas",
+      "committedAt": "2026-07-21T21:37:11+08:00",
+      "sharedSourceFiles": [
+        "packages/core/session/src/json.ts"
+      ],
+      "daysBefore": 0.023958333333333335
+    }
+  },
+  {
+    "relatedCommit": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "relatedMessage": "fix(code-runtime-python): bound checkDoneValue object metering in O(cap)",
+    "relatedCommittedAt": "2026-08-07T13:27:54+08:00",
+    "package": "packages/code-runtime/code-runtime-python",
+    "base": {
+      "commit": "98ebe1315d5a264e30989c845373d961dc7e7495",
+      "message": "fix(code-runtime-python): reject -0 call ids and document done value/error",
+      "committedAt": "2026-08-07T13:27:54+08:00",
+      "sharedSourceFiles": [
+        "packages/code-runtime/code-runtime-python/src/protocol.ts"
+      ],
+      "daysBefore": 0
+    }
+  },
+  {
+    "relatedCommit": "8f5c592b9f8390d0309c8c93f245d650943702c6",
+    "relatedMessage": "fix(session): break chunk runs on time gaps that cannot subtract exactly",
+    "relatedCommittedAt": "2026-07-15T22:44:32+08:00",
+    "package": "packages/core/session",
+    "base": {
+      "commit": "7ef21239caeb9a554bf3f407f00090d263ed5627",
+      "message": "feat(session): opt-in packed chunk rows in the JSONL log",
+      "committedAt": "2026-07-15T21:26:36+08:00",
+      "sharedSourceFiles": [
+        "packages/core/session/src/chunk-rows.ts"
+      ],
+      "daysBefore": 0.05412037037037037
+    }
+  }
+]

@@ -620,6 +620,37 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'contextGraph',
+    summary: 'Host service that extracts, ranks, and recalls reusable session checkpoints.',
+    description: 'Host service that extracts, ranks, and recalls reusable session checkpoints.',
+    methods: [
+      {
+        signature: 'async snapshot(signal?: AbortSignal): Promise<ContextGraphSnapshot>',
+        description: 'Read the current bounded graph, using a short event-invalidated cache.',
+        parameters: [{ name: 'signal', description: 'Optional cancellation signal.' }],
+        returns: 'Current projected graph snapshot.',
+      },
+      {
+        signature: 'async match( targetSessionId: SessionId, query: string, signal?: AbortSignal, ): Promise<ContextGraphMatch[]>',
+        description: 'Rank reusable completed turns for one target session and query.',
+        parameters: [{ name: 'targetSessionId', description: 'Session receiving a possible recall.' }, { name: 'query', description: 'Direct user request.' }, { name: 'signal', description: 'Optional cancellation signal.' }],
+        returns: 'Matching nodes in deterministic rank order.',
+      },
+      {
+        signature: '@Remote(\'snapshot\') remoteSnapshot(agent: Agent, signal: AbortSignal): Promise<ContextGraphSnapshot>',
+        description: 'Remote graph read scoped by an existing target Agent.',
+        parameters: [{ name: 'agent', description: 'Existing Agent that authorizes the read.' }, { name: 'signal', description: 'Request cancellation signal.' }],
+        returns: 'Current projected graph snapshot.',
+      },
+      {
+        signature: '@Remote(\'match\') remoteMatch(agent: Agent, query: string, signal: AbortSignal): Promise<ContextGraphMatch[]>',
+        description: 'Remote ranked discovery scoped by an existing target Agent.',
+        parameters: [{ name: 'agent', description: 'Agent receiving a possible recall.' }, { name: 'query', description: 'Direct user request.' }, { name: 'signal', description: 'Request cancellation signal.' }],
+        returns: 'Matching nodes in deterministic rank order.',
+      },
+    ],
+  },
+  {
     key: 'credentials',
     summary: 'Abstract credential service over two key spaces that answer two questions.',
     description: 'Abstract credential service over two key spaces that answer two questions.\n\nA CredentialRef answers "what is behind this environment-variable name", layered over the process environment, the provider-managed store, and `.env` files. One seam-wide rule binds that half: an empty stored value is absent everywhere — `resolve` skips it, `describe` reports it unconfigured — so a blank never masquerades as a configured secret.\n\nA CredentialKey answers "what credential does this plugin hold for this id". Nothing can layer here — an authorization grant has no environment to be read from — so presence of the record is the whole fact, and modifyRecord is the only write path because a correct write depends on the current value (a token refresh is read-decide-replace under one lock).',
@@ -3124,6 +3155,42 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ContextFormed',
     declaration: 'export type ContextFormed = {\n    readonly form?: never;\n} | {\n    readonly form: \'instructions\';\n} | {\n    readonly form: \'catalog\';\n} | {\n    readonly form: \'snapshot\';\n    readonly sections: readonly ContextSnapshotSection[];\n} | {\n    readonly form: \'notice\';\n    readonly summary: string;\n} | {\n    readonly form: \'relay\';\n} | {\n    readonly form: \'recall\';\n};',
+  },
+  {
+    name: 'ContextGraphAction',
+    declaration: 'export interface ContextGraphAction {\n    readonly name: string;\n    readonly count: number;\n}',
+  },
+  {
+    name: 'ContextGraphEdge',
+    declaration: 'export interface ContextGraphEdge {\n    readonly id: string;\n    readonly kind: \'continuation\' | \'fork\' | \'recall\';\n    readonly from: ContextGraphNodeId;\n    readonly to: ContextGraphNodeId;\n}',
+  },
+  {
+    name: 'ContextGraphFreshness',
+    declaration: 'export type ContextGraphFreshness = \'fresh\' | \'aging\' | \'stale\';',
+  },
+  {
+    name: 'ContextGraphMatch',
+    declaration: 'export interface ContextGraphMatch {\n    readonly node: ContextGraphNode;\n    readonly score: number;\n}',
+  },
+  {
+    name: 'ContextGraphNode',
+    declaration: 'export interface ContextGraphNode {\n    readonly id: ContextGraphNodeId;\n    readonly sessionId: SessionId;\n    readonly projectId: string;\n    readonly cwd?: string;\n    readonly turn: number;\n    readonly boundarySeq: number;\n    readonly key: string;\n    readonly prompt: string;\n    readonly summary: string;\n    readonly actions: readonly ContextGraphAction[];\n    readonly outcome: string;\n    readonly reusable: boolean;\n    readonly completedAt: number;\n    readonly freshness: ContextGraphFreshness;\n    readonly inputTokens: number;\n    readonly cacheReadTokens: number;\n    readonly outputTokens: number;\n    readonly recalledFrom?: ContextGraphNodeId;\n    readonly recallScore?: number;\n    readonly recalledBytes: number;\n}',
+  },
+  {
+    name: 'ContextGraphNodeId',
+    declaration: 'export type ContextGraphNodeId = Branded<\'ContextGraphNodeId\'>;',
+  },
+  {
+    name: 'ContextGraphProject',
+    declaration: 'export interface ContextGraphProject {\n    readonly id: string;\n    readonly label: string;\n    readonly cwd?: string;\n    readonly sessionIds: readonly SessionId[];\n}',
+  },
+  {
+    name: 'ContextGraphSession',
+    declaration: 'export interface ContextGraphSession {\n    readonly sessionId: SessionId;\n    readonly projectId: string;\n    readonly cwd?: string;\n    readonly createdAt: number;\n    readonly parentSessionId?: SessionId;\n    readonly nodeIds: readonly ContextGraphNodeId[];\n}',
+  },
+  {
+    name: 'ContextGraphSnapshot',
+    declaration: 'export interface ContextGraphSnapshot {\n    readonly generatedAt: number;\n    readonly projects: readonly ContextGraphProject[];\n    readonly sessions: readonly ContextGraphSession[];\n    readonly nodes: readonly ContextGraphNode[];\n    readonly edges: readonly ContextGraphEdge[];\n    readonly stats: {\n        readonly projects: number;\n        readonly sessions: number;\n        readonly nodes: number;\n        readonly reusableNodes: number;\n        readonly recallEdges: number;\n        readonly recalledBytes: number;\n    };\n}',
   },
   {
     name: 'ContextSnapshotSection',

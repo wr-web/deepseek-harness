@@ -711,6 +711,31 @@
       "source": "packages/context/session-reference/src/config.ts"
     },
     {
+      "doc": "docs/subsystems/context-graph.md",
+      "symbol": "ContextGraphSnapshot",
+      "source": "packages/context/context-graph/src/types.ts"
+    },
+    {
+      "doc": "docs/subsystems/context-graph.md",
+      "symbol": "ContextGraphMatch",
+      "source": "packages/context/context-graph/src/types.ts"
+    },
+    {
+      "doc": "docs/subsystems/context-graph.md",
+      "symbol": "ContextGraphMessageSource",
+      "source": "packages/context/context-graph/src/types.ts"
+    },
+    {
+      "doc": "docs/subsystems/context-graph.md",
+      "symbol": "ContextGraphRunMetrics",
+      "source": "packages/context/context-graph/src/types.ts"
+    },
+    {
+      "doc": "docs/subsystems/context-graph.md",
+      "symbol": "ContextGraphEvaluation",
+      "source": "packages/context/context-graph/src/types.ts"
+    },
+    {
       "doc": "docs/subsystems/tools.md",
       "symbol": "ToolOutputDefinition",
       "source": "packages/core/tools/src/index.ts"
