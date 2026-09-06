@@ -164,16 +164,28 @@ function toolReadFile(packageDir: string, requestedPath: string): string {
   return truncateUtf8(readFileSync(target, 'utf8'), 6_000)
 }
 
+/**
+ * Real search terms the pro-model run actually sent — `it(`, `describe(`,
+ * `isJsonValue(value[i]` — are not valid extended regex (unmatched paren,
+ * unescaped bracket): `git grep -e` treats the pattern as a regex by
+ * default and exits with a fatal parse error, not a clean "no matches",
+ * for any of them. That happened across most of that run's 32 sessions —
+ * a broken search tool for a large share of natural code-search queries,
+ * not a fair test of the model. Falling back to a fixed-string search
+ * (`-F`) on a regex parse failure covers the common case without losing
+ * genuine regex use (patterns like `0\.0\.0\.0` still work as regex first).
+ */
 function toolSearchCode(packageDir: string, pattern: string): string {
-  try {
-    const output = execFileSync('git', ['grep', '-n', '-I', '--no-color', '-e', pattern, '--', '.'], {
-      cwd: packageDir, encoding: 'utf8', maxBuffer: 1024 * 1024,
-    })
-    return truncateUtf8(output, 6_000)
-  } catch (error: unknown) {
-    const status = (error as { status?: number }).status
-    return status === 1 ? '(no matches)' : `error running search: ${String(error)}`
+  for (const args of [['grep', '-n', '-I', '--no-color', '-e', pattern, '--', '.'], ['grep', '-n', '-I', '-F', '--no-color', '-e', pattern, '--', '.']]) {
+    try {
+      const output = execFileSync('git', args, { cwd: packageDir, encoding: 'utf8', maxBuffer: 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] })
+      return truncateUtf8(output, 6_000)
+    } catch (error: unknown) {
+      const status = (error as { status?: number }).status
+      if (status === 1) return '(no matches)' // a real "no matches", not a parse error -- no point retrying fixed-string
+    }
   }
+  return `error: could not search for pattern ${JSON.stringify(pattern)}`
 }
 
 const TOOLS = [
