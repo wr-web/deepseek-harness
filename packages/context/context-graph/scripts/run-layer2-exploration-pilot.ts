@@ -47,7 +47,7 @@ if (API_KEY === undefined || API_KEY === '') {
 const TRIALS = Number(process.argv[2] ?? 3)
 const MAX_TASKS = Number(process.argv[3] ?? 10)
 const MAX_TURNS = Number(process.argv[4] ?? 10)
-const MAX_TOOL_CALLS = Number(process.argv[5] ?? 15)
+const MAX_TOOL_CALLS = Number(process.argv[5] ?? 10)
 const MAX_TOKENS = 8_000
 
 interface ValidatedTask {
@@ -161,7 +161,7 @@ function toolListDirectory(packageDir: string, requestedPath: string): string {
 function toolReadFile(packageDir: string, requestedPath: string): string {
   const target = resolveWithinPackage(packageDir, requestedPath)
   if (target === undefined || !existsSync(target) || !statSync(target).isFile()) return `error: file not found or outside the package: ${requestedPath}`
-  return truncateUtf8(readFileSync(target, 'utf8'), 12_000)
+  return truncateUtf8(readFileSync(target, 'utf8'), 6_000)
 }
 
 function toolSearchCode(packageDir: string, pattern: string): string {
@@ -254,7 +254,7 @@ async function callModel(messages: readonly ChatMessage[]): Promise<ChatResponse
   }
 }
 
-const SYSTEM_PROMPT = 'You are fixing a bug in an unfamiliar codebase. You do not know which file needs to change yet. Use list_directory, read_file, and search_code to explore the package and find the relevant source file and its test. Once you understand the fix needed, call submit_fix exactly once with the complete corrected file content. Do not guess blindly — read the file you intend to change first.'
+const SYSTEM_PROMPT = 'You are fixing a bug in an unfamiliar codebase. You do not know which file needs to change yet. Use list_directory, read_file, and search_code to explore the package and find the relevant source file and its test. Once you understand the fix needed, call submit_fix exactly once with the complete corrected file content. Do not guess blindly — read the file you intend to change first. You have a limited number of tool calls: never read the same file twice, and stop exploring once you understand the bug.'
 
 async function runSession(
   packageDir: string, task: ValidatedTask, recallBlock: string | undefined,
