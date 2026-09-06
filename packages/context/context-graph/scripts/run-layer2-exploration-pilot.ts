@@ -29,14 +29,14 @@
  * any file in this repository.
  *
  * Run from the repository root:
- *   npx tsx packages/context/context-graph/scripts/run-layer2-exploration-pilot.ts [trials] [maxTasks] [maxTurns] [maxToolCalls]
+ *   npx tsx packages/context/context-graph/scripts/run-layer2-exploration-pilot.ts [trials] [maxTasks] [maxTurns] [maxToolCalls] [model]
  */
 
 import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 
-const MODEL = 'deepseek-v4-flash'
+const MODEL = process.argv[6] ?? 'deepseek-v4-flash'
 const MAX_RECALL_BYTES = 2048
 const API_KEY = process.env.DEEPSEEK_API_KEY
 if (API_KEY === undefined || API_KEY === '') {
@@ -358,7 +358,7 @@ async function main(): Promise<void> {
   const tasks: ValidatedTask[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/layer2-taskset.json'), 'utf8'))
   const pairs: PairingRecord[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/context-pairs.json'), 'utf8'))
   const selected = pickTasks(repoRoot, tasks, pairs, MAX_TASKS)
-  console.log(`Running ${selected.length} tasks (smallest source file per distinct fix-scoped package) x 2 arms x ${TRIALS} trials, max ${MAX_TURNS} turns / ${MAX_TOOL_CALLS} tool calls per session`)
+  console.log(`Model: ${MODEL}. Running ${selected.length} tasks (smallest source file per distinct fix-scoped package) x 2 arms x ${TRIALS} trials, max ${MAX_TURNS} turns / ${MAX_TOOL_CALLS} tool calls per session`)
 
   const results: SessionResult[] = []
   for (const { task, pair } of selected) {
@@ -411,7 +411,7 @@ async function main(): Promise<void> {
   console.log(`Overall median tokens saved by D: ${median(perTaskSaved)}`)
   console.log(`Overall median turns — A: ${median(results.filter(result => result.arm === 'A').map(result => result.turns))}, D: ${median(results.filter(result => result.arm === 'D').map(result => result.turns))}`)
 
-  const outPath = join(repoRoot, 'packages/context/context-graph/scripts/layer2-exploration-results.json')
+  const outPath = join(repoRoot, `packages/context/context-graph/scripts/layer2-exploration-results.${MODEL}.json`)
   writeFileSync(outPath, JSON.stringify(results, undefined, 2))
   console.log(`\nWrote ${results.length} session results to ${outPath}`)
 }
