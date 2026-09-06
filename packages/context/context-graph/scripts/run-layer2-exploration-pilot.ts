@@ -138,7 +138,10 @@ function renderRecallBlock(baseMessage: string, diff: string): string {
 function resolveWithinPackage(packageDir: string, requestedPath: string): string | undefined {
   const target = join(packageDir, requestedPath)
   const rel = relative(packageDir, target)
-  if (rel.startsWith('..') || rel === '') return undefined
+  // rel === '' means the package root itself, e.g. requestedPath '.' or '' —
+  // a valid, safe directory to list, not an escape. Only '..'-prefixed
+  // (parent-of-package) results are rejected.
+  if (rel.startsWith('..')) return undefined
   return target
 }
 
