@@ -29,12 +29,12 @@
  * any file in this repository.
  *
  * Run from the repository root:
- *   npx tsx packages/context/context-graph/scripts/run-layer2-exploration-pilot.ts [trials] [maxTasks] [maxTurns]
+ *   npx tsx packages/context/context-graph/scripts/run-layer2-exploration-pilot.ts [trials] [maxTasks] [maxTurns] [maxToolCalls]
  */
 
 import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { join, relative, sep } from 'node:path'
 
 const MODEL = 'deepseek-v4-flash'
 const MAX_RECALL_BYTES = 2048
@@ -46,7 +46,8 @@ if (API_KEY === undefined || API_KEY === '') {
 
 const TRIALS = Number(process.argv[2] ?? 3)
 const MAX_TASKS = Number(process.argv[3] ?? 10)
-const MAX_TURNS = Number(process.argv[4] ?? 8)
+const MAX_TURNS = Number(process.argv[4] ?? 10)
+const MAX_TOOL_CALLS = Number(process.argv[5] ?? 15)
 const MAX_TOKENS = 8_000
 
 interface ValidatedTask {
@@ -140,8 +141,11 @@ function resolveWithinPackage(packageDir: string, requestedPath: string): string
   const rel = relative(packageDir, target)
   // rel === '' means the package root itself, e.g. requestedPath '.' or '' —
   // a valid, safe directory to list, not an escape. Only '..'-prefixed
-  // (parent-of-package) results are rejected.
-  if (rel.startsWith('..')) return undefined
+  // (parent-of-package) results are rejected. node_modules is excluded on
+  // purpose: the first smoke-test run wandered into a dependency's own
+  // source hunting for a symbol definition, which is never the fix and
+  // burned tens of thousands of tokens doing it.
+  if (rel.startsWith('..') || rel === 'node_modules' || rel.startsWith(`node_modules${sep}`)) return undefined
   return target
 }
 
@@ -266,7 +270,10 @@ async function runSession(
   let calledSubmitFix = false
   const toolCallLog: string[] = []
   let turn = 0
-  for (; turn < MAX_TURNS && !calledSubmitFix; turn += 1) {
+  // The model can (and does) batch many tool calls into a single API turn,
+  // so a turn cap alone barely bounds cost — MAX_TOOL_CALLS caps the actual
+  // number of exploration actions regardless of how they're batched.
+  for (; turn < MAX_TURNS && !calledSubmitFix && toolCallLog.length < MAX_TOOL_CALLS; turn += 1) {
     const response = await callModel(messages)
     usage = addUsage(usage, response.usage)
     messages.push(response.message)
@@ -308,6 +315,13 @@ async function runSession(
 function pickTasks(repoRoot: string, tasks: readonly ValidatedTask[], pairs: readonly PairingRecord[], maxTasks: number): Array<{ task: ValidatedTask; pair: NonNullable<PairingRecord['base']> }> {
   const eligible = tasks
     .filter(task => task.sourceFiles.length === 1 && task.testFiles.length === 1)
+    // Prefer conventional-commit "fix(...)" messages over "refactor"/"feat":
+    // the first smoke-test task ("refactor: make context graph client
+    // self-contained") turned out to be cross-package Remote-wiring plumbing
+    // that even extensive exploration couldn't localize — a bad case for
+    // testing exploration cost, not a bug in the harness. A narrow bug fix
+    // is far more likely to live in one findable place.
+    .filter(task => /^fix\(/u.test(task.message))
     .map(task => ({ task, pair: pairs.find(item => item.relatedCommit === task.commit)?.base }))
     .filter((item): item is { task: ValidatedTask; pair: NonNullable<PairingRecord['base']> } => item.pair !== undefined)
   const withSize = eligible.map((item) => {
@@ -344,7 +358,7 @@ async function main(): Promise<void> {
   const tasks: ValidatedTask[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/layer2-taskset.json'), 'utf8'))
   const pairs: PairingRecord[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/context-pairs.json'), 'utf8'))
   const selected = pickTasks(repoRoot, tasks, pairs, MAX_TASKS)
-  console.log(`Running ${selected.length} tasks (smallest source file per distinct package) x 2 arms x ${TRIALS} trials, max ${MAX_TURNS} turns/session`)
+  console.log(`Running ${selected.length} tasks (smallest source file per distinct fix-scoped package) x 2 arms x ${TRIALS} trials, max ${MAX_TURNS} turns / ${MAX_TOOL_CALLS} tool calls per session`)
 
   const results: SessionResult[] = []
   for (const { task, pair } of selected) {
