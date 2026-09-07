@@ -102,6 +102,8 @@
 
 两次后续 pilot（trust + verdict，一共 192 个会话）总花费：¥3.70（¥16.29 → ¥12.59），让整个探索成本 / 信任 / verdict 调查到目前为止的总花费达到 ¥12.02，一共跑了 435 个真实的多轮 agentic 会话。
 
+**对照了一下实际的生产代码，是个好消息：目前不需要改任何东西。** `src/index.ts` 里的 `renderRecall`（`recallForFirstTurn` 实际调用来构造一个真实会话会看到的内容的那个函数）注入的正好是 `{ nodeId, sourceSessionId, capturedThroughSeq, completedAt, score, actions, summary }`——只有内容，不带任何形式的新鲜度或置信度评论。这正是这几次 pilot 里表现最好的那种形状（D 臂），不是这些 pilot 想指出来要修的疏漏。这个发现是在提前警告一个看起来很自然、但接下来可能会做的改动——把这份笔记别处算出来的 `replayChecklist` verdict，直接塞进同一个 JSON 对象里当成多加的一个字段让模型去读——而不是在说今天已经上线的东西要改。等真的要接这条线的时候，这份笔记给出的证据是：应该用 verdict 去决定 `renderRecall` 要不要返回字符串（比如一个 `dead` 或 `locational` 的 verdict，就像现在 `score` 低于 `minScore` 时那样直接抑制召回），而不是把它当成塞进返回字符串里的又一个字段。
+
 ## 影响
 
 一个 checkpoint 现在能给出一个具体的、可证伪的可信/不可信理由，而不只是年龄。承重区分和 scope-ratio 守卫都是刻意保守的粗粒度启发式，而非正确性证明：尤其是 `scopeRatio`，只要有无关文件发生改动而未被记录为触及路径，就会把一些其实仍然成立的 checkpoint 降级，这是用召回率换取更低的假 `fresh` 率。Phase 2（沙箱化的 exec probe 重放）和 L2 置信层仍是待办；把这个判定接入 `graph.ts` 的节点投影以及 `index.ts` 里的召回注入路径也是待办——这篇笔记只覆盖 probe/判定这个原语本身及其独立测试层，尚未覆盖它与自动召回的集成。
