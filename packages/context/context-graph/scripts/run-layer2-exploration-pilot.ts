@@ -294,7 +294,7 @@ async function callModel(messages: readonly ChatMessage[]): Promise<ChatResponse
 const SYSTEM_PROMPT = 'You are fixing a bug in an unfamiliar codebase. You do not know which file needs to change yet. Use list_directory, read_file, and search_code to explore the package and find the relevant source file and its test. Once you understand the fix needed, call submit_fix with the complete corrected file content — it runs the real test right away and tells you whether it passed. If it still fails, read the failure output and try again with a revised fix; you do not need to get it right on the first attempt. Do not guess blindly — read the file you intend to change first. You have a limited number of tool calls: never read the same file twice, and stop exploring once you understand the bug so you have budget left to iterate on the fix.'
 
 async function runSession(
-  packageDir: string, task: ValidatedTask, recallBlock: string | undefined,
+  repoRoot: string, packageDir: string, task: ValidatedTask, recallBlock: string | undefined,
 ): Promise<{ usage: Usage; turns: number; calledSubmitFix: boolean; submitAttempts: number; success: boolean; toolCallLog: string[] }> {
   const taskDescription = `There is a failing test in this package related to: "${task.message}". Find the relevant source file, understand why the test fails, and fix it.`
   const userContent = recallBlock === undefined ? taskDescription : `${recallBlock}\n\n${taskDescription}`
@@ -338,7 +338,15 @@ async function runSession(
           writeFileSync(target, args.content)
           calledSubmitFix = true
           submitAttempts += 1
-          const outcome = runVitestResult(packageDir, task.testFiles.map(path => join(packageDir, path)))
+          // vitest lives only in the workspace root's node_modules (individual
+          // packages don't have their own copy in this pnpm workspace), and its
+          // config is discovered from cwd — both the binary path and the test
+          // targets must be resolved against repoRoot, not packageDir. The
+          // first version of this fix ran `node_modules/vitest/vitest.mjs`
+          // relative to packageDir, which doesn't exist there: every test check
+          // in every prior exploration-pilot run failed for this reason, not
+          // because the fixes were wrong.
+          const outcome = runVitestResult(repoRoot, task.testFiles)
           if (outcome.success) {
             success = true
             result = 'Fix applied. Tests pass — task complete.'
@@ -421,7 +429,7 @@ async function main(): Promise<void> {
       for (const arm of ['A', 'D'] as const) {
         for (let trial = 1; trial <= TRIALS; trial += 1) {
           for (const [path, content] of redSnapshot) writeFileSync(join(packageDir, path), content) // reset to RED before every session
-          const session = await runSession(packageDir, task, arm === 'D' ? recallBlock : undefined)
+          const session = await runSession(repoRoot, packageDir, task, arm === 'D' ? recallBlock : undefined)
           results.push({ task: task.commit, arm, trial, ...session })
           console.log(`${task.commit.slice(0, 8)} arm ${arm} trial ${trial}/${TRIALS}: ${session.success ? 'PASS' : 'FAIL'} (${session.turns} turns, ${session.submitAttempts} submit_fix attempts) — total ${session.usage.totalTokens} tokens`)
         }
