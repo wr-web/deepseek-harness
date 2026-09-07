@@ -25,6 +25,13 @@
  * might wander) — the restore does not assume it knows the "right" file in
  * advance.
  *
+ * submit_fix runs the real test immediately and reports pass/fail plus the
+ * actual failure output, and may be called more than once — the first
+ * version of this pilot gave the model exactly one blind shot with no way
+ * to check its own work (0% success across 112 real sessions, two model
+ * tiers, both before and after a search-tool bugfix), which is not how a
+ * real coding agent or a real developer operates.
+ *
  * Requires DEEPSEEK_API_KEY in the environment. Never reads or writes it to
  * any file in this repository.
  *
@@ -89,6 +96,7 @@ interface SessionResult {
   readonly success: boolean
   readonly turns: number
   readonly calledSubmitFix: boolean
+  readonly submitAttempts: number
   readonly usage: Usage
   readonly toolCallLog: string[]
 }
@@ -111,12 +119,29 @@ async function withRestoredFiles<T>(cwd: string, paths: readonly string[], run: 
   }
 }
 
-function runVitestExitCode(cwd: string, targets: readonly string[]): number {
+interface TestOutcome {
+  readonly success: boolean
+  readonly output: string
+}
+
+/**
+ * Unlike `runVitestExitCode` (used post-hoc, once, for the oracle check in
+ * the single-shot pilot), this captures real vitest output — the earlier
+ * exploration pilot gave the agent exactly one shot at `submit_fix` with no
+ * way to check its own work, which is not how a real coding agent or a real
+ * developer operates. Both work; PASS returns no output, FAIL returns the
+ * actual failure text so the agent can read what's still wrong and retry.
+ */
+function runVitestResult(cwd: string, targets: readonly string[]): TestOutcome {
   try {
-    execFileSync(process.execPath, ['node_modules/vitest/vitest.mjs', 'run', ...targets], { cwd, stdio: 'ignore' })
-    return 0
+    execFileSync(process.execPath, ['node_modules/vitest/vitest.mjs', 'run', ...targets], {
+      cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'],
+    })
+    return { success: true, output: '' }
   } catch (error: unknown) {
-    return (error as { status?: number }).status ?? 1
+    const stdout = (error as { stdout?: string }).stdout ?? ''
+    const stderr = (error as { stderr?: string }).stderr ?? ''
+    return { success: false, output: truncateUtf8(`${stdout}\n${stderr}`.trim(), 4_000) }
   }
 }
 
@@ -213,7 +238,7 @@ const TOOLS = [
   {
     type: 'function', function: {
       name: 'submit_fix',
-      description: 'Submit your final fix: the complete corrected content of one source file, replacing it entirely. Call this exactly once, when done.',
+      description: 'Apply a fix: the complete corrected content of one source file, replacing it entirely. This runs the real test immediately and tells you whether it passed. If it still fails, you will get the actual failure output back and may call submit_fix again with a revised fix.',
       parameters: {
         type: 'object',
         properties: { path: { type: 'string', description: 'Path relative to the package root' }, content: { type: 'string', description: 'Complete new file content' } },
@@ -266,11 +291,11 @@ async function callModel(messages: readonly ChatMessage[]): Promise<ChatResponse
   }
 }
 
-const SYSTEM_PROMPT = 'You are fixing a bug in an unfamiliar codebase. You do not know which file needs to change yet. Use list_directory, read_file, and search_code to explore the package and find the relevant source file and its test. Once you understand the fix needed, call submit_fix exactly once with the complete corrected file content. Do not guess blindly — read the file you intend to change first. You have a limited number of tool calls: never read the same file twice, and stop exploring once you understand the bug.'
+const SYSTEM_PROMPT = 'You are fixing a bug in an unfamiliar codebase. You do not know which file needs to change yet. Use list_directory, read_file, and search_code to explore the package and find the relevant source file and its test. Once you understand the fix needed, call submit_fix with the complete corrected file content — it runs the real test right away and tells you whether it passed. If it still fails, read the failure output and try again with a revised fix; you do not need to get it right on the first attempt. Do not guess blindly — read the file you intend to change first. You have a limited number of tool calls: never read the same file twice, and stop exploring once you understand the bug so you have budget left to iterate on the fix.'
 
 async function runSession(
   packageDir: string, task: ValidatedTask, recallBlock: string | undefined,
-): Promise<{ usage: Usage; turns: number; calledSubmitFix: boolean; success: boolean; toolCallLog: string[] }> {
+): Promise<{ usage: Usage; turns: number; calledSubmitFix: boolean; submitAttempts: number; success: boolean; toolCallLog: string[] }> {
   const taskDescription = `There is a failing test in this package related to: "${task.message}". Find the relevant source file, understand why the test fails, and fix it.`
   const userContent = recallBlock === undefined ? taskDescription : `${recallBlock}\n\n${taskDescription}`
   const messages: ChatMessage[] = [
@@ -280,12 +305,14 @@ async function runSession(
 
   let usage = ZERO_USAGE
   let calledSubmitFix = false
+  let submitAttempts = 0
+  let success = false
   const toolCallLog: string[] = []
   let turn = 0
   // The model can (and does) batch many tool calls into a single API turn,
   // so a turn cap alone barely bounds cost — MAX_TOOL_CALLS caps the actual
   // number of exploration actions regardless of how they're batched.
-  for (; turn < MAX_TURNS && !calledSubmitFix && toolCallLog.length < MAX_TOOL_CALLS; turn += 1) {
+  for (; turn < MAX_TURNS && !success && toolCallLog.length < MAX_TOOL_CALLS; turn += 1) {
     const response = await callModel(messages)
     usage = addUsage(usage, response.usage)
     messages.push(response.message)
@@ -310,16 +337,23 @@ async function runSession(
         } else {
           writeFileSync(target, args.content)
           calledSubmitFix = true
-          result = 'fix applied'
+          submitAttempts += 1
+          const outcome = runVitestResult(packageDir, task.testFiles.map(path => join(packageDir, path)))
+          if (outcome.success) {
+            success = true
+            result = 'Fix applied. Tests pass — task complete.'
+          } else {
+            result = `Fix applied, but the test still fails. Output:\n${outcome.output}\n\nYou may revise and call submit_fix again.`
+          }
         }
       } else result = `error: unknown tool ${call.function.name}`
       toolCallLog.push(`${call.function.name}(${call.function.arguments.slice(0, 80)})`)
       messages.push({ role: 'tool', tool_call_id: call.id, content: result })
+      if (success) break // a later tool call batched into the same turn shouldn't run after we're already done
     }
   }
 
-  const success = calledSubmitFix && runVitestExitCode(packageDir, task.testFiles.map(path => join(packageDir, path))) === 0
-  return { usage, turns: turn, calledSubmitFix, success, toolCallLog }
+  return { usage, turns: turn, calledSubmitFix, submitAttempts, success, toolCallLog }
 }
 
 // --- Task selection ----------------------------------------------------------
@@ -389,7 +423,7 @@ async function main(): Promise<void> {
           for (const [path, content] of redSnapshot) writeFileSync(join(packageDir, path), content) // reset to RED before every session
           const session = await runSession(packageDir, task, arm === 'D' ? recallBlock : undefined)
           results.push({ task: task.commit, arm, trial, ...session })
-          console.log(`${task.commit.slice(0, 8)} arm ${arm} trial ${trial}/${TRIALS}: ${session.success ? 'PASS' : 'FAIL'} (${session.turns} turns, submit_fix=${session.calledSubmitFix}) — total ${session.usage.totalTokens} tokens`)
+          console.log(`${task.commit.slice(0, 8)} arm ${arm} trial ${trial}/${TRIALS}: ${session.success ? 'PASS' : 'FAIL'} (${session.turns} turns, ${session.submitAttempts} submit_fix attempts) — total ${session.usage.totalTokens} tokens`)
         }
       }
     })
