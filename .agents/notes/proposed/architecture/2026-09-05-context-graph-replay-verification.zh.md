@@ -108,6 +108,12 @@
 
 **对照了一下实际的生产代码，是个好消息：目前不需要改任何东西。** `src/index.ts` 里的 `renderRecall`（`recallForFirstTurn` 实际调用来构造一个真实会话会看到的内容的那个函数）注入的正好是 `{ nodeId, sourceSessionId, capturedThroughSeq, completedAt, score, actions, summary }`——只有内容，不带任何形式的新鲜度或置信度评论。这正是这几次 pilot 里表现最好的那种形状（D 臂），不是这些 pilot 想指出来要修的疏漏。这个发现是在提前警告一个看起来很自然、但接下来可能会做的改动——把这份笔记别处算出来的 `replayChecklist` verdict，直接塞进同一个 JSON 对象里当成多加的一个字段让模型去读——而不是在说今天已经上线的东西要改。等真的要接这条线的时候，这份笔记给出的证据是：应该用 verdict 去决定 `renderRecall` 要不要返回字符串（比如一个 `dead` 或 `locational` 的 verdict，就像现在 `score` 低于 `minScore` 时那样直接抑制召回），而不是把它当成塞进返回字符串里的又一个字段。
 
+**把真正要接线的工作量摸了一遍——比"在 `index.ts` 里调一下 `replayChecklist`"要大得多：`ContextGraphNode`现在压根没有 `replayChecklist`/探针数据这个字段，而看起来最自然的加入位置其实是错的地方。** `graph.ts` 明确写着自己是纯提取（"Pure extraction and ranking for the cross-session context graph"，不做 I/O），它现有的测试（`graph.spec.ts`）也都是直接同步构造 fixture、调用 `buildContextGraph`/`matchContextGraph`，完全没有进程边界。要真正算出一份 replay checklist，需要两个现在整个事件日志里都不存在的事实：这一轮到底碰了哪些文件路径，以及这一轮结束那一刻的 git `HEAD`。这两个都不能等事后在 `buildContextGraph` 里补——光是 `computeScopeRatio` 本身就是一次 `git diff` 子进程调用，如果每次图重建（这个缓存是每次 `session/event` 就失效重建的）都要对每一个历史节点跑一次，就会把一个现在同步、可 mock、纯函数的东西，变成要在 `execFileSync('git', ...)` 上阻塞、而且是按节点数线性增长的东西。正确的捕获时机应该是*只在真实的轮次完成那一刻捕获一次*——也就是 agent loop 里真正 finalize `turn/end` 事件的地方——而不是事后在 `context-graph` 的提取逻辑里补。这是一次 `packages/core/session` 的事件 schema 改动（session 日志是带 `SESSION_FORMAT_VERSION` 版本号的），不是一个只改 `context-graph` 就能完事的改动，真要动它需要跟 `core/agent-loop` 里管轮次完成的那部分逻辑协调，不是可以只在这一个包里改改就了事的。
+
+"碰过哪些文件路径"这一半，实际情况比一开始想的要好办一些：这套 harness 自己的文件工具用的参数形状很少、很固定、也很明确——这是靠读实际的工具定义确认的，不是靠猜。`packages/fs/tool-fs` 里的 `read`、`edit`、`write` 三个工具都用 `file_path` 这个参数名；`packages/fs/tool-str-replace-editor` 里的 `str_replace_editor` 用的是 `path`。做一个"工具名 → 路径参数名"的 `Record<string, string>` 映射表，应用到 `tool/call` 事件本来就已经原样记下来的 `arguments` 上，是精确且安全的——不需要在一个没审计过的 200 多个包的工具生态里到处猜 JSON 字段名；不在映射表里的工具，就干脆不产出探针，退回到今天这种只按年龄判断新鲜度的行为，而不是猜错。这里巧合地跟我自己的 pilot 脚本用的 `path` 这个惯例撞名了，但那是巧合，不是照搬——生产环境的真实工具大多用 `file_path`，这是 pilot harness 之前从没接触过的，因为它一直驱动的是一套写死的合成工具集。
+
+考虑到这背后牵扯的 schema 改动，这不是能在 loop 里顺手改一改就定下来的事：需要单独立一份有明确范围的提案（大概率是单独一份 agent note），先讲清楚 `core/session` 要加什么事件字段、老日志没有这个字段时怎么兼容/迁移，然后才是这份笔记一直在勾勒的、`context-graph` 读取侧的接线工作。把这些记在这里，是为了让下一次接手能直接从这个约束往下做，而不用重新推导一遍"为什么不能直接改 `graph.ts`"这件事。
+
 ## 影响
 
 一个 checkpoint 现在能给出一个具体的、可证伪的可信/不可信理由，而不只是年龄。承重区分和 scope-ratio 守卫都是刻意保守的粗粒度启发式，而非正确性证明：尤其是 `scopeRatio`，只要有无关文件发生改动而未被记录为触及路径，就会把一些其实仍然成立的 checkpoint 降级，这是用召回率换取更低的假 `fresh` 率。Phase 2（沙箱化的 exec probe 重放）和 L2 置信层仍是待办；把这个判定接入 `graph.ts` 的节点投影以及 `index.ts` 里的召回注入路径也是待办——这篇笔记只覆盖 probe/判定这个原语本身及其独立测试层，尚未覆盖它与自动召回的集成。
