@@ -162,6 +162,28 @@ Caveats, held honestly: this is measured under a bounded turn/tool-call budget, 
 
 **Consequence for the capture proposal:** [the turn-boundary capture proposal](2026-09-11-turn-capture-for-replay-verification.md) exists to make a freshness gate possible, and this experiment says that gate's premise is wrong — the value of a recalled block does not depend on the code it references still existing. That proposal has been updated to record this rather than left standing.
 
+### Correction: the model changed mid-investigation, and it takes most of the section above with it
+
+The worked-example claim made a sharp, falsifiable prediction: if what transfers is the *form* of a finished edit rather than its content, then an example with no connection to this repository should work about as well as a real retrieved checkpoint. `run-layer2-exemplar-pilot.ts` tests that with arm X — a fabricated diff about a `src/pagination.ts` that does not exist here, in the identical block format.
+
+The run (8 tasks × 3 arms × 5 trials = 120 concurrent sessions) did not come back with either predicted answer. It came back with an anomaly: **arm A, the no-recall baseline, scored 17.5% — higher than arm D's 7.5%** — when arm A had measured 3% across 154 sessions in every prior dataset. Task `6cbf927e` was the tell: arm A passed **5 of 5** trials at 5 turns each, with total token counts spanning 15,638–15,646, when the same task and arm had measured **0 of 10** days earlier. At `temperature: 0` that near-determinism is the point — an eight-token spread is not a distribution that produces 0/10 one week and 5/5 the next.
+
+So before reading anything into the arms, I re-ran the *original, unmodified* `run-layer2-verdict-pilot.ts` — the exact code that produced the old numbers — changing only the dead `fetch` transport. It returned `6cbf927e` arm A at **3/3 PASS**, same 15,6xx-token signature. The code is exonerated; `deepseek-v4-flash` behaves differently now than when the earlier data was collected. The task fixtures are byte-identical (they are written from fixed git blobs), and the packages involved are untouched on this branch.
+
+**What this invalidates.** Every cross-dataset pooled number in the section above mixes model versions. The headline table — arm A 3%, arm D 22%, "a ~7x increase in the probability of committing to a fix" — pooled 368 sessions collected across several days, and is therefore not a clean measurement of anything. It is withdrawn as a stable claim. The within-run comparisons it was built from remain internally valid as statements about the model *as it was on the day each ran*, since every dataset ran its arms concurrently — but that is a much weaker claim than the one I published, and the direction does not survive the model update:
+
+| today, 120 concurrent sessions | attempted a fix | passed |
+| --- | --- | --- |
+| A (no recall) | 7/40 (18%) | 7 (17.5%) |
+| D (real retrieved checkpoint) | 3/40 (8%) | 3 (7.5%) |
+| X (synthetic, unrelated exemplar) | 6/40 (15%) | 6 (15.0%) |
+
+Arm A now *beats* arm D, arm X is indistinguishable from both, and nothing separates any pair (A vs D p=0.31, D vs X p=0.48). On the current model, in this harness, no form of recall — real or fabricated — shows a measurable benefit over no recall at all.
+
+**What survives, and it is the part worth keeping.** The bottleneck finding replicates cleanly across both model versions: **16 of 16 fix attempts passed today, 51 of 52 before — 67 of 68 overall.** The model is still not failing these tasks; it either commits to a fix and is essentially always right, or it explores until the budget dies. What changed is *which condition* makes it commit — and that turned out to be a property of the model version, not of the recall mechanism.
+
+**The methodological lesson is the durable one.** An agent-behavior finding measured against a hosted model is perishable inventory. This investigation ran for days against a model identified only as `deepseek-v4-flash`, with no version pin and no way to detect a silent update except by accidentally re-measuring an old cell. Any future work here needs same-day concurrent arms as a hard rule (which these pilots did do), plus a recorded provider fingerprint per run and a cheap re-measured control cell carried forward between runs, so drift announces itself instead of masquerading as a result. Without that, cross-run pooling is unsafe no matter how many sessions it covers — 368 sessions of mixed-version data is not more trustworthy than 40 sessions of clean data, it is less.
+
 ## Consequences
 
 A checkpoint can now report a specific, falsifiable reason to trust or distrust it, instead of only its age. The load-bearing distinction and the scope-ratio guard are both intentionally coarse, conservative heuristics rather than a proof of correctness: `scopeRatio` in particular will downgrade some checkpoints that are actually still fine whenever unrelated files move without being listed as touched, trading recall for a lower false-`fresh` rate. Phase 2 (sandboxed exec-probe replay) and the L2 confidence tier remain open work, as does wiring this verdict into `graph.ts`'s node projection and the recall-injection path in `index.ts` — this note covers the probe/verdict primitive and its own test layer, not yet its integration into automatic recall.
