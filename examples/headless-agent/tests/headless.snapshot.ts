@@ -59,6 +59,9 @@ const deepseekDefaultsConfigPath = fileURLToPath(new URL('./fixtures/deepseek-de
 const headlessOverlayPath = fileURLToPath(new URL('./fixtures/headless-profile.cordis.yml', import.meta.url))
 const headlessSessionExpected = join(snapshotsDir, 'headless-profile', 'session.expected.jsonl')
 const headlessFailureExpected = join(snapshotsDir, 'headless-profile', 'stderr.expected.txt')
+const contextGraphConfigPath = fileURLToPath(new URL('../context-graph.cordis.snapshot.yml', import.meta.url))
+const contextGraphDriverPath = fileURLToPath(new URL('./fixtures/context-graph-driver.ts', import.meta.url))
+const contextGraphExpected = join(snapshotsDir, 'context-graph-recall', 'stdout.expected.jsonl')
 const cliMockLlmPluginPath = fileURLToPath(new URL('./fixtures/cli-mock-llm.ts', import.meta.url))
 const refreshing = process.env.DSH_SNAPSHOT === 'refresh'
 
@@ -243,6 +246,24 @@ async function prepareCliMockFixture(cwd: string): Promise<void> {
 }
 
 describe('headless stream-json snapshots', () => {
+  it('recalls one completed checkpoint across fresh root sessions', async () => {
+    const result = await runLoaderSmoke({
+      label: 'context-graph automatic recall snapshot',
+      tempDirPrefix: 'headless-snapshot-context-graph-',
+      binScript: contextGraphDriverPath,
+      libBinScript: contextGraphDriverPath,
+      configPath: contextGraphConfigPath,
+      tsconfigPath,
+      env: {
+        DSH_SNAPSHOT: 'replay',
+        DSH_TELEMETRY_DISABLED: '1',
+        NODE_OPTIONS: [process.env.NODE_OPTIONS, '--disable-warning=ExperimentalWarning'].filter(Boolean).join(' '),
+      },
+    })
+    expect(result.stderr).toBe('')
+    expect(result.stdout).toBe(await readFile(contextGraphExpected, 'utf8'))
+  }, LOADER_SMOKE_TEST_TIMEOUT_MS)
+
   it('runs one task through the product headless profile command', async () => {
     const task = 'Prove the product headless profile path with one real tool round trip.'
     const result = await runLoaderSmoke({

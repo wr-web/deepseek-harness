@@ -264,6 +264,14 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Projects bounded current-surface conversation snapshots into durable untrusted message context; host adapters own mention syntax.',
   },
   {
+    key: 'contextGraph',
+    pkg: 'context-graph',
+    title: 'Completed-turn graph and bounded recall',
+    mode: 'core',
+    consumers: ['ui-context-graph'],
+    note: 'Projects completed turns and logged fork/recall provenance into a bounded forest, ranks fresh same-workspace checkpoints, and appends at most one byte-bounded untrusted checkpoint on a fresh root session.',
+  },
+  {
     key: 'sessionTitle',
     pkg: 'session-title',
     title: 'Log-backed session titles',

@@ -275,6 +275,7 @@ const subsystemGroups = [
   ['模型与上下文', 'Model and context', [
     ['llm-streaming.md', 'LLM 流式响应', 'LLM streaming'],
     ['token-meter.md', 'Token 计量', 'Token metering'],
+    ['context-graph.md', '上下文图', 'Context graph'],
     ['system-prompt.md', '系统提示词', 'System prompts'],
     ['compaction.md', '上下文压缩', 'Compaction'],
   ]],

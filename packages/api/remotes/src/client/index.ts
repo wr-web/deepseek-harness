@@ -94,7 +94,6 @@ export type { JsonValue } from '@deepseek-ai/dsh-session/types'
 // sessionReferenceResolver namespaces.
 export type { FileReferenceCandidate } from '@deepseek-ai/dsh-file-reference/types'
 export type { SessionReferenceMentionCandidate } from '@deepseek-ai/dsh-session-reference/types'
-
 declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Generated Remote namespaces selected by this Client assembly. */

@@ -82,6 +82,25 @@
     - id: session-reference
       name: '@deepseek-ai/dsh-session-reference'
 
+    # Completed-turn forest and first-turn bounded recall. Exact working-directory
+    # matching prevents context from crossing projects; stale nodes remain visible
+    # for inspection but stop entering model requests automatically.
+    - id: context-graph
+      name: '@deepseek-ai/dsh-context-graph'
+      config:
+        autoRecall: true
+        sameWorkspaceOnly: true
+        includeSubagents: false
+        maxSessions: 100
+        maxNodesPerSession: 40
+        readConcurrency: 4
+        maxTextBytes: 4096
+        maxRecallBytes: 2048
+        matchLimit: 5
+        minScore: 0.45
+        staleAfterMs: 2592000000
+        cacheTtlMs: 10000
+
     - id: file-reference-local
       name: '@deepseek-ai/dsh-file-reference-local'
 
@@ -293,6 +312,9 @@
 
     - id: ui-trajectory
       name: '@deepseek-ai/dsh-client-ui-trajectory'
+
+    - id: ui-context-graph
+      name: '@deepseek-ai/dsh-client-ui-context-graph'
 
 # ── the agent plane moves behind agent presets ─────────────────────────────
 #

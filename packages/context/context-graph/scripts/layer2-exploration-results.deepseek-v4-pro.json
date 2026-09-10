@@ -1,0 +1,1394 @@
+[
+  {
+    "task": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 4347,
+      "cachedInputTokens": 29824,
+      "outputTokens": 657,
+      "totalTokens": 34828
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"terminal turn error\"})",
+      "search_code({\"pattern\": \"retries exhaust\"})",
+      "search_code({\"pattern\": \"terminal\"})",
+      "search_code({\"pattern\": \"retry\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/turn-error.ts\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/retry.ts\"})",
+      "read_file({\"path\": \"tests/chat-view.client.spec.tsx\", \"offset\": 540, \"limit\": 120})",
+      "read_file({\"path\": \"tests/chat-view.client.spec.tsx\", \"offset\": 660, \"limit\": 200})",
+      "search_code({\"pattern\": \"retries exhaust|exhaust|same-turn\"})",
+      "search_code({\"pattern\": \"turn-error\"})"
+    ]
+  },
+  {
+    "task": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 4289,
+      "cachedInputTokens": 29824,
+      "outputTokens": 610,
+      "totalTokens": 34723
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"terminal turn error\"})",
+      "search_code({\"pattern\": \"retries exhaust\"})",
+      "search_code({\"pattern\": \"terminal\"})",
+      "search_code({\"pattern\": \"retry\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/turn-error.ts\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/retry.ts\"})",
+      "read_file({\"path\": \"tests/chat-view.client.spec.tsx\"})",
+      "read_file({\"path\": \"tests/chat-view.client.spec.tsx\", \"offset\": 560, \"limit\": 120})",
+      "read_file({\"path\": \"tests/chat-view.client.spec.tsx\", \"offset\": 560, \"limit\": 80})"
+    ]
+  },
+  {
+    "task": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 4337,
+      "cachedInputTokens": 29824,
+      "outputTokens": 652,
+      "totalTokens": 34813
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"terminal turn error\"})",
+      "search_code({\"pattern\": \"retries exhaust\"})",
+      "search_code({\"pattern\": \"terminal\"})",
+      "search_code({\"pattern\": \"retry\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/turn-error.ts\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/retry.ts\"})",
+      "read_file({\"path\": \"tests/chat-view.client.spec.tsx\", \"offset\": 540, \"limit\": 120})",
+      "read_file({\"path\": \"tests/chat-view.client.spec.tsx\", \"offset\": 660, \"limit\": 120})",
+      "search_code({\"pattern\": \"renders terminal turn failures inline\"})",
+      "search_code({\"pattern\": \"retries exhaust|same-turn|exhaust\"})"
+    ]
+  },
+  {
+    "task": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 5724,
+      "cachedInputTokens": 63488,
+      "outputTokens": 979,
+      "totalTokens": 70191
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/client/ui-conversation/src/client/conversation-nodes\"})",
+      "search_code({\"pattern\": \"turn-error\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/turn-error.ts\"})",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 880, \"l)",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 660, \"l)",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 880, \"l)",
+      "search_code({\"pattern\": \"retries exhaust|terminal turn error|same-turn\"})",
+      "search_code({\"pattern\": \"turn-error\", \"path\": \"tests/conversation-node-definitions.client.sp)",
+      "search_code({\"pattern\": \"retry\", \"path\": \"tests/conversation-node-definitions.client.spec.ts)",
+      "read_file({\"path\": \"src/client/conversation-nodes/retry.ts\"})",
+      "search_code({\"pattern\": \"it\\\\(\", \"path\": \"tests/conversation-node-definitions.client.spec.ts)",
+      "search_code({\"pattern\": \"describe|it\\\\(|expect\", \"path\": \"tests/conversation-node-definition)"
+    ]
+  },
+  {
+    "task": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 6206,
+      "cachedInputTokens": 77184,
+      "outputTokens": 849,
+      "totalTokens": 84239
+    },
+    "turns": 11,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/client/ui-conversation/src/client/conversation-nodes\"})",
+      "search_code({\"pattern\": \"turn-error\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/turn-error.ts\"})",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 880, \"l)",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 660, \"l)",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 880, \"l)",
+      "search_code({\"pattern\": \"retry\"})",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 680, \"l)",
+      "search_code({\"pattern\": \"turn-error|retry|exhaust|terminal\"})",
+      "search_code({\"pattern\": \"turn-error\"})",
+      "search_code({\"pattern\": \"exhaust|terminal turn|same-turn|retries exhaust\"})",
+      "search_code({\"pattern\": \"llm/retry\"})"
+    ]
+  },
+  {
+    "task": "daaede29a5ae30daf7da5b81869b3ae5a4d221e1",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3216,
+      "cachedInputTokens": 72320,
+      "outputTokens": 997,
+      "totalTokens": 76533
+    },
+    "turns": 11,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/client/ui-conversation/src/client/conversation-nodes\"})",
+      "search_code({\"pattern\": \"turn-error\"})",
+      "read_file({\"path\": \"src/client/conversation-nodes/turn-error.ts\"})",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 880, \"l)",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 660, \"l)",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"offset\": 880, \"l)",
+      "search_code({\"pattern\": \"retries exhaust|retry chain|same-turn|terminal turn error\"})",
+      "search_code({\"pattern\": \"turn-error\", \"path\": \"tests/conversation-node-definitions.client.sp)",
+      "search_code({\"pattern\": \"retry\", \"path\": \"tests/conversation-node-definitions.client.spec.ts)",
+      "search_code({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"pattern\": \"it\\\\()",
+      "search_code({\"path\": \"tests/conversation-node-definitions.client.spec.ts\", \"pattern\": \"descr)",
+      "read_file({\"path\": \"tests/conversation-node-definitions.client.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 2238,
+      "cachedInputTokens": 37888,
+      "outputTokens": 618,
+      "totalTokens": 40744
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"wildcard\"})",
+      "search_code({\"pattern\": \"host\"})",
+      "read_file({\"path\": \"src/startup.ts\"})",
+      "read_file({\"path\": \"tests/trusted-hosts.spec.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 180})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 180, \"limit\": 200})",
+      "search_code({\"pattern\": \"webSurfacePrompt\"})",
+      "search_code({\"pattern\": \"trustedHosts\"})"
+    ]
+  },
+  {
+    "task": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 686,
+      "cachedInputTokens": 39424,
+      "outputTokens": 595,
+      "totalTokens": 40705
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"wildcard\"})",
+      "search_code({\"pattern\": \"host\"})",
+      "read_file({\"path\": \"src/startup.ts\"})",
+      "read_file({\"path\": \"tests/trusted-hosts.spec.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 180})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 160})",
+      "search_code({\"pattern\": \"webSurfacePrompt\"})",
+      "search_code({\"pattern\": \"apply\"})"
+    ]
+  },
+  {
+    "task": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2180,
+      "cachedInputTokens": 27776,
+      "outputTokens": 502,
+      "totalTokens": 30458
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"wildcard\"})",
+      "search_code({\"pattern\": \"host\"})",
+      "read_file({\"path\": \"src/startup.ts\"})",
+      "read_file({\"path\": \"tests/trusted-hosts.spec.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "search_code({\"pattern\": \"webSurfacePrompt\"})",
+      "search_code({\"pattern\": \"trustedHosts\"})"
+    ]
+  },
+  {
+    "task": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 794,
+      "cachedInputTokens": 20352,
+      "outputTokens": 1526,
+      "totalTokens": 22672
+    },
+    "turns": 7,
+    "calledSubmitFix": true,
+    "submitAttempts": 1,
+    "success": true,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/bundle/web-app\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/startup.ts\"})",
+      "read_file({\"path\": \"tests/trusted-hosts.spec.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/startup.spec.ts\"})",
+      "search_code({\"pattern\": \"intentionally not supported\"})",
+      "submit_fix({\"path\": \"src/startup.ts\", \"content\": \"/**\\n * The web app's command-line provid)"
+    ]
+  },
+  {
+    "task": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 492,
+      "cachedInputTokens": 14336,
+      "outputTokens": 1457,
+      "totalTokens": 16285
+    },
+    "turns": 6,
+    "calledSubmitFix": true,
+    "submitAttempts": 1,
+    "success": true,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/bundle/web-app\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/startup.ts\"})",
+      "read_file({\"path\": \"tests/trusted-hosts.spec.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/startup.spec.ts\"})",
+      "submit_fix({\"path\": \"src/startup.ts\", \"content\": \"/**\\n * The web app's command-line provid)"
+    ]
+  },
+  {
+    "task": "6cbf927e0a3abe215315799cc404d78cb5b3d544",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2205,
+      "cachedInputTokens": 20352,
+      "outputTokens": 1511,
+      "totalTokens": 24068
+    },
+    "turns": 7,
+    "calledSubmitFix": true,
+    "submitAttempts": 1,
+    "success": true,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/bundle/web-app\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/startup.ts\"})",
+      "read_file({\"path\": \"tests/trusted-hosts.spec.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/startup.spec.ts\"})",
+      "search_code({\"pattern\": \"0.0.0.0\"})",
+      "submit_fix({\"path\": \"src/startup.ts\", \"content\": \"/**\\n * The web app's command-line provid)"
+    ]
+  },
+  {
+    "task": "600f3a3110135454a14228d1380420d258722194",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 2890,
+      "cachedInputTokens": 48384,
+      "outputTokens": 589,
+      "totalTokens": 51863
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"ordinaryMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"assetMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"traversal\"})",
+      "search_code({\"pattern\": \"403\"})"
+    ]
+  },
+  {
+    "task": "600f3a3110135454a14228d1380420d258722194",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 637,
+      "cachedInputTokens": 50304,
+      "outputTokens": 593,
+      "totalTokens": 51534
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"ordinaryMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"assetMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"assetMisses = \\\\[\"})",
+      "search_code({\"pattern\": \"'/app.js/child'\"})"
+    ]
+  },
+  {
+    "task": "600f3a3110135454a14228d1380420d258722194",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 586,
+      "cachedInputTokens": 50688,
+      "outputTokens": 2521,
+      "totalTokens": 53795
+    },
+    "turns": 10,
+    "calledSubmitFix": true,
+    "submitAttempts": 1,
+    "success": true,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"ordinaryMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"assetMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"traversal\"})",
+      "submit_fix({\"path\": \"src/index.ts\", \"content\": \"/**\\n * @deepseek-ai/dsh-host-frontend-stat)"
+    ]
+  },
+  {
+    "task": "600f3a3110135454a14228d1380420d258722194",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 4178,
+      "cachedInputTokens": 44544,
+      "outputTokens": 614,
+      "totalTokens": 49336
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/host/frontend-static\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"ordinaryMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"assetMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"traversal|403|405|dispose|release\"})"
+    ]
+  },
+  {
+    "task": "600f3a3110135454a14228d1380420d258722194",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 767,
+      "cachedInputTokens": 46336,
+      "outputTokens": 567,
+      "totalTokens": 47670
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/host/frontend-static\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"ordinaryMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"assetMisses\"})",
+      "search_code({\"pattern\": \"traversal|403|405|dispose|release\"})",
+      "search_code({\"pattern\": \"expect\"})"
+    ]
+  },
+  {
+    "task": "600f3a3110135454a14228d1380420d258722194",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2254,
+      "cachedInputTokens": 46464,
+      "outputTokens": 604,
+      "totalTokens": 49322
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/host/frontend-static\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"ordinaryMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"assetMisses\"})",
+      "read_file({\"path\": \"tests/frontend-static.spec.ts\"})",
+      "search_code({\"pattern\": \"traversal\"})"
+    ]
+  },
+  {
+    "task": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 8875,
+      "cachedInputTokens": 18432,
+      "outputTokens": 613,
+      "totalTokens": 27920
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"credentials\"})",
+      "search_code({\"pattern\": \"reference update\"})",
+      "list_directory({\"path\": \"src/client\"})",
+      "search_code({\"pattern\": \"credentials\", \"path\": \"src\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"reference\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"update\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"reference-updated\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"document-updated\"})",
+      "read_file({\"path\": \"src/client/index.ts\"})"
+    ]
+  },
+  {
+    "task": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 3197,
+      "cachedInputTokens": 21376,
+      "outputTokens": 628,
+      "totalTokens": 25201
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"credentials\"})",
+      "search_code({\"pattern\": \"reference update\"})",
+      "list_directory({\"path\": \"src/client\"})",
+      "search_code({\"pattern\": \"credentials\", \"path\": \"src\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"reference\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"update\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"reference-updated|reference_updated|referenceUpdated)",
+      "search_code({\"path\": \"src\", \"pattern\": \"document-updated|adapters-updated|connection/reset\"})",
+      "read_file({\"path\": \"src/client/store.ts\"})"
+    ]
+  },
+  {
+    "task": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3241,
+      "cachedInputTokens": 24064,
+      "outputTokens": 611,
+      "totalTokens": 27916
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"credentials\"})",
+      "search_code({\"pattern\": \"reference update\"})",
+      "list_directory({\"path\": \"src/client\"})",
+      "search_code({\"pattern\": \"credentials\", \"path\": \"src\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"reference\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"update\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"reference-updated\"})",
+      "search_code({\"path\": \"src\", \"pattern\": \"document-updated\"})",
+      "read_file({\"path\": \"src/client/index.ts\"})"
+    ]
+  },
+  {
+    "task": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9587,
+      "cachedInputTokens": 26880,
+      "outputTokens": 781,
+      "totalTokens": 37248
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/client/index.ts\"})",
+      "search_code({\"pattern\": \"credentials/updated\"})",
+      "search_code({\"pattern\": \"credentials\"})",
+      "search_code({\"pattern\": \"credentials\", \"path\": \"node_modules/@deepseek-ai/dsh-api-remotes\"})",
+      "search_code({\"pattern\": \"updated\", \"path\": \"node_modules/@deepseek-ai/dsh-api-remotes\"})",
+      "search_code({\"pattern\": \"reference-updated\"})",
+      "search_code({\"pattern\": \"credentials/updated|credentials/reference-updated\", \"path\": \"tests\")",
+      "read_file({\"path\": \"tests/apply.client.spec.ts\", \"offset\": 150, \"limit\": 60})",
+      "read_file({\"path\": \"tests/apply.client.spec.ts\", \"offset\": 160, \"limit\": 60})"
+    ]
+  },
+  {
+    "task": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 7869,
+      "cachedInputTokens": 38912,
+      "outputTokens": 696,
+      "totalTokens": 47477
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/client/index.ts\"})",
+      "search_code({\"pattern\": \"credentials/updated\"})",
+      "search_code({\"pattern\": \"credentials\"})",
+      "search_code({\"pattern\": \"credentials\", \"path\": \"tests\"})",
+      "search_code({\"pattern\": \"updated\", \"path\": \"tests\"})",
+      "read_file({\"path\": \"tests/apply.client.spec.ts\"})",
+      "read_file({\"path\": \"tests/apply.client.spec.ts\", \"offset\": 130})",
+      "search_code({\"pattern\": \"reference-updated|credentials/updated|document-updated|adapters-upd)",
+      "search_code({\"pattern\": \"\\\\$on|dispatch|remote\", \"path\": \"tests\"})"
+    ]
+  },
+  {
+    "task": "fecfabcac4d702f9d1ec6946f2d0fc8e00f94f7f",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3619,
+      "cachedInputTokens": 32768,
+      "outputTokens": 739,
+      "totalTokens": 37126
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/client/index.ts\"})",
+      "search_code({\"pattern\": \"credentials/updated\"})",
+      "search_code({\"pattern\": \"credentials\"})",
+      "search_code({\"pattern\": \"credentials\", \"path\": \"node_modules/@deepseek-ai/dsh-api-remotes\"})",
+      "search_code({\"pattern\": \"updated\", \"path\": \"node_modules/@deepseek-ai/dsh-api-remotes\"})",
+      "search_code({\"pattern\": \"reference-updated\"})",
+      "search_code({\"pattern\": \"credentials/updated|credentials/reference\", \"path\": \"tests\"})",
+      "read_file({\"path\": \"tests/apply.client.spec.ts\", \"offset\": 150, \"limit\": 60})",
+      "read_file({\"path\": \"tests/apply.client.spec.ts\", \"offset\": 160, \"limit\": 60})"
+    ]
+  },
+  {
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 8696,
+      "cachedInputTokens": 27648,
+      "outputTokens": 594,
+      "totalTokens": 36938
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"intrinsic JSON prototypes\"})",
+      "search_code({\"pattern\": \"prototype\", \"path\": \"src\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "search_code({\"pattern\": \"hasPlainObjectPrototype\"})",
+      "search_code({\"pattern\": \"isJsonValue\", \"path\": \"src\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 4096,
+      "cachedInputTokens": 39680,
+      "outputTokens": 645,
+      "totalTokens": 44421
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"intrinsic JSON prototypes\"})",
+      "search_code({\"pattern\": \"prototype\", \"path\": \"src\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "search_code({\"pattern\": \"intrinsic|prototype|realm\", \"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "search_code({\"pattern\": \"intrinsic|realm|prototype\", \"path\": \"tests\"})"
+    ]
+  },
+  {
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 9235,
+      "cachedInputTokens": 27776,
+      "outputTokens": 637,
+      "totalTokens": 37648
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"intrinsic JSON prototypes\"})",
+      "search_code({\"pattern\": \"prototype\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "search_code({\"pattern\": \"hasPlainArrayPrototype|hasPlainObjectPrototype|intrinsic\"})",
+      "search_code({\"pattern\": \"runInNewContext\"})"
+    ]
+  },
+  {
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7856,
+      "cachedInputTokens": 32128,
+      "outputTokens": 597,
+      "totalTokens": 40581
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/core/session/src\"})",
+      "search_code({\"pattern\": \"hasPlainArrayPrototype|hasPlainObjectPrototype|snapshotJsonValue\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "search_code({\"pattern\": \"hasOwnProperty|__proto__|intrinsic\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "search_code({\"pattern\": \"it\\\\(\"})",
+      "search_code({\"pattern\": \"describe\"})"
+    ]
+  },
+  {
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 3969,
+      "cachedInputTokens": 40448,
+      "outputTokens": 632,
+      "totalTokens": 45049
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/core/session/src\"})",
+      "search_code({\"pattern\": \"hasPlainArrayPrototype|hasPlainObjectPrototype|snapshotJsonValue\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "search_code({\"pattern\": \"hasOwnProperty|isJsonValue|enumerableStringKeys|hasPlainObjectProto)",
+      "search_code({\"pattern\": \"hasOwnProperty\"})"
+    ]
+  },
+  {
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 4271,
+      "cachedInputTokens": 35840,
+      "outputTokens": 594,
+      "totalTokens": 40705
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/core/session/src\"})",
+      "search_code({\"pattern\": \"hasPlainArrayPrototype|hasPlainObjectPrototype|snapshotJsonValue\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/json.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "search_code({\"pattern\": \"__proto__|hasOwnProperty|intrinsic\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})",
+      "search_code({\"pattern\": \"hasOwnProperty.call\"})",
+      "read_file({\"path\": \"tests/json.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9575,
+      "cachedInputTokens": 36992,
+      "outputTokens": 667,
+      "totalTokens": 47234
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"attachment\"})",
+      "search_code({\"pattern\": \"admission|storage\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"src/content.ts\", \"offset\": 130})",
+      "read_file({\"path\": \"src/content.ts\", \"offset\": 130, \"limit\": 200})",
+      "search_code({\"pattern\": \"saveImages|readImage|AttachmentError\"})",
+      "search_code({\"pattern\": \"saveImages\"})",
+      "read_file({\"path\": \"tests/content.spec.ts\"})",
+      "read_file({\"path\": \"tests/content.spec.ts\", \"offset\": 120})"
+    ]
+  },
+  {
+    "task": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 3103,
+      "cachedInputTokens": 45824,
+      "outputTokens": 805,
+      "totalTokens": 49732
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"attachment\"})",
+      "search_code({\"pattern\": \"admission|storage\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"src/content.ts\", \"offset\": 130})",
+      "read_file({\"path\": \"src/content.ts\", \"offset\": 130, \"limit\": 200})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "search_code({\"pattern\": \"saveImages|readImage|AttachmentError\"})",
+      "search_code({\"pattern\": \"saveImages\"})",
+      "read_file({\"path\": \"tests/content.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2955,
+      "cachedInputTokens": 43520,
+      "outputTokens": 881,
+      "totalTokens": 47356
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"attachment\"})",
+      "search_code({\"pattern\": \"admission|storage\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"src/content.ts\", \"offset\": 130})",
+      "read_file({\"path\": \"src/content.ts\", \"offset\": 130, \"limit\": 200})",
+      "search_code({\"pattern\": \"saveImages|readImage|AttachmentError\"})",
+      "search_code({\"pattern\": \"saveImages\"})",
+      "read_file({\"path\": \"src/content.ts\", \"offset\": 130, \"limit\": 150})",
+      "read_file({\"path\": \"tests/content.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9874,
+      "cachedInputTokens": 35456,
+      "outputTokens": 633,
+      "totalTokens": 45963
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/acp/acp/src\"})",
+      "search_code({\"pattern\": \"admission from storage failures\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"tests/content.spec.ts\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"tests/content.spec.ts\"})",
+      "search_code({\"pattern\": \"saveImages|AttachmentError|admission|storage\"})",
+      "search_code({\"pattern\": \"saveImages\"})",
+      "search_code({\"pattern\": \"AttachmentError\"})"
+    ]
+  },
+  {
+    "task": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 7723,
+      "cachedInputTokens": 31872,
+      "outputTokens": 609,
+      "totalTokens": 40204
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/acp/acp\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"tests/content.spec.ts\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "search_code({\"pattern\": \"saveImages|AttachmentError|admitAcpPrompt|assistantBlockToAcp\", \"pa)",
+      "search_code({\"pattern\": \"saveImages\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "search_code({\"pattern\": \"case 'text'\"})",
+      "search_code({\"pattern\": \"refs = await\"})"
+    ]
+  },
+  {
+    "task": "57fc6bc539ee960531db4b3fb49db184db9fb5a1",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 4465,
+      "cachedInputTokens": 30080,
+      "outputTokens": 534,
+      "totalTokens": 35079
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \"packages/acp/acp/src\"})",
+      "search_code({\"pattern\": \"admission from storage failures\"})",
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"tests/content.spec.ts\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "read_file({\"path\": \"src/content.ts\"})",
+      "search_code({\"pattern\": \"saveImages\"})",
+      "search_code({\"pattern\": \"AttachmentError\"})",
+      "read_file({\"path\": \"src/content.ts\"})"
+    ]
+  },
+  {
+    "task": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 8175,
+      "cachedInputTokens": 36096,
+      "outputTokens": 606,
+      "totalTokens": 44877
+    },
+    "turns": 11,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"session-export|raw artifact|unsupported\"})",
+      "search_code({\"pattern\": \"export\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 160})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 160})",
+      "search_code({\"pattern\": \"readRaw|SessionRawArtifact|raw\"})",
+      "search_code({\"pattern\": \"Raw\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 495,
+      "cachedInputTokens": 43776,
+      "outputTokens": 606,
+      "totalTokens": 44877
+    },
+    "turns": 11,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"session-export|raw artifact|unsupported\"})",
+      "search_code({\"pattern\": \"export\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 160})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 160})",
+      "search_code({\"pattern\": \"readRaw|SessionRawArtifact|raw\"})",
+      "search_code({\"pattern\": \"Raw\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2396,
+      "cachedInputTokens": 41856,
+      "outputTokens": 669,
+      "totalTokens": 44921
+    },
+    "turns": 11,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "search_code({\"pattern\": \"session-export|raw artifact|unsupported\"})",
+      "search_code({\"pattern\": \"export\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 160})",
+      "read_file({\"path\": \"src/index.ts\", \"offset\": 160, \"limit\": 200})",
+      "search_code({\"pattern\": \"readRaw|SessionRawArtifact|unsupported\"})",
+      "search_code({\"pattern\": \"readRaw\"})",
+      "read_file({\"path\": \"README.md\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9327,
+      "cachedInputTokens": 20608,
+      "outputTokens": 730,
+      "totalTokens": 30665
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/coordinator.ts\"})",
+      "search_code({\"pattern\": \"readRaw|SessionFormatUnsupported|unsupported\"})",
+      "read_file({\"path\": \"tests/contract.ts\"})",
+      "search_code({\"pattern\": \"readRaw\"})",
+      "search_code({\"pattern\": \"SessionFormatUnsupportedError\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 240, \"limit\": 60})",
+      "read_file({\"path\": \"src/coordinator.ts\", \"offset\": 900, \"limit\": 200})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 245, \"limit\": 40})",
+      "read_file({\"path\": \"src/coordinator.ts\", \"offset\": 1040, \"limit\": 80})"
+    ]
+  },
+  {
+    "task": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 6801,
+      "cachedInputTokens": 41472,
+      "outputTokens": 706,
+      "totalTokens": 48979
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/coordinator.ts\"})",
+      "search_code({\"pattern\": \"readRaw\"})",
+      "search_code({\"pattern\": \"unsupported\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 240, \"limit\": 50})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 251, \"limit\": 30})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 251, \"limit\": 25})",
+      "search_code({\"pattern\": \"rejects unsupported reads distinctly\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 251, \"limit\": 30})"
+    ]
+  },
+  {
+    "task": "e58cc13de4834c181e2fe9dd9d9b28996a814ea3",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 5469,
+      "cachedInputTokens": 42752,
+      "outputTokens": 683,
+      "totalTokens": 48904
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/index.ts\"})",
+      "read_file({\"path\": \"src/coordinator.ts\"})",
+      "search_code({\"pattern\": \"readRaw\"})",
+      "search_code({\"pattern\": \"unsupported\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 240, \"limit\": 60})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 245, \"limit\": 40})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 251, \"limit\": 30})",
+      "search_code({\"pattern\": \"the inherited readRaw default\"})",
+      "read_file({\"path\": \"tests/persistence.spec.ts\", \"offset\": 251, \"limit\": 30})"
+    ]
+  },
+  {
+    "task": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9523,
+      "cachedInputTokens": 45184,
+      "outputTokens": 727,
+      "totalTokens": 55434
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"output\", \"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"execute|saveImage|maxImageDimension|maxImagePixels\", \"path\": \"src/r)",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "search_code({\"pattern\": \"oversized|maxImageDimension|dimension|side\", \"path\": \"tests/read-im)",
+      "search_code({\"pattern\": \"maxImageDimension\"})"
+    ]
+  },
+  {
+    "task": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 3848,
+      "cachedInputTokens": 42752,
+      "outputTokens": 719,
+      "totalTokens": 47319
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"output\"})",
+      "search_code({\"pattern\": \"maxImageDimension|maxImagePixels|maxImageBytes|oversized|dimension\")",
+      "search_code({\"pattern\": \"saveImage|SaveImage|admission|AttachmentError\"})",
+      "search_code({\"pattern\": \"oversized\"})",
+      "search_code({\"pattern\": \"maxImage\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})"
+    ]
+  },
+  {
+    "task": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3133,
+      "cachedInputTokens": 47744,
+      "outputTokens": 769,
+      "totalTokens": 51646
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"output\"})",
+      "search_code({\"pattern\": \"execute|saveImage|maxImageDimension|maxImagePixels\"})",
+      "search_code({\"pattern\": \"saveImage\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "search_code({\"pattern\": \"dimension|oversized|side|Dimension\"})",
+      "search_code({\"pattern\": \"maxImageDimension\"})"
+    ]
+  },
+  {
+    "task": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "arm": "D",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7601,
+      "cachedInputTokens": 38656,
+      "outputTokens": 662,
+      "totalTokens": 46919
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"deferContext|imageReadContent|output\", \"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"deferContext\"})",
+      "search_code({\"pattern\": \"imageReadContent\"})",
+      "search_code({\"pattern\": \"execute|deferContext|parent|output\", \"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \".\", \"path\": \"src/read-image.ts\"})"
+    ]
+  },
+  {
+    "task": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "arm": "D",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 3648,
+      "cachedInputTokens": 44160,
+      "outputTokens": 725,
+      "totalTokens": 48533
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"deferContext|imageReadContent|output\", \"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"deferContext\"})",
+      "search_code({\"pattern\": \"imageReadContent\"})",
+      "search_code({\"pattern\": \".\", \"path\": \"src/read-image.ts\"})",
+      "list_directory({\"path\": \"lib\"})"
+    ]
+  },
+  {
+    "task": "0e39055121db9fcd0362d657d2d1dd61530009bb",
+    "arm": "D",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 766,
+      "cachedInputTokens": 45440,
+      "outputTokens": 632,
+      "totalTokens": 46838
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false,
+    "toolCallLog": [
+      "list_directory({\"path\": \".\"})",
+      "list_directory({\"path\": \"src\"})",
+      "list_directory({\"path\": \"tests\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"tests/read-image.spec.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "read_file({\"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"deferContext|imageReadContent|output\", \"path\": \"src/read-image.ts\"})",
+      "search_code({\"pattern\": \"deferContext\"})",
+      "search_code({\"pattern\": \"imageReadContent\"})",
+      "search_code({\"pattern\": \"render|execute|output|deferContext|parent\", \"path\": \"src/read-image)",
+      "search_code({\"pattern\": \"render\", \"path\": \"src/read-image.ts\"})"
+    ]
+  }
+]

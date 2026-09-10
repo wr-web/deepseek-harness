@@ -539,6 +539,44 @@ export interface ToolResultPruneConfig {
 
 Source: [`packages/compaction/compaction-tool-result-pruner/src/types.ts:4`](../packages/compaction/compaction-tool-result-pruner/src/types.ts)
 
+<a id="deepseek-aidsh-context-graph"></a>
+
+## `@deepseek-ai/dsh-context-graph`
+
+Requires: `sessionQuery` · `sessions`
+
+```ts config-catalog
+/** Context-graph plugin configuration. */
+export interface Config {
+  /** Automatically recall one matching node into a fresh root session's first turn. */
+  autoRecall: boolean
+  /** Restrict automatic matches to the exact recorded working directory. */
+  sameWorkspaceOnly: boolean
+  /** Include subagent sessions as reusable sources. */
+  includeSubagents: boolean
+  /** Maximum newest sessions inspected for one graph snapshot. */
+  maxSessions: number
+  /** Maximum newest non-inherited completed turns retained per session. */
+  maxNodesPerSession: number
+  /** Concurrent complete-session reads while building a snapshot. */
+  readConcurrency: number
+  /** UTF-8 byte bound applied independently to node prompts and summaries. */
+  maxTextBytes: number
+  /** Complete UTF-8 byte bound for automatically injected context. */
+  maxRecallBytes: number
+  /** Maximum ranked matches returned by discovery. */
+  matchLimit: number
+  /** Minimum query-token coverage required for automatic recall. */
+  minScore: number
+  /** Age after which a node is displayed as stale and excluded from automatic recall. */
+  staleAfterMs: number
+  /** Maximum age of an in-memory graph snapshot before an external change is observed. */
+  cacheTtlMs: number
+}
+```
+
+Source: [`packages/context/context-graph/src/config.ts:4`](../packages/context/context-graph/src/config.ts)
+
 <a id="deepseek-aidsh-cordis-host-runner"></a>
 
 ## `@deepseek-ai/dsh-cordis-host-runner`
@@ -3233,6 +3271,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 - `@deepseek-ai/dsh-client-ui-attachment` ([`packages/client/ui-attachment/src/index.ts`](../packages/client/ui-attachment/src/index.ts))
 - `@deepseek-ai/dsh-client-ui-brand-official` ([`packages/client/ui-brand-official/src/index.ts`](../packages/client/ui-brand-official/src/index.ts))
 - `@deepseek-ai/dsh-client-ui-commands` ([`packages/client/ui-commands/src/index.ts`](../packages/client/ui-commands/src/index.ts))
+- `@deepseek-ai/dsh-client-ui-context-graph` ([`packages/client/ui-context-graph/src/index.ts`](../packages/client/ui-context-graph/src/index.ts))
 - `@deepseek-ai/dsh-client-ui-conversation` ([`packages/client/ui-conversation/src/index.ts`](../packages/client/ui-conversation/src/index.ts))
 - `@deepseek-ai/dsh-client-ui-cordis` ([`packages/extensions/ui-cordis/src/index.ts`](../packages/extensions/ui-cordis/src/index.ts))
 - `@deepseek-ai/dsh-client-ui-deliverables` — requires `systemPrompt` ([`packages/client/ui-deliverables/src/index.ts`](../packages/client/ui-deliverables/src/index.ts))

@@ -2,10 +2,11 @@
 
 [English](README.md) | 中文
 
-在不定义工具的情况下添加模型可见的请求上下文的产品插件。`agent-instructions` 包含在默认 `dsh-agent-spine-demo` 组合包中，可通过组合包配置禁用；`time-context`、`tmux-context`、`session-reference`、`file-reference` 和 `file-reference-local` 需主动启用。
+在不定义工具的情况下添加模型可见的请求上下文的产品插件。`agent-instructions` 包含在默认 `dsh-agent-spine-demo` 组合包中，可通过组合包配置禁用；`context-graph` 包含在 web-app 组合包中；其余包需主动启用。
 
 | 包 | 职责 | ctx key |
 |---|---|---|
+| [`context-graph/`](context-graph/README.zh.md) | 已完成轮次森林与自动有界复用 | `ctx.contextGraph` |
 | [`session-reference/`](session-reference/README.zh.md) | 其他会话的有界快照 | `ctx.sessionReferenceResolver` |
 | [`file-reference/`](file-reference/README.zh.md) | 文件引用发现 seam 与 `@file` 语法 | `ctx.fileReferences` |
 | [`file-reference-local/`](file-reference-local/README.zh.md) | 本地文件系统文件引用提供方 | — |

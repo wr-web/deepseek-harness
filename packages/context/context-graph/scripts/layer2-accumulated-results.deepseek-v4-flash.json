@@ -1,0 +1,1352 @@
+[
+  {
+    "package": "packages/core/tools",
+    "round": 1,
+    "poolSize": 0,
+    "task": "d7b4b014eba1f0f692a03e3660ca3aba44f581cc",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9727,
+      "cachedInputTokens": 32512,
+      "outputTokens": 560,
+      "totalTokens": 42799
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 1,
+    "poolSize": 0,
+    "task": "d7b4b014eba1f0f692a03e3660ca3aba44f581cc",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 3293,
+      "cachedInputTokens": 43776,
+      "outputTokens": 630,
+      "totalTokens": 47699
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 1,
+    "poolSize": 0,
+    "task": "d7b4b014eba1f0f692a03e3660ca3aba44f581cc",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3143,
+      "cachedInputTokens": 35840,
+      "outputTokens": 569,
+      "totalTokens": 39552
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 2,
+    "poolSize": 1,
+    "task": "1614f196868067740bab981fee996e34f0069a5e",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 8204,
+      "cachedInputTokens": 24192,
+      "outputTokens": 527,
+      "totalTokens": 32923
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 2,
+    "poolSize": 1,
+    "task": "1614f196868067740bab981fee996e34f0069a5e",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 8550,
+      "cachedInputTokens": 22400,
+      "outputTokens": 521,
+      "totalTokens": 31471
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 2,
+    "poolSize": 1,
+    "task": "1614f196868067740bab981fee996e34f0069a5e",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 6336,
+      "cachedInputTokens": 30080,
+      "outputTokens": 580,
+      "totalTokens": 36996
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 2,
+    "poolSize": 1,
+    "task": "1614f196868067740bab981fee996e34f0069a5e",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 6337,
+      "cachedInputTokens": 21888,
+      "outputTokens": 581,
+      "totalTokens": 28806
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 2,
+    "poolSize": 1,
+    "task": "1614f196868067740bab981fee996e34f0069a5e",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 4205,
+      "cachedInputTokens": 20096,
+      "outputTokens": 554,
+      "totalTokens": 24855
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 2,
+    "poolSize": 1,
+    "task": "1614f196868067740bab981fee996e34f0069a5e",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 4257,
+      "cachedInputTokens": 21248,
+      "outputTokens": 534,
+      "totalTokens": 26039
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 3,
+    "poolSize": 2,
+    "task": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7608,
+      "cachedInputTokens": 20864,
+      "outputTokens": 591,
+      "totalTokens": 29063
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 3,
+    "poolSize": 2,
+    "task": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 4050,
+      "cachedInputTokens": 16640,
+      "outputTokens": 629,
+      "totalTokens": 21319
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 3,
+    "poolSize": 2,
+    "task": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 6095,
+      "cachedInputTokens": 23552,
+      "outputTokens": 628,
+      "totalTokens": 30275
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 3,
+    "poolSize": 2,
+    "task": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7947,
+      "cachedInputTokens": 23424,
+      "outputTokens": 586,
+      "totalTokens": 31957
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 3,
+    "poolSize": 2,
+    "task": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 6782,
+      "cachedInputTokens": 23040,
+      "outputTokens": 523,
+      "totalTokens": 30345
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 3,
+    "poolSize": 2,
+    "task": "96a2e38fa382fd2c5d2ca5fc072537d7ea039527",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 4369,
+      "cachedInputTokens": 33536,
+      "outputTokens": 558,
+      "totalTokens": 38463
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 4,
+    "poolSize": 3,
+    "task": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9418,
+      "cachedInputTokens": 35712,
+      "outputTokens": 548,
+      "totalTokens": 45678
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 4,
+    "poolSize": 3,
+    "task": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 9624,
+      "cachedInputTokens": 56704,
+      "outputTokens": 567,
+      "totalTokens": 66895
+    },
+    "turns": 11,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 4,
+    "poolSize": 3,
+    "task": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 9337,
+      "cachedInputTokens": 31232,
+      "outputTokens": 572,
+      "totalTokens": 41141
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 4,
+    "poolSize": 3,
+    "task": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9721,
+      "cachedInputTokens": 25600,
+      "outputTokens": 607,
+      "totalTokens": 35928
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 4,
+    "poolSize": 3,
+    "task": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 5380,
+      "cachedInputTokens": 36480,
+      "outputTokens": 616,
+      "totalTokens": 42476
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 4,
+    "poolSize": 3,
+    "task": "698fdaea9b641b0e69dbd6f8ca04fc04be7c114d",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 6039,
+      "cachedInputTokens": 31616,
+      "outputTokens": 605,
+      "totalTokens": 38260
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 5,
+    "poolSize": 4,
+    "task": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7811,
+      "cachedInputTokens": 29312,
+      "outputTokens": 546,
+      "totalTokens": 37669
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 5,
+    "poolSize": 4,
+    "task": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 8048,
+      "cachedInputTokens": 38272,
+      "outputTokens": 495,
+      "totalTokens": 46815
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 5,
+    "poolSize": 4,
+    "task": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3602,
+      "cachedInputTokens": 43264,
+      "outputTokens": 611,
+      "totalTokens": 47477
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 5,
+    "poolSize": 4,
+    "task": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9268,
+      "cachedInputTokens": 31360,
+      "outputTokens": 580,
+      "totalTokens": 41208
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 5,
+    "poolSize": 4,
+    "task": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 2649,
+      "cachedInputTokens": 29824,
+      "outputTokens": 575,
+      "totalTokens": 33048
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/tools",
+    "round": 5,
+    "poolSize": 4,
+    "task": "cf85c9a3e46c15c04bb3b28b5fca2af7c94957af",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 5356,
+      "cachedInputTokens": 31360,
+      "outputTokens": 541,
+      "totalTokens": 37257
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 1,
+    "poolSize": 0,
+    "task": "8f5c592b9f8390d0309c8c93f245d650943702c6",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 11636,
+      "cachedInputTokens": 45824,
+      "outputTokens": 639,
+      "totalTokens": 58099
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 1,
+    "poolSize": 0,
+    "task": "8f5c592b9f8390d0309c8c93f245d650943702c6",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 9217,
+      "cachedInputTokens": 39168,
+      "outputTokens": 603,
+      "totalTokens": 48988
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 1,
+    "poolSize": 0,
+    "task": "8f5c592b9f8390d0309c8c93f245d650943702c6",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 6629,
+      "cachedInputTokens": 31360,
+      "outputTokens": 613,
+      "totalTokens": 38602
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 2,
+    "poolSize": 1,
+    "task": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9377,
+      "cachedInputTokens": 28416,
+      "outputTokens": 528,
+      "totalTokens": 38321
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 2,
+    "poolSize": 1,
+    "task": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 2726,
+      "cachedInputTokens": 26880,
+      "outputTokens": 545,
+      "totalTokens": 30151
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 2,
+    "poolSize": 1,
+    "task": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 9075,
+      "cachedInputTokens": 28416,
+      "outputTokens": 570,
+      "totalTokens": 38061
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 2,
+    "poolSize": 1,
+    "task": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7644,
+      "cachedInputTokens": 17536,
+      "outputTokens": 590,
+      "totalTokens": 25770
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 2,
+    "poolSize": 1,
+    "task": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 3974,
+      "cachedInputTokens": 29568,
+      "outputTokens": 595,
+      "totalTokens": 34137
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 2,
+    "poolSize": 1,
+    "task": "4574340d7a09e5296b1ba25aaa997f28c88eaf5b",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2399,
+      "cachedInputTokens": 22784,
+      "outputTokens": 528,
+      "totalTokens": 25711
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 3,
+    "poolSize": 2,
+    "task": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 4613,
+      "cachedInputTokens": 11392,
+      "outputTokens": 565,
+      "totalTokens": 16570
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 3,
+    "poolSize": 2,
+    "task": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 5143,
+      "cachedInputTokens": 12160,
+      "outputTokens": 641,
+      "totalTokens": 17944
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 3,
+    "poolSize": 2,
+    "task": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2597,
+      "cachedInputTokens": 14848,
+      "outputTokens": 562,
+      "totalTokens": 18007
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 3,
+    "poolSize": 2,
+    "task": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 5596,
+      "cachedInputTokens": 14080,
+      "outputTokens": 495,
+      "totalTokens": 20171
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 3,
+    "poolSize": 2,
+    "task": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 4845,
+      "cachedInputTokens": 15360,
+      "outputTokens": 563,
+      "totalTokens": 20768
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 3,
+    "poolSize": 2,
+    "task": "acc628f3afde26ac47168434a3daa4f42351c936",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 6327,
+      "cachedInputTokens": 24960,
+      "outputTokens": 585,
+      "totalTokens": 31872
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 4,
+    "poolSize": 3,
+    "task": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 8476,
+      "cachedInputTokens": 28544,
+      "outputTokens": 3410,
+      "totalTokens": 40430
+    },
+    "turns": 7,
+    "calledSubmitFix": true,
+    "submitAttempts": 1,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 4,
+    "poolSize": 3,
+    "task": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 4089,
+      "cachedInputTokens": 30080,
+      "outputTokens": 4716,
+      "totalTokens": 38885
+    },
+    "turns": 7,
+    "calledSubmitFix": true,
+    "submitAttempts": 2,
+    "success": true
+  },
+  {
+    "package": "packages/core/session",
+    "round": 4,
+    "poolSize": 3,
+    "task": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3183,
+      "cachedInputTokens": 44288,
+      "outputTokens": 3986,
+      "totalTokens": 51457
+    },
+    "turns": 9,
+    "calledSubmitFix": true,
+    "submitAttempts": 1,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 4,
+    "poolSize": 3,
+    "task": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7566,
+      "cachedInputTokens": 32896,
+      "outputTokens": 687,
+      "totalTokens": 41149
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 4,
+    "poolSize": 3,
+    "task": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 10219,
+      "cachedInputTokens": 68224,
+      "outputTokens": 596,
+      "totalTokens": 79039
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 4,
+    "poolSize": 3,
+    "task": "384cc8c15742e157793179f48dc0db1ca4121e5e",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3012,
+      "cachedInputTokens": 37120,
+      "outputTokens": 525,
+      "totalTokens": 40657
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 5,
+    "poolSize": 4,
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9837,
+      "cachedInputTokens": 45056,
+      "outputTokens": 2845,
+      "totalTokens": 57738
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 5,
+    "poolSize": 4,
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 5171,
+      "cachedInputTokens": 30587,
+      "outputTokens": 570,
+      "totalTokens": 36328
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 5,
+    "poolSize": 4,
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 2387,
+      "cachedInputTokens": 33403,
+      "outputTokens": 589,
+      "totalTokens": 36379
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 5,
+    "poolSize": 4,
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 6938,
+      "cachedInputTokens": 17536,
+      "outputTokens": 500,
+      "totalTokens": 24974
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 5,
+    "poolSize": 4,
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 9142,
+      "cachedInputTokens": 26496,
+      "outputTokens": 649,
+      "totalTokens": 36287
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/core/session",
+    "round": 5,
+    "poolSize": 4,
+    "task": "87f4e0b28e621de4c84bef11b895070b3c73efec",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 1651,
+      "cachedInputTokens": 23675,
+      "outputTokens": 529,
+      "totalTokens": 25855
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 1,
+    "poolSize": 0,
+    "task": "be839a8e53c92f06a27f0b48be07cea5c710b87d",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 10096,
+      "cachedInputTokens": 54528,
+      "outputTokens": 641,
+      "totalTokens": 65265
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 1,
+    "poolSize": 0,
+    "task": "be839a8e53c92f06a27f0b48be07cea5c710b87d",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 10163,
+      "cachedInputTokens": 37376,
+      "outputTokens": 531,
+      "totalTokens": 48070
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 1,
+    "poolSize": 0,
+    "task": "be839a8e53c92f06a27f0b48be07cea5c710b87d",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 4937,
+      "cachedInputTokens": 59392,
+      "outputTokens": 674,
+      "totalTokens": 65003
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 2,
+    "poolSize": 1,
+    "task": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 7413,
+      "cachedInputTokens": 13568,
+      "outputTokens": 498,
+      "totalTokens": 21479
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 2,
+    "poolSize": 1,
+    "task": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 8750,
+      "cachedInputTokens": 23808,
+      "outputTokens": 457,
+      "totalTokens": 33015
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 2,
+    "poolSize": 1,
+    "task": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 1367,
+      "cachedInputTokens": 17920,
+      "outputTokens": 489,
+      "totalTokens": 19776
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 2,
+    "poolSize": 1,
+    "task": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 11988,
+      "cachedInputTokens": 44160,
+      "outputTokens": 689,
+      "totalTokens": 56837
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 2,
+    "poolSize": 1,
+    "task": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 8874,
+      "cachedInputTokens": 35456,
+      "outputTokens": 609,
+      "totalTokens": 44939
+    },
+    "turns": 7,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 2,
+    "poolSize": 1,
+    "task": "98ebe1315d5a264e30989c845373d961dc7e7495",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 7158,
+      "cachedInputTokens": 27264,
+      "outputTokens": 563,
+      "totalTokens": 34985
+    },
+    "turns": 6,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 3,
+    "poolSize": 2,
+    "task": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9052,
+      "cachedInputTokens": 51456,
+      "outputTokens": 736,
+      "totalTokens": 61244
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 3,
+    "poolSize": 2,
+    "task": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 10442,
+      "cachedInputTokens": 44672,
+      "outputTokens": 657,
+      "totalTokens": 55771
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 3,
+    "poolSize": 2,
+    "task": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 6151,
+      "cachedInputTokens": 48256,
+      "outputTokens": 625,
+      "totalTokens": 55032
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 3,
+    "poolSize": 2,
+    "task": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 9106,
+      "cachedInputTokens": 52608,
+      "outputTokens": 687,
+      "totalTokens": 62401
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 3,
+    "poolSize": 2,
+    "task": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 7722,
+      "cachedInputTokens": 54144,
+      "outputTokens": 786,
+      "totalTokens": 62652
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 3,
+    "poolSize": 2,
+    "task": "104cd5f9755ba30c483077872fbcc5c852c00566",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 4254,
+      "cachedInputTokens": 50048,
+      "outputTokens": 726,
+      "totalTokens": 55028
+    },
+    "turns": 8,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 4,
+    "poolSize": 3,
+    "task": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "arm": "A",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 10347,
+      "cachedInputTokens": 53376,
+      "outputTokens": 672,
+      "totalTokens": 64395
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 4,
+    "poolSize": 3,
+    "task": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "arm": "A",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 6117,
+      "cachedInputTokens": 57600,
+      "outputTokens": 651,
+      "totalTokens": 64368
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 4,
+    "poolSize": 3,
+    "task": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "arm": "A",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 3798,
+      "cachedInputTokens": 71040,
+      "outputTokens": 701,
+      "totalTokens": 75539
+    },
+    "turns": 10,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 4,
+    "poolSize": 3,
+    "task": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "arm": "P",
+    "trial": 1,
+    "usage": {
+      "uncachedInputTokens": 12411,
+      "cachedInputTokens": 61056,
+      "outputTokens": 654,
+      "totalTokens": 74121
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 4,
+    "poolSize": 3,
+    "task": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "arm": "P",
+    "trial": 2,
+    "usage": {
+      "uncachedInputTokens": 6051,
+      "cachedInputTokens": 47104,
+      "outputTokens": 799,
+      "totalTokens": 53954
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  },
+  {
+    "package": "packages/code-runtime/code-runtime-python",
+    "round": 4,
+    "poolSize": 3,
+    "task": "146a9d9f61155b517fa840b890a8a8b617f27b46",
+    "arm": "P",
+    "trial": 3,
+    "usage": {
+      "uncachedInputTokens": 9276,
+      "cachedInputTokens": 62592,
+      "outputTokens": 958,
+      "totalTokens": 72826
+    },
+    "turns": 9,
+    "calledSubmitFix": false,
+    "submitAttempts": 0,
+    "success": false
+  }
+]

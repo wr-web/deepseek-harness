@@ -1,0 +1,1 @@
+{"source":"SOURCE_CHECKPOINT: token cache invalidation uses a monotonic version stamp.","target":"TARGET_USED_RECALL","recall":{"recalledFromSource":true,"capturedCompletedTurn":true,"withinBudget":true,"privateReasoningLeaked":false},"graph":{"nodes":2,"recallEdges":1}}
