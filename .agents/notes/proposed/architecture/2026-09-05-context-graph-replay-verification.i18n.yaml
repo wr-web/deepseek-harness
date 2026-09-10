@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-09-05-context-graph-replay-verification.md
-2026-09-05-context-graph-replay-verification.md: 244e8630fb4fcd1046ed7b56ca8e1b79cc507348
-2026-09-05-context-graph-replay-verification.zh.md: f622106bd66b9a4da5765206f38389b463a70635
+2026-09-05-context-graph-replay-verification.md: ed646c059af9e52c6af594c4b385d655bf43feb9
+2026-09-05-context-graph-replay-verification.zh.md: b57777dce99275bb122042fce595aeb0da4916dc
