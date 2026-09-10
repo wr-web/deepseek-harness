@@ -38,6 +38,7 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { request as httpsRequest } from 'node:https'
 import { join, relative, sep } from 'node:path'
+import { checkDrift, probeModel, reportDrift } from './model-canary.ts'
 
 const MODEL = process.argv[5] ?? 'deepseek-v4-flash'
 const MAX_RECALL_BYTES = 2048
@@ -419,6 +420,9 @@ async function main(): Promise<void> {
     return
   }
 
+  const drift = checkDrift(await probeModel(API_KEY, MODEL), join(repoRoot, 'packages/context/context-graph/scripts/model-canary-baseline.json'))
+  reportDrift(drift)
+
   const tasks: ValidatedTask[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/layer2-taskset.json'), 'utf8'))
   const pairs: PairingRecord[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/context-pairs.json'), 'utf8'))
   const selected = pickTasks(tasks, pairs, TASK_PREFIXES)
@@ -473,7 +477,7 @@ async function main(): Promise<void> {
   }
 
   const outPath = join(repoRoot, `packages/context/context-graph/scripts/layer2-exemplar-results.${MODEL}.json`)
-  writeFileSync(outPath, JSON.stringify(results, undefined, 2))
+  writeFileSync(outPath, JSON.stringify({ model: drift.probe, driftStatus: drift.status, results }, undefined, 2))
   console.log(`\nWrote ${results.length} session results to ${outPath}`)
 }
 

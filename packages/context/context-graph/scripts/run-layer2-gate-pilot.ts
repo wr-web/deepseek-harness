@@ -44,6 +44,7 @@ import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, w
 import { request as httpsRequest } from 'node:https'
 import { tmpdir } from 'node:os'
 import { join, relative, sep } from 'node:path'
+import { checkDrift, probeModel, reportDrift } from './model-canary.ts'
 import { replayChecklist } from '../src/replay.ts'
 import type { ContextGraphProbe, ContextGraphReplay } from '../src/types.ts'
 
@@ -472,6 +473,9 @@ async function main(): Promise<void> {
     return
   }
 
+  const drift = checkDrift(await probeModel(API_KEY, MODEL), join(repoRoot, 'packages/context/context-graph/scripts/model-canary-baseline.json'))
+  reportDrift(drift)
+
   const tasks: ValidatedTask[] = JSON.parse(readFileSync(join(repoRoot, 'packages/context/context-graph/scripts/layer2-taskset.json'), 'utf8'))
   const selected = pickTasks(tasks, TASK_PREFIXES)
   const arms: readonly Arm[] = ['A', 'D']
@@ -536,7 +540,7 @@ async function main(): Promise<void> {
   }
 
   const outPath = join(repoRoot, `packages/context/context-graph/scripts/layer2-gate-results.${MODEL}.json`)
-  writeFileSync(outPath, JSON.stringify(results, undefined, 2))
+  writeFileSync(outPath, JSON.stringify({ model: drift.probe, driftStatus: drift.status, results }, undefined, 2))
   console.log(`\nWrote ${results.length} session results to ${outPath}`)
 }
 
