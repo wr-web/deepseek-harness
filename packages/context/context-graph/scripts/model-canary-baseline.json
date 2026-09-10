@@ -1,0 +1,9 @@
+{
+  "deepseek-v4-flash": {
+    "requestedModel": "deepseek-v4-flash",
+    "resolvedModel": "deepseek-flash",
+    "systemFingerprint": "aeb56401ca74e127821c4f9126dcb669",
+    "canaryHash": "565339bc4d33d728",
+    "observedAt": "2026-09-10T17:45:19.202Z"
+  }
+}
