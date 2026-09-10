@@ -496,6 +496,13 @@ async function main(): Promise<void> {
     console.log(`poolSize ${label}: n=${bucketResults.length} success=${(rate * 100).toFixed(1)}% median tokens=${median(bucketResults.map(r => r.usage.totalTokens))}`)
   }
 
+  // A run that produced nothing must not clobber a committed dataset: this has
+  // already silently overwritten real results twice during this investigation.
+  if (results.length === 0) {
+    console.error('No sessions ran; leaving any existing results file untouched.')
+    return
+  }
+
   const outPath = join(repoRoot, `packages/context/context-graph/scripts/layer2-accumulated-results.${MODEL}.json`)
   writeFileSync(outPath, JSON.stringify(results, undefined, 2))
   console.log(`\nWrote ${results.length} session results to ${outPath}`)

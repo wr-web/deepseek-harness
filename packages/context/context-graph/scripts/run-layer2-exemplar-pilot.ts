@@ -476,6 +476,13 @@ async function main(): Promise<void> {
     console.log(`${arm} | ${rate === undefined ? 'n/a' : `${(rate * 100).toFixed(1)}%`} | ${median(trials.map(result => result.usage.totalTokens)) ?? 'n/a'} | ${median(trials.map(result => result.turns)) ?? 'n/a'} | ${median(trials.map(result => result.repeatReads)) ?? 'n/a'}`)
   }
 
+  // A run that produced nothing must not clobber a committed dataset: this has
+  // already silently overwritten real results twice during this investigation.
+  if (results.length === 0) {
+    console.error('No sessions ran; leaving any existing results file untouched.')
+    return
+  }
+
   const outPath = join(repoRoot, `packages/context/context-graph/scripts/layer2-exemplar-results.${MODEL}.json`)
   writeFileSync(outPath, JSON.stringify({ model: drift.probe, driftStatus: drift.status, results }, undefined, 2))
   console.log(`\nWrote ${results.length} session results to ${outPath}`)
