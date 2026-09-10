@@ -128,6 +128,40 @@ Hit real, reproducible infrastructure flakiness first and had to fix it before a
 
 The likely mechanism is consistent with the strongest finding earlier in this note: recall only pays off when the matched checkpoint is actually the right one for the current task, and hurts when it's a plausible-looking distractor. A small pool (1-2 candidates from the same package) is more likely to contain only genuinely on-topic checkpoints; a larger pool (3-4) gives the token-overlap scorer more same-file-different-issue checkpoints to confuse for a real match — same file, overlapping vocabulary, wrong bug. Real accumulated project history does not straightforwardly help a token-overlap matcher; it gives it more opportunities to pick a distractor. This does not resolve the open question by itself (a richer scorer, or a larger same-project corpus with genuinely repeated patterns rather than one-off fixes to the same file, could behave differently), but as tested, "the same project has more history" was not itself a source of benefit — and lines up with the "gate, don't inject" and verdict-scoping findings above: a bigger pool without a way to tell a good match from a superficially-similar one just means more chances to pick wrong.
 
+### The gate experiment, and what it actually revealed
+
+The proposal above named one experiment as the thing that should run before any capture work: does using the verdict as a *gate* — suppressing recall when a checkpoint is `dead`/`locational` — beat recalling anyway? Two observations sharpened it into something cheaper than a third arm. A gate arm is **identical to arm A by construction** (gating on a dead verdict means injecting nothing), so the question is just A vs D on genuinely dead checkpoints. And the existing task set could not ask it at all: the pairing rule (nearest prior commit touching the *same* file) structurally guarantees the probed path still exists, which is why all eight tasks measured `fresh` (4) or `partial` (4) and a gate would never once have fired.
+
+`run-layer2-gate-pilot.ts` mines the missing case: a same-package source file actually **deleted** from the tree before the task's parent commit, checkpointed at the last commit that still modified it. Replaying a `path-exists` probe against the tree at `task.parent` fingerprints as `missing` — a real `dead` verdict from real history. Six of seven candidate tasks produced one (the seventh returned `partial` and was skipped by an explicit guard rather than silently included).
+
+**The gate lost, and lost badly: arm A (suppress) 0/30 successes, arm D (inject the dead checkpoint anyway) 4/30, Fisher p=0.11.** A gate would have suppressed the only recall in the experiment that ever worked. Worse for the gate's premise, the checkpoint that produced all four successes is `148046b9` — a **docs-only commit rewriting JSDoc comments** in `tool-pairing.ts`, a file since deleted, recalled against a task about JSON schema validation in a different file. It has no semantic bearing on the task whatsoever, and it worked anyway.
+
+That impossibility is the thread worth pulling, and pulling it explains every result in this note at once.
+
+### What actually drives success: attempting at all
+
+Re-analyzing all 368 oracle-verified sessions across all four experiment designs and both model tiers on a metric none of the arms was built around — *did the model call `submit_fix` even once?* — produces the cleanest signal anywhere in this investigation:
+
+| arm | sessions | attempted a fix | passed |
+| --- | --- | --- | --- |
+| A (no recall) | 154 | 5 (3%) | 5 (3%) |
+| D (plain recall) | 154 | 34 (22%) | 33 (21%) |
+| E (assurance sentence) | 30 | 7 (23%) | 7 (23%) |
+| V (real computed verdict) | 30 | 6 (20%) | 6 (20%) |
+
+**Across every dataset, 51 of 52 fix attempts passed — 98%.** The model is not failing these tasks. It is not *attempting* them: in 86% of all sessions it explores until its turn budget runs out without ever writing a change. Arm A attempts in 3% of sessions; any recall arm attempts in 20-23%. Recall's entire measured effect on success is a ~7x increase in the probability that the model commits to producing a fix — and once it commits, it is essentially always right.
+
+This reframes the whole investigation:
+
+- **Recall is not functioning as information. It is functioning as a worked example** — evidence that "a completed change in this repository" is a thing that exists and has a shape. That is why a dead, semantically unrelated, docs-only diff works as well as a correctly-targeted one: what transfers is the *form* of a finished edit, not its content.
+- **It explains the earlier verdict/assurance results.** Adding hedging text never changed the exemplar much on flash (D 22%, E 23%, V 20% — mutually indistinguishable), but on pro it visibly diluted it (D attempted in 50% of sessions, V in 10%). Text that discusses how much to trust the example competes with the example.
+- **It explains why "does recall save tokens" kept returning no.** It was the wrong question. Recall does not make a session cheaper; it changes whether the session accomplishes anything, and the token comparison between an arm that acts and an arm that wanders is close to meaningless.
+- **It retroactively reinterprets the `6cbf927e` vs `daaede29` split.** Not "the checkpoint pointed at the right file" versus "the checkpoint distracted it" — rather, whether the block pushed the model over the threshold from exploring to acting.
+
+Caveats, held honestly: this is measured under a bounded turn/tool-call budget, and arm A's characteristic failure is exhausting that budget mid-exploration, so a much larger budget might let it eventually commit — the finding is precisely that *under a bounded budget*, recall converts exploration into action. The 98% attempt-to-pass rate also reflects a task shape (single-file fix, one known failing test) that rewards any sufficiently-correct edit. But the pattern holds across 368 sessions, two model tiers, and four independently-designed experiments, which is more support than any other claim in this note carries.
+
+**Consequence for the capture proposal:** [the turn-boundary capture proposal](2026-09-11-turn-capture-for-replay-verification.md) exists to make a freshness gate possible, and this experiment says that gate's premise is wrong — the value of a recalled block does not depend on the code it references still existing. That proposal has been updated to record this rather than left standing.
+
 ## Consequences
 
 A checkpoint can now report a specific, falsifiable reason to trust or distrust it, instead of only its age. The load-bearing distinction and the scope-ratio guard are both intentionally coarse, conservative heuristics rather than a proof of correctness: `scopeRatio` in particular will downgrade some checkpoints that are actually still fine whenever unrelated files move without being listed as touched, trading recall for a lower false-`fresh` rate. Phase 2 (sandboxed exec-probe replay) and the L2 confidence tier remain open work, as does wiring this verdict into `graph.ts`'s node projection and the recall-injection path in `index.ts` — this note covers the probe/verdict primitive and its own test layer, not yet its integration into automatic recall.

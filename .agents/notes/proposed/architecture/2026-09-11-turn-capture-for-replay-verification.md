@@ -1,8 +1,14 @@
 # Agent Note: Turn-boundary capture for replay-verified recall
 
-Status: proposed
+Status: on hold — its premise was tested and did not hold
 
 English | [中文](2026-09-11-turn-capture-for-replay-verification.zh.md)
+
+> **Do not implement this as written.** The Verification section below named one experiment as a precondition: test whether the gate helps before building capture for it. That experiment has since run (`run-layer2-gate-pilot.ts`, results in [the replay-verification note](2026-09-05-context-graph-replay-verification.md)), and the gate lost — on genuinely `dead` checkpoints, suppressing recall scored 0/30 while injecting it anyway scored 4/30, and the checkpoint responsible for all four successes was a docs-only diff of a since-deleted file with no semantic relation to the task.
+>
+> The cause is now measured across all 368 oracle-verified sessions: a recalled block works as a *worked example* that raises the model's probability of attempting a fix at all (3% → ~22%; 98% of attempts pass), not as information about live code. A freshness gate is therefore optimizing the wrong property — whether a checkpoint's referenced code still exists does not predict whether recalling it helps.
+>
+> The note is kept because its groundwork stands on its own: the capture mechanics, the tool-name → path-argument map, the purity constraint, and the persistence-seam analysis are all still accurate, and would be needed by any future feature that genuinely depends on knowing what a turn touched. What is withdrawn is the motivation — freshness gating — not the engineering.
 
 ## Problem
 
